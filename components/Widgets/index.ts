@@ -1,13 +1,22 @@
-const modules = import.meta.glob('./**/*/index.(tsx|vue)', {
+import type { DefineComponent } from 'vue'
+type GlobComponents = DefineComponent & {
+  name?: string
+  icon?: string
+}
+
+interface IComponent {
+  children: GlobComponents[]
+}
+
+const components: Record<string, IComponent> = {}
+
+const modules = import.meta.glob<GlobComponents>('./**/*/index.(tsx|vue)', {
   import: 'default',
   eager: true,
 })
 
-const components: Record<string, any> = {}
-
 for (const path in modules) {
   let type = path.split('/')[1]
-  const name = path.split('/')[2]
   switch (type) {
     case 'base':
       type = '基础组件'
