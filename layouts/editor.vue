@@ -17,10 +17,10 @@ const actionMenu = ref([
   },
 
 ])
-const onCollapse = () => {
+function onCollapse() {
   collapsed.value = !collapsed.value
 }
-const actionClick = (v: string) => {
+function actionClick(v: string) {
   actionActive.value = v
   router.push(v)
 }
