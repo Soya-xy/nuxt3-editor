@@ -28,7 +28,13 @@ const actionClick = (v: string) => {
 
 <template>
   <a-layout class="layout-demo">
-    <a-layout-header>Header</a-layout-header>
+    <a-layout-header flex="~" items-center justify="end">
+      <div mr-2>
+        <a-button size="large" type="primary">
+          保存
+        </a-button>
+      </div>
+    </a-layout-header>
     <a-layout>
       <a-layout-sider hide-trigger breakpoint="lg" :width="220" :collapsed="true">
         <a-menu v-model:selected-keys="menuActive" h-full :default-selected-keys="['0']" @collapse="onCollapse">
