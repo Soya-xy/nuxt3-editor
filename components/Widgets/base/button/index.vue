@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 defineOptions({
-  name: 'button',
+  name: '按钮',
   icon: 'i-mdi:button-cursor',
 })
 </script>

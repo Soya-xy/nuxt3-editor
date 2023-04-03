@@ -1,3 +1,10 @@
+<script setup lang="ts">
+defineOptions({
+  name: '标签',
+  icon: 'i-mdi:button-cursor',
+})
+</script>
+
 <template>
   <a-space>
     <a-tag>Default</a-tag>

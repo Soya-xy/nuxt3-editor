@@ -5,8 +5,6 @@ const modules = import.meta.glob('./**/*/index.(tsx|vue)', {
 
 const components: Record<string, any> = {}
 
-console.log(modules, '起航')
-
 for (const path in modules) {
   let type = path.split('/')[1]
   const name = path.split('/')[2]
@@ -24,6 +22,5 @@ for (const path in modules) {
     }
   }
 }
-console.log('🚀 ~ file: index.ts:27 ~ components:', components)
 
 export default components

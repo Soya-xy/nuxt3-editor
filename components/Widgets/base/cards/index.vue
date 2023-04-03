@@ -1,3 +1,10 @@
+<script setup lang="ts">
+defineOptions({
+  name: '卡片',
+  icon: 'i-mdi:button-cursor',
+})
+</script>
+
 <template>
   <div :style="{ display: 'flex' }">
     <a-card :style="{ width: '360px' }" title="Arco Card">

@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import components from '../Widgets'
-console.log('🚀 ~ file: index.vue:3 ~ components:', components)
+
 const customStyle = {
   borderRadius: '6px',
   marginBottom: '18px',
@@ -9,14 +9,13 @@ const customStyle = {
   background: '#fff',
 }
 
-// const defaultActiveKey = ref(Array.from(componentList, (v, k) => k))
+const defaultActiveKey = ref(Array.from(Object.keys(components), (v, k) => k))
 </script>
 
 <template>
   <div flex justify="center" w="full">
     <a-card title="组件" w="98%" mx-auto :bordered="false" :body-style="{ padding: 0 }">
-      <a-collapse :bordered="false">
-        <!-- <a-collapse :default-active-key="defaultActiveKey" :bordered="false"> -->
+      <a-collapse :default-active-key="defaultActiveKey" :bordered="false">
         <a-collapse-item v-for="(v, key, index) in components" :key="index" :header="key" :style="customStyle">
           <a-row class="grid-demo" :gutter="[12, 12]">
             <a-col v-for="item, index in v.children" :key="index" :span="8">
