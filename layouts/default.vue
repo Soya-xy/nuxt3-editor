@@ -1,80 +1,50 @@
-<script setup  lang="ts">
+<script setup lang="ts">
 const collapsed = ref(false)
+const menuActive = ref(['0'])
 const onCollapse = () => {
   collapsed.value = !collapsed.value
-  console.log('🚀 ~ file: default.vue:5 ~ onCollapse ~ collapsed.value:', collapsed.value)
 }
+watch(() => menuActive.value, (val) => {
+  console.log(val)
+})
 </script>
 
 <template>
   <a-layout class="layout-demo">
     <a-layout-header>Header</a-layout-header>
     <a-layout>
-      <a-layout-sider hide-trigger collapsible breakpoint="lg" :width="220" :collapsed="collapsed" @collapse="onCollapse">
-        <a-menu h-full :default-open-keys="['0']" :default-selected-keys="['0_1']" show-collapse-button>
-          <a-menu-item key="0_0_0" data-obj="1">
-            Menu 1
+      <a-layout-sider hide-trigger breakpoint="lg" :width="220" :collapsed="true">
+        <a-menu
+          v-model:selected-keys="menuActive" h-full
+          :default-selected-keys="['0']"
+          @collapse="onCollapse"
+        >
+          <a-menu-item key="0">
+            <template #icon>
+              <IconBug />
+            </template>
+            Bugs
           </a-menu-item>
-          <a-sub-menu key="0">
+          <a-menu-item key="1">
             <template #icon>
-              <icon-apps />
+              <IconBug />
             </template>
-            <template #title>
-              Navigation 1
-            </template>
-            <a-menu-item key="0_0">
-              Menu 1
-            </a-menu-item>
-            <a-menu-item key="0_1">
-              Menu 2
-            </a-menu-item>
-            <a-menu-item key="0_2" disabled>
-              Menu 3
-            </a-menu-item>
-          </a-sub-menu>
-          <a-sub-menu key="1">
-            <template #icon>
-              <icon-bug />
-            </template>
-            <template #title>
-              Navigation 2
-            </template>
-            <a-menu-item key="1_0">
-              Menu 1
-            </a-menu-item>
-            <a-menu-item key="1_1">
-              Menu 2
-            </a-menu-item>
-            <a-menu-item key="1_2">
-              Menu 3
-            </a-menu-item>
-          </a-sub-menu>
-          <a-sub-menu key="2">
-            <template #icon>
-              <icon-bulb />
-            </template>
-            <template #title>
-              Navigation 3
-            </template>
-            <a-menu-item-group title="Menu Group 1">
-              <a-menu-item key="2_0">
-                Menu 1
-              </a-menu-item>
-              <a-menu-item key="2_1">
-                Menu 2
-              </a-menu-item>
-            </a-menu-item-group>
-            <a-menu-item-group title="Menu Group 2">
-              <a-menu-item key="2_2">
-                Menu 3
-              </a-menu-item>
-              <a-menu-item key="2_3">
-                Menu 4
-              </a-menu-item>
-            </a-menu-item-group>
-          </a-sub-menu>
+            Bug
+          </a-menu-item>
         </a-menu>
       </a-layout-sider>
+      <a-layout-sider hide-trigger breakpoint="lg" :width="260" :collapsed-width="0" :collapsed="collapsed" border-l>
+        <div flex>
+          <main v-show="!collapsed">
+            <PageContent :active="menuActive" />
+          </main>
+          <button class="toggle-button" @click="onCollapse">
+            <IconLeft v-if="collapsed" />
+            <IconRight v-else />
+          </button>
+        </div>
+      </a-layout-sider>
+
       <a-layout style="padding: 0 24px;">
         <a-breadcrumb :style="{ margin: '16px 0' }">
           <a-breadcrumb-item>Home</a-breadcrumb-item>
@@ -91,6 +61,25 @@ const onCollapse = () => {
 </template>
 
 <style scoped>
+.toggle-button {
+  align-items: center;
+  border: 1px solid;
+  cursor: pointer;
+  display: flex;
+  font-size: 10px;
+  height: 30px;
+  justify-content: center;
+  position: absolute;
+  top: calc(50% - 15px);
+  right: -13px;
+  width: 13px;
+  border-color: var(--color-fill-3);
+  background-color: var(--color-fill-1);
+  color: var(--color-text-3);
+  ;
+  border-radius: 0 5px 5px 0;
+}
+
 .layout-demo {
   height: 100vh;
   background: var(--color-fill-2);
@@ -111,6 +100,7 @@ const onCollapse = () => {
   height: 64px;
   line-height: 64px;
   background: var(--color-bg-3);
+  border: 1px solid var(--color-border);
 }
 
 .layout-demo :deep(.arco-layout-footer) {

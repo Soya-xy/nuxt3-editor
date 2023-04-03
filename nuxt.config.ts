@@ -1,6 +1,14 @@
 import { appDescription } from './constants/index'
 
 export default defineNuxtConfig({
+  typescript: {
+    tsConfig: {
+      vueCompilerOptions: {
+        jsxTemplates: true,
+        experimentalRfc436: true,
+      },
+    },
+  },
   modules: [
     '@vueuse/nuxt',
     '@unocss/nuxt',
@@ -10,6 +18,7 @@ export default defineNuxtConfig({
     '@vue-macros/nuxt',
   ],
   experimental: {
+    reactivityTransform: true,
     // when using generate, payload js assets included in sw precache manifest
     // but missing on offline, disabling extraction it until fixed
     payloadExtraction: false,
