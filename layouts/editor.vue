@@ -24,9 +24,6 @@ const actionClick = (v: string) => {
   actionActive.value = v
   router.push(v)
 }
-watch(() => menuActive.value, (val) => {
-  console.log(val)
-})
 </script>
 
 <template>
@@ -55,17 +52,16 @@ watch(() => menuActive.value, (val) => {
             <PageContent :active="menuActive" />
           </main>
           <button class="toggle-button" @click="onCollapse">
-            <IconLeft v-if="collapsed" />
+            <IconLeft v-if="!collapsed" />
             <IconRight v-else />
           </button>
         </div>
       </a-layout-sider>
       <a-layout style="padding: 0 18px;">
-        <div flex my2 justify="end">
+        <div flex my1 justify="end">
           <button
             v-for="v in actionMenu" :key="v.url" p1 hover:bg-gray-200 ml2
-            :class="{ 'bg-white': actionActive === v.url }"
-            @click="actionClick(v.url)"
+            :class="{ 'bg-white': actionActive === v.url }" @click="actionClick(v.url)"
           >
             <i icon-btn :class="v.icon" />
           </button>
@@ -75,8 +71,33 @@ watch(() => menuActive.value, (val) => {
             <slot />
           </div>
         </a-layout-content>
-        <a-layout-footer>Footer</a-layout-footer>
+        <a-layout-footer>
+          <a-breadcrumb>
+            <template #separator>
+              <icon-right />
+            </template>
+            <a-breadcrumb-item>Home</a-breadcrumb-item>
+            <a-breadcrumb-item>Channel</a-breadcrumb-item>
+            <a-breadcrumb-item>News</a-breadcrumb-item>
+          </a-breadcrumb>
+        </a-layout-footer>
       </a-layout>
+      <a-layout-sider hide-trigger breakpoint="lg" :width="220">
+        <a-menu v-model:selected-keys="menuActive" h-full :default-selected-keys="['0']" @collapse="onCollapse">
+          <a-menu-item key="0">
+            <template #icon>
+              <IconBug />
+            </template>
+            Bugs
+          </a-menu-item>
+          <a-menu-item key="1">
+            <template #icon>
+              <IconBug />
+            </template>
+            Bug
+          </a-menu-item>
+        </a-menu>
+      </a-layout-sider>
     </a-layout>
   </a-layout>
 </template>
@@ -125,11 +146,11 @@ watch(() => menuActive.value, (val) => {
 }
 
 .layout-demo :deep(.arco-layout-footer) {
-  height: 48px;
+  height: 28px;
   color: var(--color-text-2);
   font-weight: 400;
   font-size: 14px;
-  line-height: 48px;
+  line-height: 28px;
 }
 
 .layout-demo :deep(.arco-layout-content) {
