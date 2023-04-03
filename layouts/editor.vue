@@ -48,7 +48,7 @@ const actionClick = (v: string) => {
       </a-layout-sider>
       <a-layout-sider hide-trigger breakpoint="lg" :width="260" :collapsed-width="0" :collapsed="collapsed" border-l>
         <div flex>
-          <main v-show="!collapsed">
+          <main v-show="!collapsed" w-full>
             <PageContent :active="menuActive" />
           </main>
           <button class="toggle-button" @click="onCollapse">
