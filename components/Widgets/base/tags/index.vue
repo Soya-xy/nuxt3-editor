@@ -2,6 +2,7 @@
 defineOptions({
   name: '标签',
   icon: 'i-mdi:button-cursor',
+  nxType: 'resource',
 })
 </script>
 

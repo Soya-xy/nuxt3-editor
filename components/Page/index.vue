@@ -1,6 +1,7 @@
 <script setup lang='ts'>
 import components from '../Widgets'
 
+const nxid = useNxId
 const customStyle = {
   borderRadius: '6px',
   marginBottom: '18px',
@@ -19,8 +20,8 @@ const defaultActiveKey = ref(Array.from(Object.keys(components), (v, k) => k))
         <a-collapse-item v-for="(v, key, index) in components" :key="index" :header="key" :style="customStyle">
           <a-row class="grid-demo" :gutter="[12, 12]">
             <a-col v-for="item, index in v.children" :key="index" :span="8">
-              <div flex="~ col center" bg="#f0f0f0" px1 py2 rounded-2 text-sm>
-                <i :class="`${item.icon}`" class="text-2xl icon-btn" />
+              <div :id="nxid()" flex="~ col center" bg="#f0f0f0" px1 py2 rounded-2 text-sm cursor="move" :nx-data-type="item.nxType">
+                <i :class="`${item.icon}`" class="text-2xl icon" />
                 {{ item.name }}
               </div>
             </a-col>

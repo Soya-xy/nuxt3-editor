@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-const active = defineProp<string>('active', {
+const active = defineProp<string[]>('active', {
   default: [0],
 })
 const currentTab = computed(() => {

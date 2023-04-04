@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { createEngine, useEngine } from '~/composables/engine'
+
+const engine = useEngine()
+const ghost = $ref<HTMLElement>()
+const actionArea = $ref<HTMLElement>()
 const router = useRouter()
 const route = useRoute()
 const collapsed = ref(false)
@@ -24,88 +29,122 @@ function actionClick(v: string) {
   actionActive.value = v
   router.push(v)
 }
+
+onMounted(() => {
+  if (ghost) {
+    ghost.style.backgroundColor = 'blue'
+    ghost.style.position = 'fixed'
+    ghost.style.display = 'none'
+    ghost.style.color = '#fff'
+    ghost.style.fontSize = '13px'
+    ghost.style.padding = '4px 8px'
+    ghost.style.pointerEvents = 'none'
+    ghost.style.whiteSpace = 'nowrap'
+    ghost.style.zIndex = '10000'
+  }
+  if (actionArea) {
+    createEngine().forEach((e) => {
+      engine.register(e)
+    })
+  }
+})
+function del() {
+  engine.remove('mouse:move')
+}
 </script>
 
 <template>
   <a-layout class="layout-demo">
-    <a-layout-header flex="~" items-center justify="end">
-      <div mr-2>
-        <a-button size="large" type="primary">
+    <a-layout-header flex="~" items-center justify="between">
+      <div ml2>
+        Nuxt3-Editor
+      </div>
+
+      <div mr-2 flex="~ 1" items-center justify="end">
+        <a-button size="large" mr2>
+          <NuxtLink to="https://github.com/Soya-xy/nuxt3-editor" flex="~ center">
+            <i icon-btn i-carbon:logo-github /> Github
+          </NuxtLink>
+        </a-button>
+        <a-button size="large" type="primary" @click="del">
           保存
         </a-button>
       </div>
     </a-layout-header>
-    <a-layout>
-      <a-layout-sider hide-trigger breakpoint="lg" :width="220" :collapsed="true">
-        <a-menu v-model:selected-keys="menuActive" h-full :default-selected-keys="['0']" @collapse="onCollapse">
-          <a-menu-item key="0">
-            <template #icon>
-              <IconBug />
-            </template>
-            Bugs
-          </a-menu-item>
-          <a-menu-item key="1">
-            <template #icon>
-              <IconBug />
-            </template>
-            Bug
-          </a-menu-item>
-        </a-menu>
-      </a-layout-sider>
-      <a-layout-sider hide-trigger breakpoint="lg" :width="260" :collapsed-width="0" :collapsed="collapsed" border-l>
-        <div flex>
-          <main v-show="!collapsed" w-full>
-            <PageContent :active="menuActive" />
-          </main>
-          <button class="toggle-button" @click="onCollapse">
-            <IconLeft v-if="!collapsed" />
-            <IconRight v-else />
-          </button>
-        </div>
-      </a-layout-sider>
-      <a-layout style="padding: 0 18px;">
-        <div flex my1 justify="end">
-          <button
-            v-for="v in actionMenu" :key="v.url" p1 hover:bg-gray-200 ml2
-            :class="{ 'bg-white': actionActive === v.url }" @click="actionClick(v.url)"
-          >
-            <i icon-btn :class="v.icon" />
-          </button>
-        </div>
-        <a-layout-content>
-          <div wh-full>
-            <slot />
+    <div id="actionArea" ref="actionArea" flex="~ row" m0 p0 wh-full>
+      <a-layout>
+        <a-layout-sider hide-trigger breakpoint="lg" :width="220" :collapsed="true">
+          <a-menu v-model:selected-keys="menuActive" h-full :default-selected-keys="['0']" @collapse="onCollapse">
+            <a-menu-item key="0">
+              <template #icon>
+                <IconBug />
+              </template>
+              Bugs
+            </a-menu-item>
+            <a-menu-item key="1">
+              <template #icon>
+                <IconBug />
+              </template>
+              Bug
+            </a-menu-item>
+          </a-menu>
+        </a-layout-sider>
+        <a-layout-sider hide-trigger breakpoint="lg" :width="260" :collapsed-width="0" :collapsed="collapsed" border-l>
+          <div flex>
+            <main v-show="!collapsed" w-full>
+              <PageContent :active="menuActive" />
+            </main>
+            <button class="toggle-button" @click="onCollapse">
+              <IconLeft v-if="!collapsed" />
+              <IconRight v-else />
+            </button>
           </div>
-        </a-layout-content>
-        <a-layout-footer>
-          <a-breadcrumb>
-            <template #separator>
-              <icon-right />
-            </template>
-            <a-breadcrumb-item>Home</a-breadcrumb-item>
-            <a-breadcrumb-item>Channel</a-breadcrumb-item>
-            <a-breadcrumb-item>News</a-breadcrumb-item>
-          </a-breadcrumb>
-        </a-layout-footer>
+        </a-layout-sider>
+        <a-layout style="padding: 0 18px;">
+          <div flex my1 justify="end">
+            <button
+              v-for="v in actionMenu" :key="v.url" p1 hover:bg-gray-200 ml2
+              :class="{ 'bg-white': actionActive === v.url }" @click="actionClick(v.url)"
+            >
+              <i icon-btn :class="v.icon" />
+            </button>
+          </div>
+          <a-layout-content>
+            <div wh-full>
+              <slot />
+            </div>
+          </a-layout-content>
+          <a-layout-footer>
+            <a-breadcrumb>
+              <template #separator>
+                <icon-right />
+              </template>
+              <a-breadcrumb-item>Home</a-breadcrumb-item>
+              <a-breadcrumb-item>Channel</a-breadcrumb-item>
+              <a-breadcrumb-item>News</a-breadcrumb-item>
+            </a-breadcrumb>
+          </a-layout-footer>
+        </a-layout>
+        <a-layout-sider hide-trigger breakpoint="lg" :width="220">
+          <a-menu v-model:selected-keys="menuActive" h-full :default-selected-keys="['0']" @collapse="onCollapse">
+            <a-menu-item key="0">
+              <template #icon>
+                <IconBug />
+              </template>
+              Bugs
+            </a-menu-item>
+            <a-menu-item key="1">
+              <template #icon>
+                <IconBug />
+              </template>
+              Bug
+            </a-menu-item>
+          </a-menu>
+        </a-layout-sider>
       </a-layout>
-      <a-layout-sider hide-trigger breakpoint="lg" :width="220">
-        <a-menu v-model:selected-keys="menuActive" h-full :default-selected-keys="['0']" @collapse="onCollapse">
-          <a-menu-item key="0">
-            <template #icon>
-              <IconBug />
-            </template>
-            Bugs
-          </a-menu-item>
-          <a-menu-item key="1">
-            <template #icon>
-              <IconBug />
-            </template>
-            Bug
-          </a-menu-item>
-        </a-menu>
-      </a-layout-sider>
-    </a-layout>
+    </div>
   </a-layout>
+  <div ref="ghost" />
 </template>
 
 <style scoped>

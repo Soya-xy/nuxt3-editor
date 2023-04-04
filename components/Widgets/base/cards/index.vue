@@ -2,6 +2,8 @@
 defineOptions({
   name: '卡片',
   icon: 'i-mdi:button-cursor',
+  nxType: 'resource',
+
 })
 </script>
 

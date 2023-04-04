@@ -4,7 +4,6 @@
   "scripts": {
     "build": "nuxi build",
     "dev": "nuxi dev",
-    "dev:pwa": "VITE_PLUGIN_PWA=true nuxi dev",
     "start": "node .output/server/index.mjs",
     "lint": "eslint .",
     "postinstall": "nuxi prepare",
@@ -12,21 +11,24 @@
     "start:generate": "npx serve .output/public"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.38.2",
-    "@arco-design/web-vue": "^2.44.6",
+    "@antfu/eslint-config": "^0.38.3",
+    "@arco-design/web-vue": "^2.44.7",
     "@iconify-json/carbon": "^1.1.16",
     "@iconify-json/mdi": "^1.1.50",
     "@iconify-json/twemoji": "^1.1.11",
     "@nuxt/devtools": "^0.3.1",
     "@nuxtjs/color-mode": "^3.2.0",
     "@pinia/nuxt": "^0.4.7",
+    "@types/lodash": "^4.14.192",
     "@unocss/nuxt": "^0.50.6",
-    "@vite-pwa/nuxt": "^0.0.7",
-    "@vue-macros/nuxt": "^1.2.7",
+    "@vue-macros/nuxt": "^1.2.8",
     "@vueuse/nuxt": "^9.13.0",
     "eslint": "^8.37.0",
     "nuxt": "^3.3.3",
     "pinia": "^2.0.33",
     "typescript": "^5.0.3"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   }
 }

@@ -17,6 +17,25 @@
 <a href="https://stackblitz.com/github/antfu/vitesse-nuxt3"><img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg" alt=""></a>
 </p>
 
+## TODO
+
+- [ ]  设计器核心
+  - [ ]  拖拽
+  - [ ]  自动加载组件
+  - [ ]  自适应大小
+- [ ]  渲染器核心
+- [ ]  逻辑器核心
+
+
+## File Routing
+- Components
+  - Page
+    - index -> 左侧组件栏
+    - tree  -> 左侧组件树
+
+  - Widgets -> 组件物料
+
+
 ## Features
 
 - [💚 Nuxt 3](https://nuxt.com/) - SSR, ESR, File-based routing, components auto importing, modules, etc.

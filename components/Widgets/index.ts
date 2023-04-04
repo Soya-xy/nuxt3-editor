@@ -1,7 +1,10 @@
 import type { DefineComponent } from 'vue'
-type GlobComponents = DefineComponent & {
+
+export type GlobComponents = DefineComponent & {
   name?: string
   icon?: string
+  nxType?: 'resource' | 'widget' | 'node'
+  [key: string]: any
 }
 
 interface IComponent {
