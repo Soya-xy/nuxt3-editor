@@ -1,6 +1,10 @@
 import { defineStore } from 'pinia'
 import type { ID } from './type'
 import { MouseMoveEvent } from './mouse/MouseMoveEvent'
+import { MouseClickEvent } from './mouse/MouseClickEvent'
+import { MouseOverEvent } from './mouse/MouseOverEvent'
+import { MouseOutEvent } from './mouse/MouseOutEvent'
+import { DragDropEvent } from './mouse/DragDropEvent'
 import type { GlobComponents } from '~/components/Widgets/index'
 
 export interface ITreeNode {
@@ -37,15 +41,22 @@ interface Listen extends IEvent {
 }
 
 export const useEngine = defineStore('engine', () => {
+  // 是否在拖动
+  const dragging = ref(false)
+  // 当前的点击/拖拽的节点Id
   const stateId = ref('')
   // 拖动中的节点
   const draggingNodes = ref([])
   // 拖动中的组件
   const draggingResource = ref([])
   // 当前的节点
-  const nodesById = ref<{ [id: ID]: ITreeNode }>({})
+  const nodesById = ref<{ [id: ID]: ITreeNode }>()
   // 注册自定义事件
   const providers = reactive(new Set<Listen>())
+
+  watch(nodesById, (e) => {
+    console.log(e)
+  })
 
   function register(provider: Listen) {
     provider.subscribe()
@@ -72,6 +83,7 @@ export const useEngine = defineStore('engine', () => {
   }
 
   return {
+    dragging,
     stateId,
     draggingNodes,
     draggingResource,
@@ -83,5 +95,11 @@ export const useEngine = defineStore('engine', () => {
 })
 
 export function createEngine(): Listen[] {
-  return [MouseMoveEvent()]
+  return [
+    DragDropEvent(),
+    MouseMoveEvent(),
+    MouseClickEvent(),
+    MouseOverEvent(),
+    MouseOutEvent(),
+  ]
 }

@@ -1,26 +1,27 @@
 import { useEngine } from '..'
 
-export function MouseMoveEvent() {
+export function MouseClickEvent() {
   const engine = useEngine()
   const dom = document.getElementById('actionArea')
 
   function payload(e: MouseEvent) {
     engine.dispatch({
-      type: 'mouse:move',
+      type: 'mouse:click',
       payload: () => {
+        console.log('IEvent', e)
       },
     })
   }
 
   function subscribe() {
-    dom?.addEventListener('mousemove', payload)
+    dom?.addEventListener('click', payload)
   }
 
   function unSubscribe() {
-    dom?.removeEventListener('mousemove', payload)
+    dom?.removeEventListener('click', payload)
   }
   return {
-    type: 'mouse:move',
+    type: 'mouse:click',
     subscribe,
     unSubscribe,
   }
