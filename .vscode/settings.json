@@ -14,5 +14,6 @@
   },
   "prettier.enable": false,
   "volar.completion.preferredTagNameCase": "pascal",
-  "volar.completion.preferredAttrNameCase": "kebab"
+  "volar.completion.preferredAttrNameCase": "kebab",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

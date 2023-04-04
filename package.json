@@ -10,6 +10,9 @@
     "generate": "nuxi generate",
     "start:generate": "npx serve .output/public"
   },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^0.38.3",
     "@arco-design/web-vue": "^2.44.7",
@@ -20,6 +23,7 @@
     "@nuxtjs/color-mode": "^3.2.0",
     "@pinia/nuxt": "^0.4.7",
     "@types/lodash": "^4.14.192",
+    "@types/node": "^18.15.11",
     "@unocss/nuxt": "^0.50.6",
     "@vue-macros/nuxt": "^1.2.8",
     "@vueuse/nuxt": "^9.13.0",
@@ -27,8 +31,5 @@
     "nuxt": "^3.3.3",
     "pinia": "^2.0.33",
     "typescript": "^5.0.3"
-  },
-  "dependencies": {
-    "lodash": "^4.17.21"
   }
 }
