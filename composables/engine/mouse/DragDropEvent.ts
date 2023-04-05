@@ -1,5 +1,17 @@
+import _ from 'lodash'
 import type { CustomMouseEvent } from '..'
 import { useEngine } from '..'
+import components from '~/components/Widgets'
+
+function getWidget(name: any) {
+  const comp = _.compact(_.map(_.values(components), (value) => {
+    if (isArr(value.children))
+      return _.find(value.children, v => v.name === name)
+  }))
+  if (comp.length === 0)
+    return
+  return comp[0]
+}
 
 export function DragDropEvent() {
   const engine = useEngine()
@@ -85,6 +97,7 @@ export function DragDropEvent() {
 
   function onMouseUp(e: MouseEvent) {
     if (engine.dragging) {
+      getWidget(engine.nodesById!.title)
       engine.currentEvent = {
         type: 'drag:stop',
         data: e,
@@ -100,6 +113,7 @@ export function DragDropEvent() {
   function onContextMenuWhileDragging(e: MouseEvent) {
     e.preventDefault()
   }
+
   function subscribe() {
     dom?.addEventListener('mouseup', onMouseUp)
     dom?.addEventListener('mousedown', onMouseDown)
@@ -113,6 +127,7 @@ export function DragDropEvent() {
     dom?.removeEventListener('dragstart', onStartDrag)
     dom?.removeEventListener('contextmenu', onContextMenuWhileDragging)
   }
+
   return {
     type: 'drag:start',
     subscribe,

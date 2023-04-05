@@ -24,6 +24,9 @@ for (const path in modules) {
     case 'base':
       type = '基础组件'
       break
+    case 'business':
+      type = '业务组件'
+      break
   }
   if (components[type]?.children) {
     components[type].children.push(modules[path])
