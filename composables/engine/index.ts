@@ -30,17 +30,17 @@ interface ISubscriber<EventType = any> {
   (payload?: EventType): void | boolean
 }
 
-interface IEvent {
+export interface IEvent {
   type: string
   payload?: ISubscriber
 }
 
-interface Listen extends IEvent {
+export interface Listen extends IEvent {
   subscribe: ISubscriber
   unSubscribe?: ISubscriber
 }
 
-interface CustomEvent {
+export interface CustomsEvent {
   type: 'drag:start' | 'drag:stop' | 'drag:move' | 'mouse:move' | 'mouse:click' | 'mouse:dblclick' | 'mouse:over' | 'mouse:out' | 'mouse:down' | 'mouse:up'
   data: MouseEvent | undefined
 }
@@ -59,7 +59,7 @@ export const useEngine = defineStore('engine', () => {
   // 当前的点击/拖拽的节点Id
   const stateId = ref('')
   // 当前操作的事件
-  const currentEvent = ref<CustomEvent>()
+  const currentEvent = ref<CustomsEvent>()
   // 当前操作转换后的事件
   const targetEvent = ref<CustomMouseEvent | undefined>(undefined)
   // 拖动中的节点

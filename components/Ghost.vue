@@ -1,13 +1,14 @@
 <script setup lang='ts'>
 import { useEngine } from '~/composables/engine'
+import type { Listen } from '~/composables/engine'
+import { MouseMoveEvent } from '~/composables/engine/mouse/MouseMoveEvent'
 
 const htmlNode = $ref<HTMLElement>()
 const engine = useEngine()
-
+let mouseMove: Listen | undefined
 watchEffect(() => {
   if (htmlNode) {
     if (engine.dragging) {
-      htmlNode.style.display = 'block'
       htmlNode.style.display = 'block'
       htmlNode.innerHTML = '123'
       htmlNode.style.left = NumToPx(engine.targetEvent?.topClientX)
@@ -17,6 +18,19 @@ watchEffect(() => {
     else { htmlNode.style.display = 'none' }
   }
 })
+
+function handleDrag(e: MouseEvent) {
+  if (engine.dragging && htmlNode) {
+    engine.currentEvent = {
+      type: 'drag:move',
+      data: e,
+    }
+    htmlNode.style.display = 'block'
+    htmlNode.innerHTML = '123'
+    htmlNode.style.left = NumToPx(engine.targetEvent?.topClientX)
+    htmlNode.style.top = NumToPx(engine.targetEvent?.topClientY)
+  }
+}
 
 onMounted(() => {
   if (htmlNode) {
@@ -29,7 +43,14 @@ onMounted(() => {
     htmlNode.style.pointerEvents = 'none'
     htmlNode.style.whiteSpace = 'nowrap'
     htmlNode.style.zIndex = '10000'
+    mouseMove = MouseMoveEvent()
+    mouseMove.subscribe(handleDrag)
   }
+})
+
+onUnmounted(() => {
+  if (mouseMove)
+    mouseMove.unSubscribe!(handleDrag)
 })
 </script>
 

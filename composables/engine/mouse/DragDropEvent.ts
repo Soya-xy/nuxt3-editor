@@ -28,7 +28,6 @@ export function DragDropEvent() {
   function onMouseMove(e: MouseEvent) {
     if (!startEvent)
       return
-    console.log('🚀 ~ file: DragDropEvent.ts:29 ~ onMouseMove ~ e:', e)
 
     const distance = Math.sqrt(
       (e.pageX - startEvent.pageX) ** 2
@@ -53,6 +52,11 @@ export function DragDropEvent() {
 
     if ((e.target as any)?.closest?.('.monaco-editor'))
       return
+
+    // 判断e.target的id是否是nx开头
+    if (!(e.target as any)?.id?.startsWith?.('nx'))
+      return
+
     startEvent = e
     engine.dragging = false
     onMouseDownAt = Date.now()
