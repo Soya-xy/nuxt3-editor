@@ -9,11 +9,11 @@ import type { GlobComponents } from '~/components/Widgets/index'
 
 export interface ITreeNode {
   id: ID
-  title?: string
+  title: string
   description?: string
   parentId?: ID
-  children: ID[]
-  isSlot: boolean
+  children?: ID[]
+  isSlot?: boolean
   slots?: {
     [name: string]: ID
   }
@@ -45,7 +45,7 @@ export interface CustomsEvent {
   data: MouseEvent | undefined
 }
 
-interface CustomMouseEvent extends MouseEvent {
+export interface CustomMouseEvent extends MouseEvent {
   topClientX?: number
   topClientY?: number
   topPageX?: number
@@ -58,6 +58,8 @@ export const useEngine = defineStore('engine', () => {
   const dragging = ref(false)
   // 当前的点击/拖拽的节点Id
   const stateId = ref('')
+  // 开始拖动的节点Id
+  const startEvent = ref<MouseEvent>()
   // 当前操作的事件
   const currentEvent = ref<CustomsEvent>()
   // 当前操作转换后的事件
@@ -67,7 +69,7 @@ export const useEngine = defineStore('engine', () => {
   // 拖动中的组件
   const draggingResource = ref([])
   // 当前的节点
-  const nodesById = ref<{ [id: ID]: ITreeNode }>()
+  const nodesById = ref<ITreeNode>()
   // 注册自定义事件
   const providers = reactive(new Set<Listen>())
 
@@ -103,6 +105,7 @@ export const useEngine = defineStore('engine', () => {
   }
 
   return {
+    startEvent,
     currentEvent,
     targetEvent,
     dragging,

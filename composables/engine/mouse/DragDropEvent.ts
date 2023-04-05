@@ -1,10 +1,10 @@
+import type { CustomMouseEvent } from '..'
 import { useEngine } from '..'
 
 export function DragDropEvent() {
   const engine = useEngine()
   const dom = document.getElementById('actionArea')
   // 起始位置
-  let startEvent: MouseEvent | null = null
   let onMouseDownAt = 0
   function payload(e: MouseEvent) {
     engine.dispatch({
@@ -23,24 +23,25 @@ export function DragDropEvent() {
       data: e,
     }
     engine.dragging = true
+    dom?.addEventListener('contextmenu', onContextMenuWhileDragging)
   }
 
   function onMouseMove(e: MouseEvent) {
-    if (!startEvent)
+    if (!engine.startEvent)
       return
 
     const distance = Math.sqrt(
-      (e.pageX - startEvent.pageX) ** 2
-        + (e.pageY - startEvent.pageY) ** 2,
+      (e.pageX - engine.startEvent.pageX) ** 2
+      + (e.pageY - engine.startEvent.pageY) ** 2,
     )
     const timeDelta = Date.now() - onMouseDownAt
-    if (timeDelta > 10 && distance > 4 && e !== startEvent) {
+    if (timeDelta > 10 && distance > 4 && e !== engine.startEvent) {
       dom?.removeEventListener('mousemove', onMouseMove)
       onStartDrag(e)
     }
   }
 
-  function onMouseDown(e: MouseEvent) {
+  function onMouseDown(e: CustomMouseEvent) {
     if (e.button !== 0 || e.ctrlKey || e.metaKey)
       return
 
@@ -50,14 +51,33 @@ export function DragDropEvent() {
     )
       return true
 
+    // 判断是否靠近编辑器
     if ((e.target as any)?.closest?.('.monaco-editor'))
       return
 
+    let target: HTMLElement | undefined
+    // 判断e.target的标签是否的I
+    if ((e.target as any)?.tagName === 'I') {
+      target = (e.target as any).parentNode
+      if (!(e.target as any).parentNode?.id?.startsWith?.('nx'))
+        return
+    }
     // 判断e.target的id是否是nx开头
-    if (!(e.target as any)?.id?.startsWith?.('nx'))
+    else if (!(e.target as any)?.id?.startsWith?.('nx')) {
       return
+    }
 
-    startEvent = e
+    if (target === undefined)
+      target = e.target as HTMLElement
+    console.dir(target)
+
+    engine.nodesById = {
+      id: target.id,
+      title: target.innerText,
+      documentId: target.id,
+    }
+
+    engine.startEvent = e
     engine.dragging = false
     onMouseDownAt = Date.now()
     dom?.addEventListener('mousemove', onMouseMove)
@@ -69,12 +89,17 @@ export function DragDropEvent() {
         type: 'drag:stop',
         data: e,
       }
+      engine.nodesById = undefined
     }
 
     dom?.removeEventListener('mousemove', onMouseMove)
+    dom?.removeEventListener('contextmenu', onContextMenuWhileDragging)
     engine.dragging = false
   }
 
+  function onContextMenuWhileDragging(e: MouseEvent) {
+    e.preventDefault()
+  }
   function subscribe() {
     dom?.addEventListener('mouseup', onMouseUp)
     dom?.addEventListener('mousedown', onMouseDown)
@@ -86,6 +111,7 @@ export function DragDropEvent() {
     dom?.removeEventListener('mousedown', onMouseDown)
     dom?.removeEventListener('dragend', payload)
     dom?.removeEventListener('dragstart', onStartDrag)
+    dom?.removeEventListener('contextmenu', onContextMenuWhileDragging)
   }
   return {
     type: 'drag:start',

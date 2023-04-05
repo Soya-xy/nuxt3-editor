@@ -7,16 +7,8 @@ const htmlNode = $ref<HTMLElement>()
 const engine = useEngine()
 let mouseMove: Listen | undefined
 watchEffect(() => {
-  if (htmlNode) {
-    if (engine.dragging) {
-      htmlNode.style.display = 'block'
-      htmlNode.innerHTML = '123'
-      htmlNode.style.left = NumToPx(engine.targetEvent?.topClientX)
-      htmlNode.style.top = NumToPx(engine.targetEvent?.topClientY)
-    }
-
-    else { htmlNode.style.display = 'none' }
-  }
+  if (htmlNode && !engine.dragging)
+    htmlNode.style.display = 'none'
 })
 
 function handleDrag(e: MouseEvent) {
@@ -26,7 +18,7 @@ function handleDrag(e: MouseEvent) {
       data: e,
     }
     htmlNode.style.display = 'block'
-    htmlNode.innerHTML = '123'
+    htmlNode.innerHTML = engine.nodesById!.title
     htmlNode.style.left = NumToPx(engine.targetEvent?.topClientX)
     htmlNode.style.top = NumToPx(engine.targetEvent?.topClientY)
   }
