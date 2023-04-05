@@ -40,11 +40,28 @@ interface Listen extends IEvent {
   unSubscribe?: ISubscriber
 }
 
+interface CustomEvent {
+  type: 'drag:start' | 'drag:stop' | 'drag:move' | 'mouse:move' | 'mouse:click' | 'mouse:dblclick' | 'mouse:over' | 'mouse:out' | 'mouse:down' | 'mouse:up'
+  data: MouseEvent | undefined
+}
+
+interface CustomMouseEvent extends MouseEvent {
+  topClientX?: number
+  topClientY?: number
+  topPageX?: number
+  topPageY?: number
+  target: HTMLElement | EventTarget | null
+}
+
 export const useEngine = defineStore('engine', () => {
   // 是否在拖动
   const dragging = ref(false)
   // 当前的点击/拖拽的节点Id
   const stateId = ref('')
+  // 当前操作的事件
+  const currentEvent = ref<CustomEvent>()
+  // 当前操作转换后的事件
+  const targetEvent = ref<CustomMouseEvent | undefined>(undefined)
   // 拖动中的节点
   const draggingNodes = ref([])
   // 拖动中的组件
@@ -54,8 +71,11 @@ export const useEngine = defineStore('engine', () => {
   // 注册自定义事件
   const providers = reactive(new Set<Listen>())
 
-  watch(nodesById, (e) => {
+  watch(currentEvent, (e) => {
     console.log(e)
+    targetEvent.value = transformCoordinates(e?.data)
+  }, {
+    deep: true,
   })
 
   function register(provider: Listen) {
@@ -83,6 +103,8 @@ export const useEngine = defineStore('engine', () => {
   }
 
   return {
+    currentEvent,
+    targetEvent,
     dragging,
     stateId,
     draggingNodes,
@@ -102,4 +124,33 @@ export function createEngine(): Listen[] {
     MouseOverEvent(),
     MouseOutEvent(),
   ]
+}
+
+function transformCoordinates(target?: CustomMouseEvent) {
+  if (!target)
+    return
+  const { frameElement } = target?.view || {}
+  if (frameElement) {
+    const frameRect = frameElement.getBoundingClientRect()
+    const scale = frameRect.width / (frameElement as any).offsetWidth
+    target.topClientX = target.clientX * scale + frameRect.x
+    target.topClientY = target.clientY * scale + frameRect.y
+    target.topPageX
+      = target.pageX + frameRect.x - (target.view?.scrollX || 0)
+    target.topPageY
+      = target.pageY + frameRect.y - (target.view?.scrollY || 0)
+    const topElement = document.elementFromPoint(
+      target.topPageX,
+      target.topClientY,
+    )
+    if (topElement !== frameElement)
+      target.target = topElement as any
+  }
+  else {
+    target.topClientX = target.clientX
+    target.topClientY = target.clientY
+    target.topPageX = target.pageX
+    target.topPageY = target.pageY
+  }
+  return target
 }

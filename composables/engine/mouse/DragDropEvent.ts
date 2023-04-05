@@ -18,13 +18,18 @@ export function DragDropEvent() {
   function onStartDrag(e: MouseEvent) {
     if (engine.dragging)
       return
+    engine.currentEvent = {
+      type: 'drag:start',
+      data: e,
+    }
     engine.dragging = true
-    console.log('🚀 ~ file: DragDropEvent.ts:19 ~ onStartDrag ~ e:', e)
   }
 
   function onMouseMove(e: MouseEvent) {
     if (!startEvent)
       return
+    console.log('🚀 ~ file: DragDropEvent.ts:29 ~ onMouseMove ~ e:', e)
+
     const distance = Math.sqrt(
       (e.pageX - startEvent.pageX) ** 2
         + (e.pageY - startEvent.pageY) ** 2,
@@ -37,7 +42,6 @@ export function DragDropEvent() {
   }
 
   function onMouseDown(e: MouseEvent) {
-    console.log('🚀 ~ file: DragDropEvent.ts:22 ~ onMouseDown ~ e:', e)
     if (e.button !== 0 || e.ctrlKey || e.metaKey)
       return
 
@@ -56,8 +60,13 @@ export function DragDropEvent() {
   }
 
   function onMouseUp(e: MouseEvent) {
-    if (engine.dragging)
-      console.log(e)
+    if (engine.dragging) {
+      engine.currentEvent = {
+        type: 'drag:stop',
+        data: e,
+      }
+    }
+
     dom?.removeEventListener('mousemove', onMouseMove)
     engine.dragging = false
   }

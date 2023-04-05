@@ -32,3 +32,7 @@ export function isValid(val: any) {
 export function isValidNumber(val: any): val is number {
   return !isNaN(val) && isNum(val)
 }
+
+export function NumToPx(num?: number) {
+  return `${Math.round(num || 0)}px`
+}

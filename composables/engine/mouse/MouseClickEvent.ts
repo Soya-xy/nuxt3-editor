@@ -8,7 +8,7 @@ export function MouseClickEvent() {
     engine.dispatch({
       type: 'mouse:click',
       payload: () => {
-        console.log('IEvent', e)
+        // console.log('IEvent', e)
       },
     })
   }

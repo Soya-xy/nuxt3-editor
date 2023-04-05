@@ -2,7 +2,6 @@
 import { createEngine, useEngine } from '~/composables/engine'
 
 const engine = useEngine()
-const ghost = $ref<HTMLElement>()
 const actionArea = $ref<HTMLElement>()
 const router = useRouter()
 const route = useRoute()
@@ -31,17 +30,6 @@ function actionClick(v: string) {
 }
 
 onMounted(() => {
-  if (ghost) {
-    ghost.style.backgroundColor = 'blue'
-    ghost.style.position = 'fixed'
-    ghost.style.display = 'none'
-    ghost.style.color = '#fff'
-    ghost.style.fontSize = '13px'
-    ghost.style.padding = '4px 8px'
-    ghost.style.pointerEvents = 'none'
-    ghost.style.whiteSpace = 'nowrap'
-    ghost.style.zIndex = '10000'
-  }
   if (actionArea) {
     createEngine().forEach((e) => {
       engine.register(e)
@@ -144,7 +132,7 @@ function del() {
       </a-layout>
     </div>
   </a-layout>
-  <div ref="ghost" />
+  <Ghost />
 </template>
 
 <style scoped>
