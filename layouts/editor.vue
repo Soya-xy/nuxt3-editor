@@ -98,7 +98,7 @@ function del() {
             </button>
           </div>
           <a-layout-content>
-            <div wh-full>
+            <div id="NX-Editor" wh-full>
               <slot />
             </div>
           </a-layout-content>

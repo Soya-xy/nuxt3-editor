@@ -74,7 +74,6 @@ export const useEngine = defineStore('engine', () => {
   const providers = reactive(new Set<Listen>())
 
   watch(currentEvent, (e) => {
-    console.log(e)
     targetEvent.value = transformCoordinates(e?.data)
   }, {
     deep: true,

@@ -36,7 +36,6 @@ for (const path in modules) {
       children: [modules[path]],
     }
   }
-  console.log('🚀 ~ file: index.ts:33 ~ components:', components)
 }
 
 export default components

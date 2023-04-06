@@ -1,8 +1,12 @@
 <script setup lang="ts">
 const route = useRoute()
-
+const editor = useEditor()
 definePageMeta({
   layout: 'editor',
+})
+
+watchEffect(() => {
+  console.log(editor.componentsJson)
 })
 </script>
 

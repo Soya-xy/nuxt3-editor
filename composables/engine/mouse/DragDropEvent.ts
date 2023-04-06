@@ -5,7 +5,7 @@ import components from '~/components/Widgets'
 
 function getWidget(name: any) {
   const comp = _.compact(_.map(_.values(components), (value) => {
-    if (isArr(value.children))
+    if (isArr(value?.children))
       return _.find(value.children, v => v.name === name)
   }))
   if (comp.length === 0)
@@ -15,6 +15,7 @@ function getWidget(name: any) {
 
 export function DragDropEvent() {
   const engine = useEngine()
+  const editor = useEditor()
   const dom = document.getElementById('actionArea')
   // 起始位置
   let onMouseDownAt = 0
@@ -95,9 +96,25 @@ export function DragDropEvent() {
     dom?.addEventListener('mousemove', onMouseMove)
   }
 
+  function onDragEnd(e: MouseEvent) {
+    const comp = getWidget(engine.nodesById!.title)
+    if (!comp)
+      return
+    const target = e.target as HTMLElement
+    if (target.id === 'NX-Editor') {
+      console.log(e)
+      editor.componentsJson.children.push({
+        componentName: comp.name,
+        render: comp.render,
+
+      })
+      console.log('🚀 ~ file: DragDropEvent.ts:100 ~ onDragEnd ~ comp:', comp)
+    }
+  }
+
   function onMouseUp(e: MouseEvent) {
     if (engine.dragging) {
-      getWidget(engine.nodesById!.title)
+      onDragEnd(e)
       engine.currentEvent = {
         type: 'drag:stop',
         data: e,

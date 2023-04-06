@@ -1,3 +1,4 @@
+import { defineStore } from 'pinia'
 import _ from 'lodash'
 
 export function useNxId() {
@@ -5,3 +6,14 @@ export function useNxId() {
 }
 
 export const DraggingNodes = ref('')
+
+export const useEditor = defineStore('editor', () => {
+  const componentsJson = ref<any>({
+    componentName: 'Root',
+    slots: {},
+    children: [],
+  })
+  return {
+    componentsJson,
+  }
+})
