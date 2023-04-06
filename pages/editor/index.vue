@@ -1,33 +1,26 @@
 <script setup lang="ts">
-const route = useRoute()
-const editor = useEditor()
+import type { IComponents } from '~/composables/editor'
+
+const nxid = useNxId()
 definePageMeta({
   layout: 'editor',
 })
 
-watchEffect(() => {
-  console.log(editor.componentsJson)
-})
+const editor = useEditor()
+
+let components = $ref<IComponents[]>()
+watch(
+  () => editor.componentsJson,
+  () => {
+    components = editor.getJson()
+    console.log('🚀 ~ file: index.vue:16 ~ components:', components)
+  },
+  { deep: true, immediate: true },
+)
 </script>
 
 <template>
-  <div>
-    <div i-twemoji:waving-hand text-4xl inline-block animate-shake-x animate-duration-5000 />
-    <h3 text-2xl font-500>
-      Hi,
-    </h3>
-
-    <p text-sm my-4>
-      <span op-50>Also as known as:</span>
-    </p>
-
-    <div>
-      <NuxtLink
-        class="btn m-3 text-sm"
-        to="/"
-      >
-        Back
-      </NuxtLink>
-    </div>
+  <div :id="`editor-${nxid}`">
+    <Render :components="components" />
   </div>
 </template>

@@ -1,9 +1,10 @@
 import _ from 'lodash'
 import type { CustomMouseEvent } from '..'
 import { useEngine } from '..'
+import type { GlobComponents } from '~/components/Widgets/index'
 import components from '~/components/Widgets'
 
-function getWidget(name: any) {
+function getWidget(name: any): GlobComponents | undefined {
   const comp = _.compact(_.map(_.values(components), (value) => {
     if (isArr(value?.children))
       return _.find(value.children, v => v.name === name)
@@ -82,7 +83,6 @@ export function DragDropEvent() {
 
     if (target === undefined)
       target = e.target as HTMLElement
-    console.dir(target)
 
     engine.nodesById = {
       id: target.id,
@@ -100,16 +100,11 @@ export function DragDropEvent() {
     const comp = getWidget(engine.nodesById!.title)
     if (!comp)
       return
-    const target = e.target as HTMLElement
-    if (target.id === 'NX-Editor') {
-      console.log(e)
-      editor.componentsJson.children.push({
-        componentName: comp.name,
-        render: comp.render,
 
-      })
-      console.log('🚀 ~ file: DragDropEvent.ts:100 ~ onDragEnd ~ comp:', comp)
-    }
+    const target = e.target as HTMLElement
+    console.dir(target)
+
+    editor.addComponent(comp, target)
   }
 
   function onMouseUp(e: MouseEvent) {

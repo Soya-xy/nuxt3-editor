@@ -128,7 +128,7 @@ export function createEngine(): Listen[] {
   ]
 }
 
-function transformCoordinates(target?: CustomMouseEvent) {
+export function transformCoordinates(target?: CustomMouseEvent) {
   if (!target)
     return
   const { frameElement } = target?.view || {}

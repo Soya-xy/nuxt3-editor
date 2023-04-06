@@ -4,6 +4,7 @@ export type GlobComponents = DefineComponent & {
   name?: string
   icon?: string
   nxType?: 'resource' | 'widget' | 'node'
+  render?: () => DefineComponent
   [key: string]: any
 }
 
