@@ -1,10 +1,5 @@
 <script setup lang='ts'>
-defineOptions({
-  name: '按钮',
-  icon: 'i-mdi:button-cursor',
-  nxType: 'resource',
-})
-const d = ref('')
+
 </script>
 
 <template>

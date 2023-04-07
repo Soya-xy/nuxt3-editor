@@ -3,6 +3,7 @@ import type { DefineComponent } from 'vue'
 export type GlobComponents = DefineComponent & {
   name?: string
   icon?: string
+  componentNames?: string
   nxType?: 'resource' | 'widget' | 'node'
   render?: () => DefineComponent
   [key: string]: any
@@ -14,13 +15,14 @@ interface IComponent {
 
 const components: Record<string, IComponent> = {}
 
-const modules = import.meta.glob<GlobComponents>('./**/*/index.(tsx|vue)', {
+const modules = import.meta.glob<GlobComponents>('./**/*/*.(tsx|vue)', {
   import: 'default',
   eager: true,
 })
 
 for (const path in modules) {
   let type = path.split('/')[1]
+  modules[path].componentsName = $fetch('/api/components')
   switch (type) {
     case 'base':
       type = '基础组件'

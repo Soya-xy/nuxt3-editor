@@ -2,6 +2,8 @@
 import { createEngine, useEngine } from '~/composables/engine'
 
 const engine = useEngine()
+const editor = useEditor()
+
 const actionArea = $ref<HTMLElement>()
 const router = useRouter()
 const route = useRoute()
@@ -36,8 +38,8 @@ onMounted(() => {
     })
   }
 })
-function del() {
-  engine.remove('mouse:move')
+function save() {
+  console.log(JSON.stringify(editor.componentsJson))
 }
 </script>
 
@@ -54,7 +56,7 @@ function del() {
             <i icon-btn i-carbon:logo-github /> Github
           </NuxtLink>
         </a-button>
-        <a-button size="large" type="primary" @click="del">
+        <a-button size="large" type="primary" @click="save">
           保存
         </a-button>
       </div>

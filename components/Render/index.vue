@@ -11,6 +11,7 @@ const components = defineProp<IComponents>('components', {
   <span :id="components.componentId" block w-10>
     {{ components.componentName }}
   </span>
+  <!-- <components :is="is" v-if="components.render" />  -->
   <template v-if="isArray(components) && components.length > 0">
     <template v-for="v, k in components" :key="v">
       {{ k }}:<Render :components="v" />
