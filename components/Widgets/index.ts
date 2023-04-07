@@ -1,44 +1,10 @@
-import type { DefineComponent } from 'vue'
-
-export type GlobComponents = DefineComponent & {
+export interface GlobComponents {
+  componentName: string
   name?: string
   icon?: string
-  componentNames?: string
   nxType?: 'resource' | 'widget' | 'node'
-  render?: () => DefineComponent
-  [key: string]: any
 }
 
-interface IComponent {
+export type IComponent = Record<string, {
   children: GlobComponents[]
-}
-
-const components: Record<string, IComponent> = {}
-
-const modules = import.meta.glob<GlobComponents>('./**/*/*.(tsx|vue)', {
-  import: 'default',
-  eager: true,
-})
-
-for (const path in modules) {
-  let type = path.split('/')[1]
-  modules[path].componentsName = $fetch('/api/components')
-  switch (type) {
-    case 'base':
-      type = '基础组件'
-      break
-    case 'business':
-      type = '业务组件'
-      break
-  }
-  if (components[type]?.children) {
-    components[type].children.push(modules[path])
-  }
-  else {
-    components[type] = {
-      children: [modules[path]],
-    }
-  }
-}
-
-export default components
+}>

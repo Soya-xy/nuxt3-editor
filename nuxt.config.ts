@@ -16,7 +16,13 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxt/devtools',
     '@vue-macros/nuxt',
+    '~/modules/setup-components',
   ],
+  vite: {
+    build: {
+      target: 'esnext',
+    },
+  },
   experimental: {
     reactivityTransform: true,
     // when using generate, payload js assets included in sw precache manifest

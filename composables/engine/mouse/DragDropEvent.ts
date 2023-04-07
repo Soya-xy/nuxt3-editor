@@ -1,10 +1,11 @@
 import _ from 'lodash'
 import type { CustomMouseEvent } from '..'
 import { useEngine } from '..'
-import type { GlobComponents } from '~/components/Widgets/index'
-import components from '~/components/Widgets'
+import type { IComponent } from '~/components/Widgets/index'
 
-function getWidget(name: any): GlobComponents | undefined {
+const components = await import('~/constants/components.json').then(m => m.default) as IComponent
+
+function getWidget(name: any) {
   const comp = _.compact(_.map(_.values(components), (value) => {
     if (isArr(value?.children))
       return _.find(value.children, v => v.name === name)

@@ -20,11 +20,16 @@ export default defineConfig({
     ['icon-btn', 'inline-block cursor-pointer select-none opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-teal-600'],
     ['icon', 'inline-block select-none opacity-75 transition duration-200 ease-in-out hover:text-teal-600'],
   ],
+  safelist: [
+    'i-mdi:button-cursor',
+    'i-carbon:3d-cursor',
+  ],
   presets: [
     presetUno(),
     presetAttributify(),
     presetIcons({
       scale: 1.2,
+
     }),
     presetTypography(),
     presetWebFonts({

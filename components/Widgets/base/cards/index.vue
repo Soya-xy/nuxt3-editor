@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineOptions({
   name: '卡片',
-  icon: 'i-mdi:button-cursor',
+  icon: 'i-carbon:3d-cursor',
   nxType: 'resource',
 
 })

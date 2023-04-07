@@ -1,5 +1,7 @@
 <script setup lang='ts'>
-import components from '../Widgets'
+import { type IComponent } from '~/components/Widgets/index'
+
+const components = await import('~/constants/components.json').then(m => m.default as IComponent)
 
 const nxid = useNxId
 const customStyle = {
@@ -14,14 +16,17 @@ const defaultActiveKey = ref(Array.from(Object.keys(components), (v, k) => k))
 </script>
 
 <template>
-  <div flex justify="center" w="full">
+  <div v-if="components" flex justify="center" w="full">
     <a-card title="组件" w="98%" mx-auto :bordered="false" :body-style="{ padding: 0 }">
       <a-collapse :default-active-key="defaultActiveKey" :bordered="false">
         <a-collapse-item v-for="(v, key, index) in components" :key="index" :header="key" :style="customStyle">
           <a-row class="grid-demo" :gutter="[12, 12]">
             <a-col v-for="item, index in v.children" :key="index" :span="8">
-              <div :id="nxid()" flex="~ col center" bg="#f0f0f0" px1 py2 rounded-2 text-sm cursor="move" :nx-data-type="item?.nxType">
-                <i :class="`${item?.icon}`" class="text-2xl icon" />
+              <div
+                :id="nxid()" flex="~ col center" bg="#f0f0f0" px1 py2 rounded-2 text-sm cursor="move"
+                :nx-data-type="item?.nxType"
+              >
+                <i :class="item?.icon" class="text-2xl icon" />
                 {{ item?.name }}
               </div>
             </a-col>

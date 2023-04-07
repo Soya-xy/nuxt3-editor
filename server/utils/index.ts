@@ -1,7 +1,4 @@
-import { parse } from 'node:path'
 import { readFileSync } from 'node:fs'
-import { slash } from '@antfu/utils'
-import _ from 'lodash'
 import {
   type Node,
 } from '@babel/types'
@@ -14,6 +11,8 @@ import { checkDefaultExport, filterMacro } from 'unplugin-vue-define-options/api
 
 export const ROOT_DIR = 'components'
 export const COMPONENT_DIR = '/Widgets'
+
+// 获取节点的起始位置和结束位置
 function getNodePos(
   nodes: Node | Node[],
   offset: number,
@@ -23,18 +22,23 @@ function getNodePos(
   else return [offset + nodes.start!, offset + nodes.end!]
 }
 
-function getComponentAttr(filePath: string): string {
+// 将字符串中的key添加双引号
+function extractImports(code: string) {
+  return Object.fromEntries(Array.from(code.matchAll(/['"]?([^\s'"]+)['"]?\s*:\s*(.+?)[,;\n]/g)).map(i => [i[1], i[2]]))
+}
+
+export function getComponentAttr(filePath: string) {
   const code = readFileSync(filePath, 'utf8')
   const sfc = parseSFC(code, filePath)
   if (!sfc.scriptSetup)
-    return '{}'
+    return
   const { scriptSetup, getSetupAst, getScriptAst } = sfc
   const setupOffset = scriptSetup.loc.start.offset
   const setupAst = getSetupAst()!
 
   const nodes = filterMacro(setupAst!.body)
   if (nodes.length === 0)
-    return '{}'
+    return
 
   else if (nodes.length > 1)
     throw new SyntaxError(`duplicate ${DEFINE_OPTIONS}() call`)
@@ -47,46 +51,7 @@ function getComponentAttr(filePath: string): string {
 
   const [node] = nodes
   const [arg] = node.arguments
+
   if (arg)
-    return s.slice(...getNodePos(arg, setupOffset)).toString()
-
-  else return '{}'
-}
-
-export function getComponentName(filePath: string) {
-  const root = process.cwd()
-  const resolvedDirs = [slash(`${root}/${ROOT_DIR}`)]
-  const parsedFilePath = parse(slash(filePath))
-
-  let strippedPath = ''
-
-  // remove include directories from filepath
-  for (const dir of resolvedDirs) {
-    if (parsedFilePath.dir.startsWith(dir)) {
-      strippedPath = parsedFilePath.dir.slice(dir.length)
-      break
-    }
-  }
-
-  let folders = strippedPath.slice(1).split('/').filter(Boolean)
-  let filename = parsedFilePath.name
-  folders = folders.map(f => f.replace(/[^a-zA-Z0-9\-]/g, ''))
-  if (filename.toLowerCase() === 'index')
-    filename = ''
-  if (!_.isEmpty(folders)) {
-    const namespaced = [...folders, filename]
-    filename = namespaced.filter(Boolean).join('-')
-  }
-
-  return { name: pascalCase(filename), attrs: getComponentAttr(filePath) }
-}
-
-export function capitalize(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
-export function pascalCase(str: string) {
-  return capitalize(camelCase(str))
-}
-export function camelCase(str: string) {
-  return str.replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : ''))
+    return extractImports(s.slice(...getNodePos(arg, setupOffset)).toString().replace(/\'/g, ''))
 }

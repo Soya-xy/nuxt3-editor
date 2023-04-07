@@ -1,14 +1,12 @@
-import type { DefineComponent } from 'vue'
 import { defineStore } from 'pinia'
 import _ from 'lodash'
-import type { GlobComponents } from './../components/Widgets/index'
+import type { GlobComponents } from '~/components/Widgets/index'
 
 export interface IComponents {
   componentName: string
   componentId?: string
   parentId: string | null
   slots?: {}
-  render?: () => DefineComponent
   children?: IComponents[]
 }
 
@@ -28,10 +26,9 @@ export const useEditor = defineStore('editor', () => {
   function addComponent(comp: GlobComponents, target: HTMLElement) {
     if (target.id === 'NX-Editor' || target.id.startsWith('editor-nx')) {
       componentsJson.value.push({
-        componentName: comp.name,
+        componentName: comp.name!,
         componentId: `editor-${useNxId()}`,
         parentId: componentsJson.value.length === 0 ? null : target.id,
-        render: comp.render,
       })
     }
   }
