@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import type { CustomMouseEvent } from '..'
 import { useEngine } from '..'
-import type { IComponent } from '~/components/Widgets/index'
+import type { IComponent } from '~/components/Widgets/type'
 
 const components = await import('~/constants/components.json').then(m => m.default) as IComponent
 

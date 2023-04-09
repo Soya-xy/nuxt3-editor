@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { type IComponent } from '~/components/Widgets/index'
+import { type IComponent } from '~/constants/type'
 
 const components = await import('~/constants/components.json').then(m => m.default as IComponent)
 

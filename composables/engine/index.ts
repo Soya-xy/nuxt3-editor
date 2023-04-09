@@ -5,7 +5,7 @@ import { MouseClickEvent } from './mouse/MouseClickEvent'
 import { MouseOverEvent } from './mouse/MouseOverEvent'
 import { MouseOutEvent } from './mouse/MouseOutEvent'
 import { DragDropEvent } from './mouse/DragDropEvent'
-import type { GlobComponents } from '~/components/Widgets/index'
+import type { GlobComponents } from '~/components/Widgets/type'
 
 export interface ITreeNode {
   id: ID

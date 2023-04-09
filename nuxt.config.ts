@@ -9,6 +9,15 @@ export default defineNuxtConfig({
       },
     },
   },
+
+  components: {
+    dirs: [{
+      path: '~/components/Widgets',
+      global: true,
+    },
+    '~/components',
+    ],
+  },
   modules: [
     '@vueuse/nuxt',
     '@unocss/nuxt',

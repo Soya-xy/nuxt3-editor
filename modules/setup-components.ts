@@ -1,7 +1,7 @@
 import { writeFile } from 'node:fs'
-import { defineNuxtModule, useNuxt } from '@nuxt/kit'
+import { createResolver, defineNuxtModule, useNuxt } from '@nuxt/kit'
 import { getComponentAttr } from '../server/utils'
-import type { IComponent } from './../components/Widgets/index'
+import type { IComponent } from '~/constants/type'
 
 export default defineNuxtModule({
   meta: {
@@ -9,11 +9,11 @@ export default defineNuxtModule({
   },
   setup() {
     const nuxt = useNuxt()
+    const resolver = createResolver(process.cwd())
     nuxt.hook('components:extend', async (components) => {
       const data: IComponent = {}
-
       for (const component of components) {
-        if (component.kebabName.startsWith('widgets-')) {
+        if (component.shortPath.startsWith('components/Widgets')) {
           let type = component.shortPath.split('/')[2]
           switch (type) {
             case 'base':
