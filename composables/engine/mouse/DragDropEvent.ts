@@ -89,6 +89,7 @@ export function DragDropEvent() {
       id: target.id,
       title: target.innerText,
       documentId: target.id,
+      componentName: target.attributes['nx-data-component'].value,
     }
 
     engine.startEvent = e

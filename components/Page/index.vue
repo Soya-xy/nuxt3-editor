@@ -2,6 +2,7 @@
 import { type IComponent } from '~/constants/type'
 
 const components = await import('~/constants/components.json').then(m => m.default as IComponent)
+console.log('🚀 ~ file: index.vue:5 ~ components:', components)
 
 const nxid = useNxId
 const customStyle = {
@@ -24,7 +25,7 @@ const defaultActiveKey = ref(Array.from(Object.keys(components), (v, k) => k))
             <a-col v-for="item, index in v.children" :key="index" :span="8">
               <div
                 :id="nxid()" flex="~ col center" bg="#f0f0f0" px1 py2 rounded-2 text-sm cursor="move"
-                :nx-data-type="item?.nxType"
+                :nx-data-type="item?.nxType" :nx-data-component="item?.componentName"
               >
                 <i :class="item?.icon" class="text-2xl icon" />
                 {{ item?.name }}

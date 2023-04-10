@@ -18,7 +18,9 @@ function handleDrag(e: MouseEvent) {
       data: e,
     }
     htmlNode.style.display = 'block'
-    htmlNode.innerHTML = engine.nodesById!.title
+    console.log(engine.nodesById!)
+
+    // htmlNode.innerHTML = engine.nodesById!.title
     htmlNode.style.left = NumToPx(engine.targetEvent?.topClientX)
     htmlNode.style.top = NumToPx(engine.targetEvent?.topClientY)
   }
@@ -44,8 +46,15 @@ onUnmounted(() => {
   if (mouseMove)
     mouseMove.unSubscribe!(handleDrag)
 })
+
+const comp = computed(() => {
+  return engine.nodesById!.componentName
+})
 </script>
 
 <template>
-  <div ref="htmlNode" />
+  <!-- <div ref="htmlNode" /> -->
+  <div ref="htmlNode">
+    <component :is="comp" />
+  </div>
 </template>

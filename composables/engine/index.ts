@@ -5,7 +5,7 @@ import { MouseClickEvent } from './mouse/MouseClickEvent'
 import { MouseOverEvent } from './mouse/MouseOverEvent'
 import { MouseOutEvent } from './mouse/MouseOutEvent'
 import { DragDropEvent } from './mouse/DragDropEvent'
-import type { GlobComponents } from '~/components/Widgets/type'
+import type { GlobComponents } from '~/constants/type'
 
 export interface ITreeNode {
   id: ID
@@ -17,6 +17,7 @@ export interface ITreeNode {
   slots?: {
     [name: string]: ID
   }
+  componentName: string
   documentId: ID
   // 设计时的属性，比如readOnly， open等
   designerProps?: GlobComponents
