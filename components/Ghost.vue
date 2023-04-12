@@ -18,7 +18,6 @@ function handleDrag(e: MouseEvent) {
       data: e,
     }
     htmlNode.style.display = 'block'
-    console.log(engine.nodesById!)
 
     htmlNode.innerHTML = engine.nodesById!.title
     htmlNode.style.left = NumToPx(engine.targetEvent?.topClientX)

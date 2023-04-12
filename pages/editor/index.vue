@@ -13,7 +13,6 @@ watch(
   () => editor.componentsJson,
   () => {
     components = editor.getJson()
-    console.log('🚀 ~ file: index.vue:16 ~ components:', components)
   },
   { deep: true, immediate: true },
 )

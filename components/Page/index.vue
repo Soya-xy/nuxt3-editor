@@ -2,7 +2,6 @@
 import { type IComponent } from '~/constants/type'
 
 const components = await import('~/constants/components.json').then(m => m.default as IComponent)
-console.log('🚀 ~ file: index.vue:5 ~ components:', components)
 
 const nxid = useNxId
 const customStyle = {

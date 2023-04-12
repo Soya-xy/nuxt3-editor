@@ -8,3 +8,9 @@ export interface GlobComponents {
 export type IComponent = Record<string, {
   children: GlobComponents[]
 }>
+
+export const componentType: Record<string, string> = {
+  base: '基础组件',
+  business: '业务组件',
+  layouts: '布局组件',
+}

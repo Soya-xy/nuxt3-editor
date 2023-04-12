@@ -15,6 +15,19 @@ export function useNxId() {
   return `nx-${_.uniqueId()}`
 }
 
+export function getRecentNxElement(el: HTMLElement, atrrName = 'editor-nx-'): HTMLElement | undefined {
+  if (el.id.startsWith(atrrName) || el.id === 'NX-Editor') {
+    console.log(el)
+
+    return el
+  }
+  else {
+    if (el.parentElement)
+      return getRecentNxElement(el.parentElement, atrrName)
+  }
+  return undefined
+}
+
 export const DraggingNodes = ref('')
 
 export const useEditor = defineStore('editor', () => {
@@ -26,7 +39,7 @@ export const useEditor = defineStore('editor', () => {
   }])
 
   function addComponent(comp: GlobComponents, target: HTMLElement) {
-    if (target.id === 'NX-Editor' || target.id.startsWith('editor-nx')) {
+    if (getRecentNxElement(target)) {
       componentsJson.value.push({
         componentName: comp.componentName!,
         name: comp.name,

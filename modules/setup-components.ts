@@ -1,7 +1,10 @@
 import { writeFile } from 'node:fs'
-import { createResolver, defineNuxtModule, useNuxt } from '@nuxt/kit'
+import { defineNuxtModule, useNuxt } from '@nuxt/kit'
 import { getComponentAttr } from '../server/utils'
-import type { IComponent } from '~/constants/type'
+import {
+  type IComponent,
+  componentType,
+} from '../constants/type'
 
 export default defineNuxtModule({
   meta: {
@@ -9,20 +12,11 @@ export default defineNuxtModule({
   },
   setup() {
     const nuxt = useNuxt()
-    const resolver = createResolver(process.cwd())
     nuxt.hook('components:extend', async (components) => {
       const data: IComponent = {}
       for (const component of components) {
         if (component.shortPath.startsWith('components/Widgets')) {
-          let type = component.shortPath.split('/')[2]
-          switch (type) {
-            case 'base':
-              type = '基础组件'
-              break
-            case 'business':
-              type = '业务组件'
-              break
-          }
+          const type = componentType[component.shortPath.split('/')[2]]
           const options = getComponentAttr(component.filePath)
           const item = {
             componentName: component.pascalName,

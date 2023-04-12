@@ -13,13 +13,12 @@ const renderComponent = computed(() => {
 </script>
 
 <template>
-  <span v-if="components.componentName" :id="components.componentId" block w-10>
-    {{ components.name }}
-    <component :is="renderComponent" />
-  </span>
+  <div :id="components.componentId">
+    <component :is="renderComponent" v-if="components.componentName" />
+  </div>
   <template v-if="isArray(components) && components.length > 0">
-    <template v-for="v, k in components" :key="v">
-      {{ k }}:<Render :components="v" />
+    <template v-for="v in components" :key="v">
+      <Render :components="v" />
     </template>
   </template>
   <template v-else>
