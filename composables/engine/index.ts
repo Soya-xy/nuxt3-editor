@@ -17,7 +17,6 @@ export interface ITreeNode {
   slots?: {
     [name: string]: ID
   }
-  componentName: string
   documentId: ID
   // 设计时的属性，比如readOnly， open等
   designerProps?: GlobComponents

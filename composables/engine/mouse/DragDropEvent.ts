@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import type { CustomMouseEvent } from '..'
 import { useEngine } from '..'
-import type { IComponent } from '~/components/Widgets/type'
+import type { IComponent } from '~/constants/type'
 
 const components = await import('~/constants/components.json').then(m => m.default) as IComponent
 
@@ -89,7 +89,6 @@ export function DragDropEvent() {
       id: target.id,
       title: target.innerText,
       documentId: target.id,
-      componentName: target.attributes['nx-data-component'].value,
     }
 
     engine.startEvent = e
