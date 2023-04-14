@@ -2,9 +2,7 @@
 import type { IComponents } from '~/composables/editor'
 
 const isArray = isArr
-const components = defineProp<IComponents>('components', {
-  default: {},
-})
+const components = defineProp<IComponents>('components')
 
 const renderComponent = computed(() => {
   if (components.value.componentName)

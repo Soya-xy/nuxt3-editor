@@ -31,20 +31,16 @@ export function getRecentNxElement(el: HTMLElement, atrrName = 'editor-nx-'): HT
 export const DraggingNodes = ref('')
 
 export const useEditor = defineStore('editor', () => {
-  const componentsJson = ref<IComponents[]>([{
-    name: 'Root',
-    componentName: '',
-    componentId: 'NX-Editor',
-    parentId: null,
-  }])
+  const componentsJson = ref<IComponents[]>([])
 
   function addComponent(comp: GlobComponents, target: HTMLElement) {
-    if (getRecentNxElement(target)) {
+    const dom = getRecentNxElement(target)
+    if (dom) {
       componentsJson.value.push({
         componentName: comp.componentName!,
         name: comp.name,
         componentId: `editor-${useNxId()}`,
-        parentId: componentsJson.value.length === 0 ? null : target.id,
+        parentId: componentsJson.value.length === 0 ? null : dom.id,
       })
     }
   }

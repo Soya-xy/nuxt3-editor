@@ -106,6 +106,8 @@ export function DragDropEvent() {
     console.dir(target)
 
     editor.addComponent(comp, target)
+
+    console.log(editor.componentsJson)
   }
 
   function onMouseUp(e: MouseEvent) {
