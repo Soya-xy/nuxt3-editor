@@ -100,8 +100,9 @@ function save() {
             </button>
           </div>
           <a-layout-content>
-            <div id="NX-Editor" wh-full>
+            <div id="NX-Editor" wh-full transform="">
               <slot />
+              <OutLine />
             </div>
           </a-layout-content>
           <a-layout-footer>

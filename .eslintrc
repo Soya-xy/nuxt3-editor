@@ -14,6 +14,7 @@
       "selector": "VElement[name='a']",
       "message": "Use NuxtLink instead."
     }],
+    "vue/valid-v-slot": "off",
     "no-console": "off"
   }
 }

@@ -3,15 +3,28 @@ defineOptions({
   name: '上中下布局',
   icon: 'i-mdi:button-cursor',
   nxType: 'resource',
+  slots: 'header|content|footer',
 })
 </script>
 
 <template>
   <div class="layout-demo">
     <a-layout style="height: 100%;">
-      <a-layout-header>Header</a-layout-header>
-      <a-layout-content>Content</a-layout-content>
-      <a-layout-footer>Footer</a-layout-footer>
+      <a-layout-header slot-name="header">
+        <slot name="header">
+          Header
+        </slot>
+      </a-layout-header>
+      <a-layout-content slot-name="content">
+        <slot name="content">
+          Content
+        </slot>
+      </a-layout-content>
+      <a-layout-footer slot-name="footer">
+        <slot name="footer">
+          Footer
+        </slot>
+      </a-layout-footer>
     </a-layout>
   </div>
 </template>

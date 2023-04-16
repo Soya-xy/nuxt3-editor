@@ -79,6 +79,10 @@ export const useEngine = defineStore('engine', () => {
     deep: true,
   })
 
+  watch(stateId, (e) => {
+    console.log('🚀 ~ file: index.ts:83 ~ watch ~ e:', e)
+  })
+
   function register(provider: Listen) {
     provider.subscribe()
     providers.add(provider)

@@ -103,11 +103,8 @@ export function DragDropEvent() {
       return
 
     const target = e.target as HTMLElement
-    console.dir(target)
 
     editor.addComponent(comp, target)
-
-    console.log(editor.componentsJson)
   }
 
   function onMouseUp(e: MouseEvent) {
