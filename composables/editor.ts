@@ -27,22 +27,16 @@ export function getRecentNxElement(el: HTMLElement, atrrName = 'editor-nx-'): HT
   return undefined
 }
 
-// export function getRecentNxElement(el: HTMLElement, atrrName = 'editor-nx-', slots?: string, parentId?: string): Record<string, any> | undefined {
-//   if (el.id === 'NX-Editor') {
-//     return { el, slots, parentId }
-//   }
-//   else {
-//     if (el.parentElement) {
-//       if (el.getAttribute('slot-name') && !slots)
-//         slots = el.getAttribute('slot-name') || undefined
-//       if (el.id.startsWith(atrrName) && !parentId && !el.getAttribute('is-slots'))
-//         parentId = el.id
-
-//       return getRecentNxElement(el.parentElement, atrrName, slots, parentId)
-//     }
-//   }
-//   return undefined
-// }
+export function getRecentNxSlot(el: HTMLElement): string | undefined {
+  if (el.getAttribute('slot-name')) {
+    return el.getAttribute('slot-name') || undefined
+  }
+  else {
+    if (el.parentElement)
+      return getRecentNxSlot(el.parentElement)
+  }
+  return undefined
+}
 
 export const DraggingNodes = ref('')
 
@@ -53,12 +47,8 @@ export const useEditor = defineStore('editor', () => {
   function addComponent(comp: GlobComponents, target: HTMLElement) {
     const dom = getRecentNxElement(target)
     if (dom) {
-      let slots, slotsName
-      if (target.getAttribute('slot-name'))
-        slots = target.getAttribute('slot-name') || undefined
-
-      if (comp.slots)
-        slotsName = comp.slots.split('|')
+      const slots = getRecentNxSlot(target)
+      const slotsName = comp.slots?.split('|') || undefined
 
       componentsJson.value.push({
         componentName: comp.componentName!,

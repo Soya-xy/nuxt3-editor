@@ -13,8 +13,10 @@ let mouseMove: Listen | undefined
 
 function handleDrag(e: MouseEvent) {
   const element = getRecentNxElement(e.target as HTMLElement)
-  if (element?.id === 'NX-Editor') {
+  if (element?.id === 'NX-Editor' || !element) {
     htmlDiv!.style.display = 'none'
+    engine.stateId = 'NX-Editor'
+
     return
   }
   else {
@@ -24,6 +26,7 @@ function handleDrag(e: MouseEvent) {
   if (element && htmlDiv && containerRect) {
     const rect = element.getBoundingClientRect()
     engine.stateId = element.id
+    console.log('🚀 ~ file: OutLine.vue:27 ~ handleDrag ~ engine.stateId:', engine.stateId)
     htmlDiv.style.left = NumToPx(rect.left - containerRect.x)
     htmlDiv.style.top = NumToPx(rect.top - containerRect.y)
     htmlDiv.style.height = NumToPx(rect.height)

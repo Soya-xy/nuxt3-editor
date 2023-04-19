@@ -8,53 +8,43 @@ defineOptions({
 </script>
 
 <template>
-  <div class="layout-demo">
-    <a-layout style="height: 100%;">
-      <a-layout-header slot-name="header">
-        <slot name="header">
-          Header
-        </slot>
-      </a-layout-header>
-      <a-layout-content slot-name="content">
-        <slot name="content">
-          Content
-        </slot>
-      </a-layout-content>
-      <a-layout-footer slot-name="footer">
-        <slot name="footer">
-          Footer
-        </slot>
-      </a-layout-footer>
-    </a-layout>
-  </div>
+  <a-layout h-full bg-cool-gray>
+    <a-layout-header slot-name="header">
+      <slot name="header">
+        <div class="border">
+          头部区
+        </div>
+      </slot>
+    </a-layout-header>
+    <a-layout-content slot-name="content">
+      <slot name="content">
+        <div class="border">
+          内容区
+        </div>
+      </slot>
+    </a-layout-content>
+    <a-layout-footer slot-name="footer">
+      <slot name="footer">
+        <div class="border">
+          底部区
+        </div>
+      </slot>
+    </a-layout-footer>
+  </a-layout>
 </template>
 
 <style scoped>
-.layout-demo :deep(.arco-layout-header),
-.layout-demo :deep(.arco-layout-footer),
-.layout-demo :deep(.arco-layout-sider-children),
-.layout-demo :deep(.arco-layout-content) {
+.border {
+  padding: 8px;
   display: flex;
-  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
   justify-content: center;
-  color: var(--color-white);
-  font-size: 16px;
-  font-stretch: condensed;
-  text-align: center;
-}
-
-.layout-demo :deep(.arco-layout-header),
-.layout-demo :deep(.arco-layout-footer) {
-  height: 64px;
-  background-color: var(--color-primary-light-4);
-}
-
-.layout-demo :deep(.arco-layout-sider) {
-  width: 206px;
-  background-color: var(--color-primary-light-3);
-}
-
-.layout-demo :deep(.arco-layout-content) {
-  background-color: rgb(var(--arcoblue-6));
+  width: 100%;
+  flex: 1 1 0%;
+  background-color: rgb(240, 240, 240);
+  color: rgba(0, 0, 0, 0.88);
+  border: 1px dashed;
 }
 </style>

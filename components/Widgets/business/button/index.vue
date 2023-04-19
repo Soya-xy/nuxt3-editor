@@ -7,7 +7,7 @@ defineOptions({
 </script>
 
 <template>
-  <div>
+  <div inline-block>
     <a-button type="primary">
       业务按钮
     </a-button>

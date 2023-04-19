@@ -4,9 +4,8 @@ import type { IComponents } from '~/composables/editor'
 const slot = useSlots()
 const isArray = isArr
 const components = defineProp<IComponents>('components')
-const slotName = defineProp<IComponents>('slotName')
 const haveSlot = defineProp<boolean>('haveSlot')
-
+const slotName = defineProp<string>('slotName')
 const renderComponent = computed(() => {
   if (components.value.componentName)
     return resolveComponent(components.value.componentName)
@@ -23,7 +22,7 @@ const renderComponent = computed(() => {
   <template v-if="isArray(components) && components.length > 0 && !haveSlot">
     <template v-for="v in components" :key="v">
       <template v-if="v.children">
-        <Render :components="v" have-slot>
+        <Render :components="v" :have-slot="v.slotsName.length > 0 ? true : false">
           <template v-for="slots, k in v.slotsName" #[slots] :key="k">
             <template v-for="item in v.children" :key="item">
               <Render v-if="item.slots === slots" :components="item" :slot-name="item.slots" />
@@ -32,7 +31,9 @@ const renderComponent = computed(() => {
         </Render>
       </template>
       <template v-else>
-        <Render :components="v" />
+        <div>
+          <Render :components="v" />
+        </div>
       </template>
     </template>
   </template>
