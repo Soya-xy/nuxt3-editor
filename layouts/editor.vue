@@ -175,14 +175,14 @@ function save() {
 }
 
 .layout-demo :deep(.arco-layout-header) {
-  height: 64px;
+  min-height: 64px;
   line-height: 64px;
   background: var(--color-bg-3);
   border: 1px solid var(--color-border);
 }
 
 .layout-demo :deep(.arco-layout-footer) {
-  height: 28px;
+  min-height: 28px;
   color: var(--color-text-2);
   font-weight: 400;
   font-size: 14px;

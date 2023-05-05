@@ -8,16 +8,14 @@ import { DragDropEvent } from './mouse/DragDropEvent'
 import type { GlobComponents } from '~/constants/type'
 
 export interface ITreeNode {
-  id: ID
-  title: string
+  id?: ID
+  title?: string
   description?: string
   parentId?: ID
   children?: ID[]
   isSlot?: boolean
-  slots?: {
-    [name: string]: ID
-  }
-  documentId: ID
+  slots?: string
+  documentId?: ID
   // 设计时的属性，比如readOnly， open等
   designerProps?: GlobComponents
   // 用来编辑属性的schema
@@ -56,6 +54,8 @@ export interface CustomMouseEvent extends MouseEvent {
 export const useEngine = defineStore('engine', () => {
   // 是否在拖动
   const dragging = ref(false)
+  // 拖到droptip里面了
+  const dropSlot = ref(false)
   // 当前的点击/拖拽的节点Id
   const stateId = ref('')
   // 开始拖动的节点Id
@@ -69,7 +69,7 @@ export const useEngine = defineStore('engine', () => {
   // 拖动中的组件
   const draggingResource = ref([])
   // 当前的节点
-  const nodesById = ref<ITreeNode>()
+  const nodesById = ref<ITreeNode>({})
   // 注册自定义事件
   const providers = reactive(new Set<Listen>())
 
@@ -113,6 +113,7 @@ export const useEngine = defineStore('engine', () => {
     targetEvent,
     dragging,
     stateId,
+    dropSlot,
     draggingNodes,
     draggingResource,
     nodesById,

@@ -1,18 +1,14 @@
-<script lang="tsx" setup>
+<script lang="ts" setup>
 import type { IComponents } from '~/composables/editor'
-
-const components = defineProp<IComponents>('components')
-console.log('🚀 ~ file: index.vue:5 ~ components:', components)
-const haveSlot = defineProp<boolean>('haveSlot')
-const slotName = defineProp<string>('slotName')
-
-const tag = resolveComponent(components.value.componentName)
-
-const RenderComponent = defineComponent(() => {
-  return () => <tag />
-})
+const components = defineProp<IComponents[]>('components', { default: [] })
 </script>
 
 <template>
-  <RenderComponent />
+  <div>
+    <div v-if="components.length > 0">
+      <div v-for="item in components" :id="item.componentId">
+        <component :is="resolveComponent(item.componentName)" :id="item.componentId" :nxData="item"></component>
+      </div>
+    </div>
+  </div>
 </template>

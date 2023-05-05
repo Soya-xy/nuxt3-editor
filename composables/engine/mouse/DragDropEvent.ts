@@ -85,11 +85,10 @@ export function DragDropEvent() {
     if (target === undefined)
       target = e.target as HTMLElement
 
-    engine.nodesById = {
-      id: target.id,
-      title: target.innerText,
-      documentId: target.id,
-    }
+
+
+    engine.nodesById.title = target.innerText
+    engine.nodesById.id = target.id
 
     engine.startEvent = e
     engine.dragging = false
@@ -98,13 +97,21 @@ export function DragDropEvent() {
   }
 
   function onDragEnd(e: MouseEvent) {
-    const comp = getWidget(engine.nodesById!.title)
+    const comp = getWidget(engine.nodesById?.title)
     if (!comp)
       return
 
-    const target = e.target as HTMLElement
+    let target = document.getElementById('NX-Editor') as HTMLElement
 
-    editor.addComponent(comp, target)
+    if (engine.stateId) {
+      target = document.getElementById(engine.stateId) as HTMLElement
+    } else {
+      target = e.target as HTMLElement
+    }
+
+    engine.dragging = false
+
+    editor.addComponent(comp, target, engine.nodesById)
   }
 
   function onMouseUp(e: MouseEvent) {
@@ -114,7 +121,7 @@ export function DragDropEvent() {
         type: 'drag:stop',
         data: e,
       }
-      engine.nodesById = undefined
+      engine.nodesById = {}
     }
 
     dom?.removeEventListener('mousemove', onMouseMove)

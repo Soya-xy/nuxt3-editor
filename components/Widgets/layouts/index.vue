@@ -1,33 +1,53 @@
 <script setup lang="ts">
 defineOptions({
-  name: '上中下布局',
+  name: '栅格布局',
   icon: 'i-mdi:button-cursor',
   nxType: 'resource',
   slots: 'header|content|footer',
+})
+const id = defineProp('id')
+const nxData = defineProp<any>('nxData')
+// const slots = computed(() => useSlots())
+const children = computed(() => {
+  let obj: any = {}
+  nxData.value?.children?.forEach((item: any) => {
+    if (Array.isArray(obj[item.slots])) {
+      obj[item.slots].push(item)
+    } else {
+      obj[item.slots] = [item]
+    }
+  })
+  return obj
+})
+watchEffect(() => {
+  console.log(children.value);
+
 })
 </script>
 
 <template>
   <a-layout h-full bg-cool-gray>
-    <a-layout-header slot-name="header">
+    <a-layout-header>
       <slot name="header">
-        <div class="border">
-          头部区
-        </div>
+        <drop-tips :parentId="id" slotName="header">
+          <Render v-if="children.header" :components="children.header"></Render>
+        </drop-tips>
       </slot>
     </a-layout-header>
-    <a-layout-content slot-name="content">
-      <slot name="content">
-        <div class="border">
-          内容区
-        </div>
-      </slot>
+    <a-layout-content>
+      <div my2>
+        <slot name="content">
+          <drop-tips :parentId="id" slotName="content">
+            <Render v-if="children.content" :components="children.content"></Render>
+          </drop-tips>
+        </slot>
+      </div>
     </a-layout-content>
-    <a-layout-footer slot-name="footer">
+    <a-layout-footer>
       <slot name="footer">
-        <div class="border">
-          底部区
-        </div>
+        <drop-tips :parentId="id" slotName="footer">
+          <Render v-if="children.footer" :components="children.footer"></Render>
+        </drop-tips>
       </slot>
     </a-layout-footer>
   </a-layout>
@@ -35,7 +55,7 @@ defineOptions({
 
 <style scoped>
 .border {
-  padding: 8px;
+  /* padding: 8px; */
   display: flex;
   -webkit-box-align: center;
   align-items: center;
@@ -46,5 +66,9 @@ defineOptions({
   background-color: rgb(240, 240, 240);
   color: rgba(0, 0, 0, 0.88);
   border: 1px dashed;
+}
+
+:deep(.arco-layout-footer) {
+  flex: 1;
 }
 </style>

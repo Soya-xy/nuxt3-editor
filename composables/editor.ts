@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import _ from 'lodash'
-import { useEngine } from './engine/index'
+import { ITreeNode, useEngine } from './engine/index'
 import type { GlobComponents } from '~/constants/type'
 
 export interface IComponents {
@@ -27,29 +27,18 @@ export function getRecentNxElement(el: HTMLElement, atrrName = 'editor-nx-'): HT
   return undefined
 }
 
-export function getRecentNxSlot(el: HTMLElement): string | undefined {
-  if (el.getAttribute('slot-name')) {
-    return el.getAttribute('slot-name') || undefined
-  }
-  else {
-    if (el.parentElement)
-      return getRecentNxSlot(el.parentElement)
-  }
-  return undefined
-}
-
 export const DraggingNodes = ref('')
 
 export const useEditor = defineStore('editor', () => {
   const engine = useEngine()
   const componentsJson = ref<IComponents[]>([])
 
-  function addComponent(comp: GlobComponents, target: HTMLElement) {
+  function addComponent(comp: GlobComponents, target: HTMLElement, nodes?: ITreeNode) {
+
     const dom = getRecentNxElement(target)
     if (dom) {
-      const slots = getRecentNxSlot(target)
+      const slots = nodes?.slots || ''
       const slotsName = comp.slots?.split('|') || undefined
-
       componentsJson.value.push({
         componentName: comp.componentName!,
         name: comp.name,
