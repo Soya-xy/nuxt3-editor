@@ -102,7 +102,6 @@ function save() {
           <a-layout-content>
             <div id="NX-Editor" wh-full transform="">
               <slot />
-              <OutLine />
             </div>
           </a-layout-content>
           <a-layout-footer>
