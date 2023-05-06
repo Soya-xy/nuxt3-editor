@@ -16,7 +16,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.38.6",
+    "@antfu/eslint-config": "^0.38.5",
     "@arco-design/web-vue": "^2.45.3",
     "@iconify-json/carbon": "^1.1.16",
     "@iconify-json/mdi": "^1.1.50",
@@ -30,7 +30,7 @@
     "@vue-macros/common": "^1.3.0",
     "@vue-macros/nuxt": "^1.3.4",
     "@vueuse/nuxt": "^10.1.2",
-    "eslint": "^8.40.0",
+    "eslint": "^8.38.0",
     "nuxt": "^3.4.3",
     "pinia": "^2.0.35",
     "typescript": "^5.0.4"

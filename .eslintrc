@@ -14,15 +14,7 @@
     }
   ],
   "rules": {
-    "vue/no-restricted-syntax": [
-      "error",
-      {
-        "selector": "VElement[name='a']",
-        "message": "Use NuxtLink instead."
-      }
-    ],
     "vue/valid-v-slot": "off",
-    "vue/dot-location": "off",
     "no-console": "off"
   }
 }

@@ -13,7 +13,7 @@ dependencies:
 
 devDependencies:
   '@antfu/eslint-config':
-    specifier: ^0.38.6
+    specifier: ^0.38.5
     version: 0.38.6(eslint@8.40.0)(typescript@5.0.4)
   '@arco-design/web-vue':
     specifier: ^2.45.3
@@ -55,7 +55,7 @@ devDependencies:
     specifier: ^10.1.2
     version: 10.1.2(nuxt@3.4.3)(vue@3.2.47)
   eslint:
-    specifier: ^8.40.0
+    specifier: ^8.38.0
     version: 8.40.0
   nuxt:
     specifier: ^3.4.3
