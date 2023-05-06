@@ -92,10 +92,8 @@ function save() {
         </a-layout-sider>
         <a-layout style="padding: 0 18px;">
           <div flex my1 justify="end">
-            <button
-              v-for="v in actionMenu" :key="v.url" p1 hover:bg-gray-200 ml2
-              :class="{ 'bg-white': actionActive === v.url }" @click="actionClick(v.url)"
-            >
+            <button v-for="v in actionMenu" :key="v.url" p1 hover:bg-gray-200 ml2
+              :class="{ 'bg-white': actionActive === v.url }" @click="actionClick(v.url)">
               <i icon-btn :class="v.icon" />
             </button>
           </div>
@@ -197,12 +195,8 @@ function save() {
 
 .layout-demo :deep(.arco-layout-footer),
 .layout-demo :deep(.arco-layout-content) {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   color: var(--color-text-1);
   font-size: 16px;
   font-stretch: condensed;
-  text-align: center;
 }
 </style>

@@ -26,7 +26,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <a-layout h-full bg-cool-gray>
+  <a-layout wh-full>
     <a-layout-header>
       <slot name="header">
         <drop-tips :parentId="id" slotName="header">
@@ -34,14 +34,12 @@ watchEffect(() => {
         </drop-tips>
       </slot>
     </a-layout-header>
-    <a-layout-content>
-      <div my2>
-        <slot name="content">
-          <drop-tips :parentId="id" slotName="content">
-            <Render v-if="children.content" :components="children.content"></Render>
-          </drop-tips>
-        </slot>
-      </div>
+    <a-layout-content mt1 mb2>
+      <slot name="content">
+        <drop-tips :parentId="id" slotName="content">
+          <Render v-if="children.content" :components="children.content"></Render>
+        </drop-tips>
+      </slot>
     </a-layout-content>
     <a-layout-footer>
       <slot name="footer">
@@ -70,5 +68,12 @@ watchEffect(() => {
 
 :deep(.arco-layout-footer) {
   flex: 1;
+}
+
+:deep(.arco-layout-header) {
+  line-height: unset !important;
+  height: auto !important;
+  background:none !important;
+  border: none !important;
 }
 </style>

@@ -32,6 +32,8 @@ export const DraggingNodes = ref('')
 export const useEditor = defineStore('editor', () => {
   const engine = useEngine()
   const componentsJson = ref<IComponents[]>([])
+  const actionHistory = ref<[]>([])
+  const isEditor = ref(true)
 
   function addComponent(comp: GlobComponents, target: HTMLElement, nodes?: ITreeNode) {
 
@@ -58,7 +60,10 @@ export const useEditor = defineStore('editor', () => {
     })
   }
 
+
   return {
+    isEditor,
+    actionHistory,
     componentsJson,
     addComponent,
     getJson,

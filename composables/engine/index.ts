@@ -20,8 +20,8 @@ export interface ITreeNode {
   designerProps?: GlobComponents
   // 用来编辑属性的schema
   // designerSchema?: INodeSchema
-  // 设计器专用属性，比如是否锁定
-  // designerParams?: IDesignerParams
+  // 设计器专用属性，比如当前悬停节点
+  designerId?: string
 }
 
 interface ISubscriber<EventType = any> {

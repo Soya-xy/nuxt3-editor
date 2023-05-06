@@ -53,4 +53,5 @@ html.dark {
 
 *{
   user-select: none !important;
+  color: #000;
 }
