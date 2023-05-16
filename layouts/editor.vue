@@ -4,7 +4,7 @@ import { createEngine, useEngine } from '~/composables/engine'
 const engine = useEngine()
 const editor = useEditor()
 
-const actionArea = $ref<HTMLElement>()
+const actionArea = ref<HTMLElement>()
 const router = useRouter()
 const route = useRoute()
 const collapsed = ref(false)
@@ -32,7 +32,7 @@ function actionClick(v: string) {
 }
 
 onMounted(() => {
-  if (actionArea) {
+  if (actionArea.value) {
     createEngine().forEach((e) => {
       engine.register(e)
     })

@@ -16,37 +16,37 @@
   </div>
   <slot v-else />
 </template>
-<script setup>
+<script setup lang="ts">
 import { useEngine } from '~/composables/engine';
 import * as _ from 'lodash'
 const editor = useEditor()
 const engine = useEngine()
 const slot = useSlots()
 console.log("🚀 ~ file: DropTips.vue:25 ~ slot:", slot)
-const parentId = defineProp('parentId')
-const slotName = defineProp('slotName')
+const parentId = defineProp<string>('parentId', { default: '' })
+const slotName = defineProp<string>('slotName', { default: '' })
 
-const id = $ref(_.uniqueId())
-const droptips = $ref(null)
+const id = ref(_.uniqueId())
+const droptips = ref<HTMLElement>()
 
 
-const active = computed(() => engine.nodesById.id === id)
-const hover = computed(() => engine.nodesById.designerId === id)
+const active = computed(() => engine.nodesById.id === id.value)
+const hover = computed(() => engine.nodesById.designerId === id.value)
 
 function clickHandle() {
-  if (engine.nodesById.id === id) {
+  if (engine.nodesById.id === id.value) {
     engine.nodesById.id = ''
     return
   }
-  engine.nodesById.id = id
+  engine.nodesById.id = id.value
 }
 
 function enter() {
-  engine.nodesById.designerId = id
+  engine.nodesById.designerId = id.value
   if (engine.dragging) {
     engine.dropSlot = true
     engine.stateId = parentId.value
-    engine.nodesById.slots = slotName
+    engine.nodesById.haveSlots = slotName.value
     engine.nodesById.id = id.value
   }
 }
@@ -54,7 +54,7 @@ function enter() {
 const leave = () => {
   engine.dropSlot = false
   engine.stateId = ''
-  droptips.style.outline = 'none'
+  droptips.value!.style.outline = 'none'
 }
 
 </script>

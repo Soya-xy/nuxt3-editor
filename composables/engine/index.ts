@@ -14,7 +14,7 @@ export interface ITreeNode {
   parentId?: ID
   children?: ID[]
   isSlot?: boolean
-  slots?: string
+  haveSlots?: string
   documentId?: ID
   // 设计时的属性，比如readOnly， open等
   designerProps?: GlobComponents

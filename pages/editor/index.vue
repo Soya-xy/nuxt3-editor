@@ -6,11 +6,11 @@ definePageMeta({
 })
 
 const editor = useEditor()
-let components = $ref<IComponents[] > ([])
+let components = ref<IComponents[] > ([])
 watch(
   () => editor.componentsJson,
   () => {
-    components = editor.getJson()
+    components.value = editor.getJson()
     console.log('🚀 ~ file: index.vue:16 ~ components:', components)
   },
   { deep: true, immediate: true },

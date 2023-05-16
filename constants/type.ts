@@ -3,7 +3,7 @@ export interface GlobComponents {
   name?: string
   icon?: string
   nxType?: 'resource' | 'widget' | 'node'
-  slots?: string
+  haveSlots?: string
 }
 
 export type IComponent = Record<string, {

@@ -3,39 +3,39 @@ import { useEngine } from '~/composables/engine'
 import type { Listen } from '~/composables/engine'
 import { MouseMoveEvent } from '~/composables/engine/mouse/MouseMoveEvent'
 
-const htmlNode = $ref<HTMLElement>()
+const htmlNode = ref<HTMLElement>()
 const engine = useEngine()
 let mouseMove: Listen | undefined
 watchEffect(() => {
-  if (htmlNode && !engine.dragging)
-    htmlNode.style.display = 'none'
+  if (htmlNode.value && !engine.dragging)
+    htmlNode.value.style.display = 'none'
 })
 
 function handleDrag(e: MouseEvent) {
-  if (engine.dragging && htmlNode) {
+  if (engine.dragging && htmlNode.value) {
     engine.currentEvent = {
       type: 'drag:move',
       data: e,
     }
-    htmlNode.style.display = 'block'
+    htmlNode.value.style.display = 'block'
 
-    htmlNode.innerHTML = engine.nodesById!.title
-    htmlNode.style.left = NumToPx(engine.targetEvent?.topClientX)
-    htmlNode.style.top = NumToPx(engine.targetEvent?.topClientY)
+    htmlNode.value.innerHTML = engine.nodesById!.title || ""
+    htmlNode.value.style.left = NumToPx(engine.targetEvent?.topClientX)
+    htmlNode.value.style.top = NumToPx(engine.targetEvent?.topClientY)
   }
 }
 
 onMounted(() => {
-  if (htmlNode) {
-    htmlNode.style.backgroundColor = 'blue'
-    htmlNode.style.position = 'fixed'
-    htmlNode.style.display = 'none'
-    htmlNode.style.color = '#fff'
-    htmlNode.style.fontSize = '13px'
-    htmlNode.style.padding = '4px 8px'
-    htmlNode.style.pointerEvents = 'none'
-    htmlNode.style.whiteSpace = 'nowrap'
-    htmlNode.style.zIndex = '10000'
+  if (htmlNode.value) {
+    htmlNode.value.style.backgroundColor = 'blue'
+    htmlNode.value.style.position = 'fixed'
+    htmlNode.value.style.display = 'none'
+    htmlNode.value.style.color = '#fff'
+    htmlNode.value.style.fontSize = '13px'
+    htmlNode.value.style.padding = '4px 8px'
+    htmlNode.value.style.pointerEvents = 'none'
+    htmlNode.value.style.whiteSpace = 'nowrap'
+    htmlNode.value.style.zIndex = '10000'
     mouseMove = MouseMoveEvent()
     mouseMove.subscribe(handleDrag)
   }

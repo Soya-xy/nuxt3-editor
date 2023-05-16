@@ -3,7 +3,7 @@ defineOptions({
   name: '栅格布局',
   icon: 'i-mdi:button-cursor',
   nxType: 'resource',
-  slots: 'header|content|footer',
+  haveSlots: 'header|content|footer',
 })
 const id = defineProp('id')
 const nxData = defineProp<any>('nxData')
@@ -11,10 +11,10 @@ const nxData = defineProp<any>('nxData')
 const children = computed(() => {
   let obj: any = {}
   nxData.value?.children?.forEach((item: any) => {
-    if (Array.isArray(obj[item.slots])) {
-      obj[item.slots].push(item)
+    if (Array.isArray(obj[item.haveSlots])) {
+      obj[item.haveSlots].push(item)
     } else {
-      obj[item.slots] = [item]
+      obj[item.haveSlots] = [item]
     }
   })
   return obj
@@ -73,7 +73,7 @@ watchEffect(() => {
 :deep(.arco-layout-header) {
   line-height: unset !important;
   height: auto !important;
-  background:none !important;
+  background: none !important;
   border: none !important;
 }
 </style>
