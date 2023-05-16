@@ -60,12 +60,16 @@ export const useEditor = defineStore('editor', () => {
     })
   }
 
+  function editComponent(){
+
+  }
 
   return {
     isEditor,
     actionHistory,
     componentsJson,
     addComponent,
+    editComponent,
     getJson,
   }
 })

@@ -1,3 +1,4 @@
+import { componentNames } from './../../.nuxt/components.d';
 import { defineStore } from 'pinia'
 import type { ID } from './type'
 import { MouseMoveEvent } from './mouse/MouseMoveEvent'
@@ -16,12 +17,14 @@ export interface ITreeNode {
   isSlot?: boolean
   haveSlots?: string
   documentId?: ID
+  componentName?: string
   // 设计时的属性，比如readOnly， open等
   designerProps?: GlobComponents
   // 用来编辑属性的schema
   // designerSchema?: INodeSchema
   // 设计器专用属性，比如当前悬停节点
   designerId?: string
+  isWidget?: boolean
 }
 
 interface ISubscriber<EventType = any> {

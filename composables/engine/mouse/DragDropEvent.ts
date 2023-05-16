@@ -1,3 +1,4 @@
+import { componentNames } from './../../../.nuxt/components.d';
 import _ from 'lodash'
 import type { CustomMouseEvent } from '..'
 import { useEngine } from '..'
@@ -5,14 +6,20 @@ import type { IComponent } from '~/constants/type'
 
 const components = await import('~/constants/components.json').then(m => m.default) as IComponent
 
-function getWidget(name: any) {
+function getWidget(componentName: any) {
   const comp = _.compact(_.map(_.values(components), (value) => {
     if (isArr(value?.children))
-      return _.find(value.children, v => v.name === name)
+      return _.find(value.children, v => v.componentName === componentName)
   }))
   if (comp.length === 0)
     return
   return comp[0]
+}
+
+function getAttribute(id: string) {
+  const editor = useEditor().getJson()
+
+  return _.find(editor, ['componentId', id])
 }
 
 export function DragDropEvent() {
@@ -76,19 +83,32 @@ export function DragDropEvent() {
       target = (e.target as any).parentNode
       if (!(e.target as any).parentNode?.id?.startsWith?.('nx'))
         return
+    }else if(getRecentNxElement(e.target as HTMLElement)){
+      target = getRecentNxElement(e.target as HTMLElement)
     }
     // 判断e.target的id是否是nx开头
-    else if (!(e.target as any)?.id?.startsWith?.('nx')) {
-      return
-    }
+    // else if (!(e.target as any)?.id?.startsWith?.('nx')) {
+    //   return
+    // }
 
     if (target === undefined)
       target = e.target as HTMLElement
 
 
+    // 判断是否从物料器拖拽
+    const isWidget = target.id?.startsWith?.('nx')
 
-    engine.nodesById.title = target.innerText
+    engine.nodesById.title = isWidget ?
+      target.innerText :
+      getAttribute(target.id)?.name
+
+
+    engine.nodesById.componentName = isWidget ?
+      target.getAttribute('nx-data-component')! :
+      getAttribute(target.id)?.componentName
+
     engine.nodesById.id = target.id
+    engine.nodesById.isWidget = isWidget
 
     engine.startEvent = e
     engine.dragging = false
@@ -97,9 +117,12 @@ export function DragDropEvent() {
   }
 
   function onDragEnd(e: MouseEvent) {
-    const comp = getWidget(engine.nodesById?.title)
-    if (!comp)
-      return
+
+    if (!engine.nodesById?.componentName) return
+
+    const comp = getWidget(engine.nodesById?.componentName)
+
+    if (!comp) return
 
     let target = document.getElementById('NX-Editor') as HTMLElement
 
@@ -110,8 +133,11 @@ export function DragDropEvent() {
     }
 
     engine.dragging = false
-
-    editor.addComponent(comp, target, engine.nodesById)
+    if (engine.nodesById.isWidget) {
+      editor.addComponent(comp, target, engine.nodesById)
+    } else {
+      editor.editComponent()
+    }
   }
 
   function onMouseUp(e: MouseEvent) {

@@ -11,7 +11,7 @@ watch(
   () => editor.componentsJson,
   () => {
     components.value = editor.getJson()
-    console.log('🚀 ~ file: index.vue:16 ~ components:', components)
+    console.log('🚀 ~ file: index.vue:16 ~ components:', components.value)
   },
   { deep: true, immediate: true },
 )

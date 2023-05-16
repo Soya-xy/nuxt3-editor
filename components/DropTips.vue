@@ -6,12 +6,21 @@
     '!outline-gray-400': editor.isEditor,
     '!outline-dashed': editor.isEditor,
     '!outline-1': editor.isEditor,
+    'nx-row': defaultSlot === 'Layouts'
   }" @click.stop="clickHandle" @mouseenter.stop="enter" @mouseleave="leave">
     <slot>
       <p text-center min-h-60px>Drop here</p>
     </slot>
-    <div absolute top-0 right-0 v-if="active">
-      删除
+    <div absolute top-0 right-0 flex="~" justify="between" v-if="active">
+      <div mx1 bg-blue-500 p=".5" rounded pointer="curs">
+        <i i-carbon:copy inline-block text="sm white"></i>
+      </div>
+      <div mx1 bg-blue-500 p=".5" rounded pointer="curs">
+        <i i-carbon:move inline-block text="sm white"></i>
+      </div>
+      <div mx1 bg-blue-500 p=".5" rounded>
+        <i i-carbon:trash-can inline-block text="sm white"></i>
+      </div>
     </div>
   </div>
   <slot v-else />
@@ -22,9 +31,9 @@ import * as _ from 'lodash'
 const editor = useEditor()
 const engine = useEngine()
 const slot = useSlots()
-console.log("🚀 ~ file: DropTips.vue:25 ~ slot:", slot)
 const parentId = defineProp<string>('parentId', { default: '' })
 const slotName = defineProp<string>('slotName', { default: '' })
+const defaultSlot = slot.default!()[0]?.props?.['nx-data'].componentName
 
 const id = ref(_.uniqueId())
 const droptips = ref<HTMLElement>()
@@ -57,13 +66,15 @@ const leave = () => {
   droptips.value!.style.outline = 'none'
 }
 
+
 </script>
 <style scoped>
 .drop-here {
   position: relative;
   display: inline-block;
   height: 100%;
-  width: 100%;
+  width: auto;
+  box-sizing: border-box;
 }
 
 .hover {
@@ -73,5 +84,11 @@ const leave = () => {
 .active {
   border: 1px solid #4285f4 !important;
   outline: none !important
+}
+
+:global(.nx-row),
+:global(.nx-row .drop-here) {
+  display: block !important;
+  width: 100% !important;
 }
 </style>

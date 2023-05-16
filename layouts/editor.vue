@@ -133,6 +133,7 @@ function save() {
     </div>
   </a-layout>
   <Ghost />
+  <Insertion />
 </template>
 
 <style scoped>

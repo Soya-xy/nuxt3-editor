@@ -8,7 +8,7 @@ const d = ref('')
 </script>
 
 <template>
-  <a-button type="primary">
+  <a-button type="primary" inline-block>
     按钮
   </a-button>
 </template>
