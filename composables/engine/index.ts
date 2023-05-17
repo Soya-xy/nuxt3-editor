@@ -1,4 +1,3 @@
-import { componentNames } from './../../.nuxt/components.d';
 import { defineStore } from 'pinia'
 import type { ID } from './type'
 import { MouseMoveEvent } from './mouse/MouseMoveEvent'

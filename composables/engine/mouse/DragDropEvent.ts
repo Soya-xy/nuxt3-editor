@@ -1,4 +1,3 @@
-import { componentNames } from './../../../.nuxt/components.d';
 import _ from 'lodash'
 import type { CustomMouseEvent } from '..'
 import { useEngine } from '..'
