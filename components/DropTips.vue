@@ -32,7 +32,7 @@ import * as _ from 'lodash'
 const editor = useEditor()
 const engine = useEngine()
 const slot = useSlots()
-const selfId = defineProp<string>('id', { default: '' })
+const selfId = defineProp<string>('selfId', { default: '' })
 const parentId = defineProp<string>('parentId', { default: '' })
 const slotName = defineProp<string>('slotName', { default: '' })
 const defaultSlot = slot.default!()[0]?.props?.['nx-data'].componentName
@@ -54,7 +54,6 @@ function clickHandle() {
 }
 
 function enter() {
-  droptips.value!.style.setProperty('outline-color','#4285f4','important')
   engine.nodesById.designerId = id.value
   if (engine.dragging) {
     engine.dropSlot = true
@@ -67,7 +66,6 @@ function enter() {
 const leave = () => {
   engine.dropSlot = false
   engine.stateId = ''
-  droptips.value!.style.setProperty('outline-color','#9ca3af','important')
 }
 
 
@@ -95,8 +93,7 @@ const leave = () => {
   outline: none !important
 }
 
-:global(.nx-row),
-:global(.nx-row .drop-here) {
+:global(.nx-row) {
   display: block !important;
   width: 100% !important;
 }

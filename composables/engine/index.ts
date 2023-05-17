@@ -14,7 +14,7 @@ export interface ITreeNode {
   parentId?: ID
   children?: ID[]
   isSlot?: boolean
-  haveSlots?: string
+  haveSlots?: string // 组件所属的slots
   documentId?: ID
   componentName?: string
   // 设计时的属性，比如readOnly， open等

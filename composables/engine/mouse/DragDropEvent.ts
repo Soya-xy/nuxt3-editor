@@ -130,7 +130,6 @@ export function DragDropEvent() {
     } else {
       target = e.target as HTMLElement
     }
-
     engine.dragging = false
     if (engine.nodesById.isWidget) {
       editor.addComponent(comp, target, engine.nodesById)

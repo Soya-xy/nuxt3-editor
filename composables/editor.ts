@@ -16,13 +16,13 @@ export interface IComponents {
 export function useNxId() {
   return `nx-${_.uniqueId()}`
 }
-export function getRecentNxElement(el: HTMLElement, atrrName = 'editor-nx-'): HTMLElement | undefined {
-  if (el.id.startsWith(atrrName) || el.id === 'NX-Editor') {
+export function getRecentNxElement(el: HTMLElement, atrName = 'editor-nx-'): HTMLElement | undefined {
+  if (el.id.startsWith(atrName) || el.id === 'NX-Editor') {
     return el
   }
   else {
     if (el.parentElement)
-      return getRecentNxElement(el.parentElement, atrrName)
+      return getRecentNxElement(el.parentElement, atrName)
   }
   return undefined
 }
@@ -36,11 +36,11 @@ export const useEditor = defineStore('editor', () => {
   const isEditor = ref(true)
 
   function addComponent(comp: GlobComponents, target: HTMLElement, nodes?: ITreeNode) {
-
     const dom = getRecentNxElement(target)
     if (dom) {
       const haveSlots = nodes?.haveSlots || ''
       const slotsName = comp.haveSlots?.split('|') || undefined
+      console.log("🚀 ~ file: editor.ts:44 ~ addComponent ~ slotsName:", engine.stateId)
       componentsJson.value.push({
         componentName: comp.componentName!,
         name: comp.name,
