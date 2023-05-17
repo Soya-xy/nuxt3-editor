@@ -82,7 +82,7 @@ export function DragDropEvent() {
       target = (e.target as any).parentNode
       if (!(e.target as any).parentNode?.id?.startsWith?.('nx'))
         return
-    }else if(getRecentNxElement(e.target as HTMLElement)){
+    } else if (getRecentNxElement(e.target as HTMLElement)) {
       target = getRecentNxElement(e.target as HTMLElement)
     }
     // 判断e.target的id是否是nx开头
@@ -106,7 +106,7 @@ export function DragDropEvent() {
       target.getAttribute('nx-data-component')! :
       getAttribute(target.id)?.componentName
 
-    engine.nodesById.id = target.id
+    engine.nodesById.id = engine.nodesById.activeId = target.id
     engine.nodesById.isWidget = isWidget
 
     engine.startEvent = e

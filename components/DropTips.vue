@@ -1,12 +1,13 @@
 <template>
   <div v-if="editor.isEditor" class="drop-here" ref="droptips" :class="{
-    active: active,
+    active,
     hover: !active && hover,
+    draging,
     'min-h-50px': !slot.default,
     '!outline-gray-400': editor.isEditor,
     '!outline-dashed': editor.isEditor,
     '!outline-1': editor.isEditor,
-    'nx-row': defaultSlot === 'Layouts'
+    'nx-row': isRow
   }" @click.stop="clickHandle" @mouseenter.stop="enter" @mouseleave="leave">
     <slot>
       <p text-center min-h-60px>Drop here</p>
@@ -31,16 +32,18 @@ import * as _ from 'lodash'
 const editor = useEditor()
 const engine = useEngine()
 const slot = useSlots()
+const selfId = defineProp<string>('id', { default: '' })
 const parentId = defineProp<string>('parentId', { default: '' })
 const slotName = defineProp<string>('slotName', { default: '' })
 const defaultSlot = slot.default!()[0]?.props?.['nx-data'].componentName
 
 const id = ref(_.uniqueId())
 const droptips = ref<HTMLElement>()
+const isRow = computed(() => ['Layouts'].includes(defaultSlot))
 
-
-const active = computed(() => engine.nodesById.id === id.value)
-const hover = computed(() => engine.nodesById.designerId === id.value)
+const active = computed(() => !engine.dragging && engine.nodesById.id === id.value)
+const hover = computed(() => !engine.dragging && engine.nodesById.designerId === id.value)
+const draging = computed(() => engine.nodesById.activeId === selfId.value && engine.dragging)
 
 function clickHandle() {
   if (engine.nodesById.id === id.value) {
@@ -51,6 +54,7 @@ function clickHandle() {
 }
 
 function enter() {
+  droptips.value!.style.setProperty('outline-color','#4285f4','important')
   engine.nodesById.designerId = id.value
   if (engine.dragging) {
     engine.dropSlot = true
@@ -63,7 +67,7 @@ function enter() {
 const leave = () => {
   engine.dropSlot = false
   engine.stateId = ''
-  droptips.value!.style.outline = 'none'
+  droptips.value!.style.setProperty('outline-color','#9ca3af','important')
 }
 
 
@@ -75,6 +79,11 @@ const leave = () => {
   height: 100%;
   width: auto;
   box-sizing: border-box;
+}
+
+.draging {
+  pointer-events: none;
+  opacity: .4;
 }
 
 .hover {

@@ -23,6 +23,7 @@ export interface ITreeNode {
   // designerSchema?: INodeSchema
   // 设计器专用属性，比如当前悬停节点
   designerId?: string
+  activeId?: string
   isWidget?: boolean
 }
 
