@@ -1,3 +1,4 @@
+import { componentNames } from './../.nuxt/components.d';
 import JSON5 from 'json5';
 import { writeFile } from 'node:fs'
 import { defineNuxtModule, useNuxt } from '@nuxt/kit'
@@ -6,6 +7,11 @@ import {
   type IComponent,
   componentType,
 } from '../constants/type'
+
+interface Item {
+  componentName: string
+  options?: Record<string, any>
+}
 
 export default defineNuxtModule({
   meta: {
@@ -19,9 +25,11 @@ export default defineNuxtModule({
         if (component.shortPath.startsWith('components/Widgets')) {
           const type = componentType[component.shortPath.split('/')[2]]
           const options = getComponentAttr(component.filePath)
-          const item = {
+          const item: Item = {
             componentName: component.pascalName,
-            options:options && JSON5.parse(options),
+          }
+          if (options) {
+            item.options = JSON5.parse(options).customOptions
           }
           if (data[type]?.children) {
             data[type].children.push(item)
