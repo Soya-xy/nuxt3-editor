@@ -9,7 +9,7 @@ export interface IComponents {
   componentName: string
   componentId?: string
   parentId?: string
-  slotsName?: string[]
+  slots?: boolean
   children?: IComponents[]
 }
 
@@ -59,7 +59,38 @@ export const useEditor = defineStore('editor', () => {
     })
   }
 
-  function editComponent() {
+  function editComponent(target: HTMLElement) {
+    const node = engine.draggingNodes
+    if (!node?.componentId || node.componentId === target.id) return
+    const data = _.cloneDeep(componentsJson.value)
+    const nowNode = _.findIndex(data, ['componentId', node.componentId])
+    const targetNode = _.findIndex(data, ['componentId', target.id])
+
+    if (target.id === 'NX-Editor') {
+      const item = data[nowNode]
+      item.parentId = 'NX-Editor'
+
+      if (nowNode !== -1) {
+        data.splice(nowNode, 1)
+        data.push(item)
+        componentsJson.value = data
+      }
+    }
+
+    // 在componentsJson中将nowNode移动到targetNode的位置
+    if (nowNode !== -1 && targetNode !== -1) {
+      console.log(data, data[targetNode]);
+      
+      data[nowNode].parentId = data[targetNode].parentId
+
+      if (data[targetNode].slots) {
+        data[nowNode].parentId = data[targetNode].componentId
+      }
+      const now = data.splice(nowNode, 1)[0]
+      data.splice(targetNode, 0, now)
+      componentsJson.value = data
+    }
+
 
   }
 

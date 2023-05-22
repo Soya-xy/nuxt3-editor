@@ -3,7 +3,7 @@ export interface GlobComponents {
   options?: {
     name?: string
     icon?: string
-    slots?: Record<string, any>
+    slots?: any
   }
 }
 

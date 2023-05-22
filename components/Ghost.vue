@@ -19,7 +19,7 @@ function handleDrag(e: MouseEvent) {
     }
     htmlNode.value.style.display = 'block'
 
-    htmlNode.value.innerHTML = engine.nodesById?.name || ""
+    htmlNode.value.innerHTML = engine.draggingNodes?.name || ""
     htmlNode.value.style.left = NumToPx(engine.targetEvent?.topClientX)
     htmlNode.value.style.top = NumToPx(engine.targetEvent?.topClientY)
   }

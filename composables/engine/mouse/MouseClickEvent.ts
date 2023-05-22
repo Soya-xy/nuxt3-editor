@@ -19,8 +19,6 @@ export function MouseClickEvent() {
             ...item,
             isWidget: false,
           }
-          console.log(engine.nodesById);
-          
         }
       },
     })

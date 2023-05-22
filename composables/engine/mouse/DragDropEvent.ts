@@ -106,7 +106,8 @@ export function DragDropEvent() {
       name: isWidget ?
         target.innerText :
         getAttribute(target.id)?.name,
-      isWidget
+      isWidget,
+      componentId: isWidget ? '' : getAttribute(target.id)?.componentId,
     }
 
     engine.startEvent = e
@@ -131,10 +132,11 @@ export function DragDropEvent() {
       target = e.target as HTMLElement
     }
     engine.dragging = false
+
     if (engine.draggingNodes.isWidget) {
       editor.addComponent(comp, target)
     } else {
-      editor.editComponent()
+      editor.editComponent(target)
     }
   }
 
