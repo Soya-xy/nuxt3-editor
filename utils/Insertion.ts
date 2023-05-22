@@ -11,11 +11,11 @@ function handleDrag(e: MouseEvent) {
       data: e,
     }
     let nodeId = ''
-    if (engine.nodesById.haveSlots) {
-      nodeId = `#${engine.stateId} [name=${engine.nodesById.haveSlots}]`
-    } else {
+    // if (engine.nodesById.haveSlots) {
+      // nodeId = `#${engine.stateId} [name=${engine.nodesById.haveSlots}]`
+    // } else {
       nodeId = '#' + engine.stateId
-    }
+    // }
     if (nodeId === '#' || !engine.stateId) return
     const { width, height, x: rectX, y: rectY, oLeft, oTop } = getTopRect(nodeId)!
     const { x, y } = e

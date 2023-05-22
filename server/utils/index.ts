@@ -7,7 +7,7 @@ import {
   MagicString,
   parseSFC,
 } from '@vue-macros/common'
-import { checkDefaultExport, filterMacro } from 'unplugin-vue-define-options/api'
+import { checkDefaultExport, filterMacro } from 'unplugin-vue-define-options/dist/api'
 
 export const ROOT_DIR = 'components'
 export const COMPONENT_DIR = '/Widgets'
@@ -22,10 +22,6 @@ function getNodePos(
   else return [offset + nodes.start!, offset + nodes.end!]
 }
 
-// 将字符串中的key添加双引号
-function extractImports(code: string) {
-  return Object.fromEntries(Array.from(code.matchAll(/['"]?([^\s'"]+)['"]?\s*:\s*(.+?)[,;\n]/g)).map(i => [i[1], i[2]]))
-}
 
 export function getComponentAttr(filePath: string) {
   const code = readFileSync(filePath, 'utf8')
@@ -53,5 +49,5 @@ export function getComponentAttr(filePath: string) {
   const [arg] = node.arguments
 
   if (arg)
-    return extractImports(s.slice(...getNodePos(arg, setupOffset)).toString().replace(/\'/g, ''))
+    return s.slice(...getNodePos(arg, setupOffset)).toString()
 }

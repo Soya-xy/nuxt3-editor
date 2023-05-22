@@ -1,3 +1,4 @@
+import JSON5 from 'json5';
 import { writeFile } from 'node:fs'
 import { defineNuxtModule, useNuxt } from '@nuxt/kit'
 import { getComponentAttr } from '../server/utils'
@@ -20,7 +21,7 @@ export default defineNuxtModule({
           const options = getComponentAttr(component.filePath)
           const item = {
             componentName: component.pascalName,
-            ...options,
+            options:options && JSON5.parse(options),
           }
           if (data[type]?.children) {
             data[type].children.push(item)

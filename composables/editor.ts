@@ -8,7 +8,6 @@ export interface IComponents {
   componentName: string
   componentId?: string
   parentId: string | null
-  haveSlots?: string | boolean
   slotsName?: string[]
   children?: IComponents[]
 }
@@ -39,16 +38,11 @@ export const useEditor = defineStore('editor', () => {
     const dom = getRecentNxElement(target)
     if (dom) {
       console.log(nodes,comp);
-      
-      const haveSlots = nodes?.haveSlots || ''
-      const slotsName = comp.haveSlots?.split('|') || undefined
       componentsJson.value.push({
         componentName: comp.componentName!,
         name: comp.name,
         componentId: `editor-${useNxId()}`,
         parentId: engine.stateId,
-        haveSlots,
-        slotsName,
       })
     }
   }
