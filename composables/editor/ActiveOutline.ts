@@ -5,7 +5,7 @@ import { MouseMoveEvent } from '~/composables/engine/mouse/MouseMoveEvent'
 const htmlNode = ref<HTMLElement>()
 const engine = useEngine()
 function drawLine(id: string) {
-  const canvas = document.getElementById('NX-Editor') as HTMLElement
+  const canvas = document.getElementById(EDITOR_ID) as HTMLElement
   const element = getRecentNxElement(document.getElementById(id)!)
   const containerRect = canvas?.getBoundingClientRect()
 

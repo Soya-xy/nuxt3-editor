@@ -13,11 +13,14 @@ export interface IComponents {
   children?: IComponents[]
 }
 
+export const EDITOR_ID = 'NX-Editor'
+export const EDITOR_ATTR = 'editor-nx-'
+
 export function useNxId() {
   return `nx-${_.uniqueId()}`
 }
-export function getRecentNxElement(el: HTMLElement, atrName = 'editor-nx-'): HTMLElement | undefined {
-  if (el?.id.startsWith(atrName) || el?.id === 'NX-Editor') {
+export function getRecentNxElement(el: HTMLElement, atrName = EDITOR_ATTR): HTMLElement | undefined {
+  if (el?.id.startsWith(atrName) || el?.id === EDITOR_ID) {
     return el
   }
   else {
@@ -66,9 +69,9 @@ export const useEditor = defineStore('editor', () => {
     const nowNode = _.findIndex(data, ['componentId', node.componentId])
     const targetNode = _.findIndex(data, ['componentId', target.id])
 
-    if (target.id === 'NX-Editor') {
+    if (target.id === EDITOR_ID) {
       const item = data[nowNode]
-      item.parentId = 'NX-Editor'
+      item.parentId = EDITOR_ID
 
       if (nowNode !== -1) {
         data.splice(nowNode, 1)

@@ -12,8 +12,8 @@ export function MouseMoveEvent(): Listen {
       type: 'mouse:move',
       payload: () => {
         const target = e.target as HTMLElement
-        const editor = document.getElementById('NX-Editor')
-        if(target.id === 'NX-Editor' || editor?.contains(target)){
+        const editor = document.getElementById(EDITOR_ID)
+        if(target.id === EDITOR_ID || editor?.contains(target)){
           engine.isInEditor = true
         }
       },

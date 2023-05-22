@@ -56,7 +56,7 @@ export function getTopRect(nodeId: string): any {
   const rect = document.querySelector(nodeId)?.getBoundingClientRect() as any;
 
   if (rect) {
-    const editor = document.getElementById('NX-Editor')
+    const editor = document.getElementById(EDITOR_ID)
     const frameRect = editor!.getBoundingClientRect()
     const scale = frameRect.width / (editor as any)['offsetWidth']
     rect.oLeft = (rect.left * scale) - frameRect.left

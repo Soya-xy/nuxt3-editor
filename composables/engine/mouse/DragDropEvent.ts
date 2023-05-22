@@ -124,7 +124,7 @@ export function DragDropEvent() {
 
     if (!comp) return
 
-    let target = document.getElementById('NX-Editor') as HTMLElement
+    let target = document.getElementById(EDITOR_ID) as HTMLElement
 
     if (engine.stateId) {
       target = document.getElementById(engine.stateId) as HTMLElement
