@@ -8,7 +8,7 @@ export interface IComponents {
   componentName: string
   componentId?: string
   parentId: string | null
-  haveSlots?: string
+  haveSlots?: string | boolean
   slotsName?: string[]
   children?: IComponents[]
 }
@@ -38,9 +38,10 @@ export const useEditor = defineStore('editor', () => {
   function addComponent(comp: GlobComponents, target: HTMLElement, nodes?: ITreeNode) {
     const dom = getRecentNxElement(target)
     if (dom) {
+      console.log(nodes,comp);
+      
       const haveSlots = nodes?.haveSlots || ''
       const slotsName = comp.haveSlots?.split('|') || undefined
-      console.log("🚀 ~ file: editor.ts:44 ~ addComponent ~ slotsName:", engine.stateId)
       componentsJson.value.push({
         componentName: comp.componentName!,
         name: comp.name,

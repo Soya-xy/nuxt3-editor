@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { createEngine, useEngine } from '~/composables/engine'
-
 const engine = useEngine()
 const editor = useEditor()
 
@@ -36,6 +35,7 @@ onMounted(() => {
     createEngine().forEach((e) => {
       engine.register(e)
     })
+    useInsertion()
   }
 })
 function save() {
@@ -133,7 +133,6 @@ function save() {
     </div>
   </a-layout>
   <Ghost />
-  <Insertion />
 </template>
 
 <style scoped>

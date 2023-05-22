@@ -29,23 +29,23 @@ watchEffect(() => {
   <a-layout wh-full>
     <a-layout-header>
       <slot name="header">
-        <drop-tips :parentId="id" slotName="header" class="!block">
+        <DropTips :parentId="id" slotName="header" name="header" class="!block">
           <Render v-if="children.header" :components="children.header"></Render>
-        </drop-tips>
+        </DropTips>
       </slot>
     </a-layout-header>
     <a-layout-content mt1 mb2>
       <slot name="content">
-        <drop-tips :parentId="id" slotName="content" class="!block">
+        <DropTips :parentId="id" slotName="content" name="content" class="!block">
           <Render v-if="children.content" :components="children.content"></Render>
-        </drop-tips>
+        </DropTips>
       </slot>
     </a-layout-content>
     <a-layout-footer>
       <slot name="footer">
-        <drop-tips :parentId="id" slotName="footer" class="!block">
+        <DropTips :parentId="id" slotName="footer" name="footer" class="!block">
           <Render v-if="children.footer" :components="children.footer"></Render>
-        </drop-tips>
+        </DropTips>
       </slot>
     </a-layout-footer>
   </a-layout>

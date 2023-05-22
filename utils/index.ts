@@ -50,3 +50,21 @@ export function getMaxZIndex(el: Element, max = 0): number {
   else
     return maxZIndex
 }
+
+
+export function getTopRect(nodeId: string): any {
+  const rect = document.querySelector(nodeId)?.getBoundingClientRect() as any;
+  
+  if (rect) {
+    const editor = document.getElementById('NX-Editor')
+    const frameRect = editor!.getBoundingClientRect()
+    const scale = frameRect.width / (editor as any)['offsetWidth']
+    rect.oLeft = (rect.left * scale) - frameRect.left
+    rect.oTop = (rect.top * scale) - frameRect.top
+    // rect.x = rect.x * scale + frameRect.x
+    // rect.y = rect.y * scale + frameRect.y
+    return rect
+  }
+
+  return { width: NaN, height: NaN, x: NaN, y: NaN, left: NaN, top: NaN, right: NaN, bottom: NaN }
+}

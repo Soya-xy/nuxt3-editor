@@ -40,7 +40,6 @@ const defaultSlot = slot.default!()[0]?.props?.['nx-data'].componentName
 const id = ref(_.uniqueId())
 const droptips = ref<HTMLElement>()
 const isRow = computed(() => ['Layouts'].includes(defaultSlot))
-
 const active = computed(() => !engine.dragging && engine.nodesById.id === id.value)
 const hover = computed(() => !engine.dragging && engine.nodesById.designerId === id.value)
 const draging = computed(() => engine.nodesById.activeId === selfId.value && engine.dragging)
@@ -57,7 +56,8 @@ function enter() {
   engine.nodesById.designerId = id.value
   if (engine.dragging) {
     engine.dropSlot = true
-    engine.stateId = parentId.value
+    engine.stateId = parentId.value || selfId.value
+    console.log("🚀 ~ file: DropTips.vue:61 ~ enter ~  engine.stateId:",  engine.stateId)
     engine.nodesById.haveSlots = slotName.value
     engine.nodesById.id = id.value
   }
