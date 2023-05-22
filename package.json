@@ -6,6 +6,7 @@
     "dev": "nuxi dev",
     "start": "node .output/server/index.mjs",
     "lint": "eslint .",
+    "preinstall": "node ./scripts/preinstall.js",
     "postinstall": "nuxi prepare",
     "generate": "nuxi generate",
     "start:generate": "npx serve .output/public"
@@ -35,5 +36,9 @@
     "nuxt": "^3.5.1",
     "pinia": "^2.0.36",
     "typescript": "^5.0.4"
+  },
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=7"
   }
 }
