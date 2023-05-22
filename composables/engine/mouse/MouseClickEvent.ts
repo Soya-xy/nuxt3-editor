@@ -1,4 +1,4 @@
-import { find } from 'lodash'
+import { cloneDeep, find } from 'lodash'
 import { useEngine } from '..'
 import { IComponents } from '~/composables/editor'
 
@@ -14,7 +14,7 @@ export function MouseClickEvent() {
       payload: () => {
         const target = getRecentNxElement(e.target as HTMLElement)
         if (target) {
-          engine.nodesById = find(editor.componentsJson, ['componentId', target.id]) as IComponents || {}
+          engine.nodesById = find(cloneDeep(editor.componentsJson), ['componentId', target.id]) as IComponents || {}
         }
       },
     })

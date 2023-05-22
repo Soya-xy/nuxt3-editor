@@ -16,9 +16,9 @@ function getWidget(componentName: any) {
 }
 
 function getAttribute(id: string) {
-  const editor = useEditor().getJson()
+  const editor = useEditor().componentsJson
 
-  return _.find(editor, ['componentId', id])
+  return _.cloneDeep(_.find(editor, ['componentId', id]))
 }
 
 export function DragDropEvent() {
@@ -76,6 +76,8 @@ export function DragDropEvent() {
     if ((e.target as any)?.closest?.('.monaco-editor'))
       return
 
+
+
     let target: HTMLElement | undefined
     // 判断e.target的标签是否的I
     if ((e.target as any)?.tagName === 'I') {
@@ -93,6 +95,7 @@ export function DragDropEvent() {
     if (target === undefined)
       target = e.target as HTMLElement
 
+
     // 判断是否从物料器拖拽
     const isWidget = target.id?.startsWith?.('nx')
 
@@ -100,10 +103,9 @@ export function DragDropEvent() {
       target.innerText :
       getAttribute(target.id)?.name
 
-
     engine.nodesById.componentName = isWidget ?
       target.getAttribute('nx-data-component')! :
-      getAttribute(target.id)?.componentName || ''
+      getAttribute(target.id)?.componentName || ""
 
     engine.nodesById.id = target.id
     engine.nodesById.isWidget = isWidget
