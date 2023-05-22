@@ -54,7 +54,9 @@ export const useEngine = defineStore('engine', () => {
   // 当前操作转换后的事件
   const targetEvent = ref<CustomMouseEvent | undefined>(undefined)
   // 拖动中的节点
-  const draggingNodes = ref([])
+  const draggingNodes = ref<NodesById>({
+    componentName: ''
+  })
   // 拖动中的组件
   const draggingResource = ref([])
   // 当前激活的节点

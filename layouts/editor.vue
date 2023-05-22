@@ -34,8 +34,10 @@ onMounted(() => {
     createEngine().forEach((e) => {
       engine.register(e)
     })
+    
     useInsertion()
     useOutLine()
+    useActiveOutLine()
   }
 })
 function save() {

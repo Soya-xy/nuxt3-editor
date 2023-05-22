@@ -14,7 +14,13 @@ export function MouseClickEvent() {
       payload: () => {
         const target = getRecentNxElement(e.target as HTMLElement)
         if (target) {
-          engine.nodesById = find(cloneDeep(editor.componentsJson), ['componentId', target.id]) as IComponents || {}
+          const item = find(cloneDeep(editor.componentsJson), ['componentId', target.id]) as IComponents || {}
+          engine.nodesById = {
+            ...item,
+            isWidget: false,
+          }
+          console.log(engine.nodesById);
+          
         }
       },
     })

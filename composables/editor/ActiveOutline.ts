@@ -9,7 +9,7 @@ function drawLine(id: string) {
   const element = getRecentNxElement(document.getElementById(id)!)
   const containerRect = canvas?.getBoundingClientRect()
 
-  if (element && containerRect && htmlNode.value) {
+  if (element && containerRect && htmlNode.value && !engine.dragging) {
     const rect = element.getBoundingClientRect();
     htmlNode.value.style.display = 'block'
     htmlNode.value.style.left = NumToPx(rect.left - containerRect.x)
@@ -25,20 +25,17 @@ function drawLine(id: string) {
 function handleDrag(e: MouseEvent) {
   if (!engine.isInEditor) return
   if (!e.target) return
-  const target = e.target as HTMLElement
-  let previousState = engine.stateId
-  const nextState = (getRecentNxElement(target) as HTMLElement)?.id
-  if (!nextState && htmlNode.value) {
+  if (engine.nodesById.isWidget) return
+  if (!engine.nodesById.componentId && htmlNode.value) {
     htmlNode.value.style.display = 'none'
   }
-  if (nextState !== previousState) {
-    engine.stateId = nextState
-    drawLine(nextState)
+  if (engine.nodesById.componentId) {
+    drawLine(engine.nodesById.componentId)
   }
 }
 
 
-export function useOutLine() {
+export function useActiveOutLine() {
   let mouseMove: Listen
   mouseMove = MouseMoveEvent()
   mouseMove.subscribe(handleDrag)
@@ -46,7 +43,7 @@ export function useOutLine() {
   const htmlDiv = document.createElement('div')
   htmlDiv.style.backgroundColor = "transparent"
   htmlDiv.style.position = "fixed"
-  htmlDiv.style.border = `dashed 1px #1890ff`
+  htmlDiv.style.border = `solid 2px #1890ff`
   htmlDiv.style.pointerEvents = "none"
 
   htmlNode.value = htmlDiv
@@ -54,6 +51,10 @@ export function useOutLine() {
   watchEffect(() => {
     if (htmlDiv && !engine.isInEditor)
       htmlDiv.style.display = 'none'
+
+    if (engine.dragging && engine.nodesById.componentId) {
+      htmlDiv.style.display = 'none'
+    }
   })
 
   return () => mouseMove.unSubscribe!(handleDrag)

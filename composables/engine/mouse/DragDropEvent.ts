@@ -99,16 +99,16 @@ export function DragDropEvent() {
     // 判断是否从物料器拖拽
     const isWidget = target.id?.startsWith?.('nx')
 
-    engine.nodesById['name'] = isWidget ?
-      target.innerText :
-      getAttribute(target.id)?.name
+    engine.draggingNodes = {
+      componentName: isWidget ?
+        target.getAttribute('nx-data-component')! :
+        getAttribute(target.id)?.componentName || "",
+      name: isWidget ?
+        target.innerText :
+        getAttribute(target.id)?.name,
+      isWidget
+    }
 
-    engine.nodesById.componentName = isWidget ?
-      target.getAttribute('nx-data-component')! :
-      getAttribute(target.id)?.componentName || ""
-
-    engine.nodesById.id = target.id
-    engine.nodesById.isWidget = isWidget
     engine.startEvent = e
     engine.dragging = false
     onMouseDownAt = Date.now()
@@ -117,9 +117,9 @@ export function DragDropEvent() {
 
   function onDragEnd(e: MouseEvent) {
 
-    if (!engine.nodesById?.componentName) return
+    if (!engine.draggingNodes?.componentName) return
 
-    const comp = getWidget(engine.nodesById?.componentName)
+    const comp = getWidget(engine.draggingNodes?.componentName)
 
     if (!comp) return
 
@@ -131,7 +131,7 @@ export function DragDropEvent() {
       target = e.target as HTMLElement
     }
     engine.dragging = false
-    if (engine.nodesById.isWidget) {
+    if (engine.draggingNodes.isWidget) {
       editor.addComponent(comp, target)
     } else {
       editor.editComponent()
@@ -145,7 +145,7 @@ export function DragDropEvent() {
         type: 'drag:stop',
         data: e,
       }
-      engine.nodesById = { componentName: '' }
+      engine.draggingNodes = { componentName: '' }
     }
 
     dom?.removeEventListener('mousemove', onMouseMove)
