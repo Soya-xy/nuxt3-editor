@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
-import _ from 'lodash'
+import _, { find } from 'lodash'
 import { useEngine } from '~/composables/engine/index'
 import type { GlobComponents } from '~/constants/type'
 import { Message } from '@arco-design/web-vue'
 
 export interface IComponents {
   name?: string
-  componentName?: string
+  componentName: string
   componentId?: string
   parentId?: string
   slotsName?: string[]
@@ -38,10 +38,13 @@ export const useEditor = defineStore('editor', () => {
   function addComponent(comp: GlobComponents, target: HTMLElement) {
     const dom = getRecentNxElement(target)
     if (dom && comp.componentName) {
+      const parent = find(componentsJson.value, ['componentId', engine.stateId]) as any
+      console.log("🚀 ~ file: index.ts:43 ~ addComponent ~ parent:", parent)
+      const parentId = parent ? (parent?.slots ? engine.stateId : parent.parentId) : engine.stateId
       componentsJson.value.push({
         componentName: comp.componentName,
         componentId: `editor-${useNxId()}`,
-        parentId: engine.stateId,
+        parentId,
         ...comp.options
       })
     } else {

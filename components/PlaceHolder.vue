@@ -1,12 +1,17 @@
 <template>
-  <div class="shell">
-    <div class="inner">
-      {{ name }}
-    </div>
+  <div>
+    <slot>
+      <div class="shell" v-if="slots.default">
+        <div class="inner">
+          {{ name }}
+        </div>
+      </div>
+    </slot>
   </div>
 </template>
 
 <script setup lang='ts'>
+const slots = useSlots()
 const name = defineProp<string>('name', { default: '占位' })
 </script>
 <style scoped>

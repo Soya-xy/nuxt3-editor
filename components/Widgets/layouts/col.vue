@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div v-if="!slots.default">
-      <PlaceHolder name="列"></PlaceHolder>
-    </div>
-    <slot v-else />
+    <PlaceHolder name="列" :id="id">
+      <Render v-if="nxData?.children" :components="nxData.children"></Render>
+    </PlaceHolder>
   </div>
 </template>
 
 <script setup lang='ts'>
+import type { IComponents } from '~/composables/editor'
 defineOptions({
   customOptions: {
     name: '列',
@@ -18,6 +18,6 @@ defineOptions({
     }
   }
 })
-
-const slots = useSlots()
+const nxData = defineProp<IComponents>()
+const id = defineProp<string>()
 </script>

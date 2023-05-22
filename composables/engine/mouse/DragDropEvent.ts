@@ -103,7 +103,7 @@ export function DragDropEvent() {
 
     engine.nodesById.componentName = isWidget ?
       target.getAttribute('nx-data-component')! :
-      getAttribute(target.id)?.componentName
+      getAttribute(target.id)?.componentName || ''
 
     engine.nodesById.id = target.id
     engine.nodesById.isWidget = isWidget
@@ -143,7 +143,7 @@ export function DragDropEvent() {
         type: 'drag:stop',
         data: e,
       }
-      engine.nodesById = {}
+      engine.nodesById = { componentName: '' }
     }
 
     dom?.removeEventListener('mousemove', onMouseMove)
