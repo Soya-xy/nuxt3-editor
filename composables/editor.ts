@@ -2,12 +2,13 @@ import { defineStore } from 'pinia'
 import _ from 'lodash'
 import { ITreeNode, useEngine } from './engine/index'
 import type { GlobComponents } from '~/constants/type'
+import { Message } from '@arco-design/web-vue'
 
 export interface IComponents {
   name?: string
   componentName: string
   componentId?: string
-  parentId: string | null
+  parentId?: string
   slotsName?: string[]
   children?: IComponents[]
 }
@@ -36,14 +37,15 @@ export const useEditor = defineStore('editor', () => {
 
   function addComponent(comp: GlobComponents, target: HTMLElement, nodes?: ITreeNode) {
     const dom = getRecentNxElement(target)
-    if (dom) {
-      console.log(nodes,comp);
+    if (dom && comp.componentName) {
       componentsJson.value.push({
-        componentName: comp.componentName!,
-        name: comp.name,
+        componentName: comp.componentName,
         componentId: `editor-${useNxId()}`,
         parentId: engine.stateId,
+        ...comp.options
       })
+    }else{
+      Message.error('该组件未定义组件名')
     }
   }
 
@@ -55,7 +57,7 @@ export const useEditor = defineStore('editor', () => {
     })
   }
 
-  function editComponent(){
+  function editComponent() {
 
   }
 

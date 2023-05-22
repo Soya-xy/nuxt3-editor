@@ -1,8 +1,10 @@
 export interface GlobComponents {
   componentName: string
-  name?: string
-  icon?: string
-  nxType?: 'resource' | 'widget' | 'node'
+  options?: {
+    name?: string
+    icon?: string
+    slots?: Record<string, any>
+  }
 }
 
 export type IComponent = Record<string, {

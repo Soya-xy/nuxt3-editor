@@ -8,10 +8,7 @@ const components = defineProp<IComponents[]>('components', { default: [] })
   <div block>
     <template v-if="components.length > 0">
       <template v-for="item in components" :key="item.componentId">
-        <DropTips :id="item.componentId" :self-id="item.componentId">
-          <component :is="resolveComponent(item.componentName)" :id="item.componentId" 
-            :nx-data="item" />
-        </DropTips>
+        <component :is="resolveComponent(item.componentName)" :id="item.componentId" />
       </template>
     </template>
   </div>

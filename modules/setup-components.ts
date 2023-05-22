@@ -1,4 +1,3 @@
-import { componentNames } from './../.nuxt/components.d';
 import JSON5 from 'json5';
 import { writeFile } from 'node:fs'
 import { defineNuxtModule, useNuxt } from '@nuxt/kit'

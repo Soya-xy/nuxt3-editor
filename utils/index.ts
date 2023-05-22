@@ -54,7 +54,7 @@ export function getMaxZIndex(el: Element, max = 0): number {
 
 export function getTopRect(nodeId: string): any {
   const rect = document.querySelector(nodeId)?.getBoundingClientRect() as any;
-  
+
   if (rect) {
     const editor = document.getElementById('NX-Editor')
     const frameRect = editor!.getBoundingClientRect()

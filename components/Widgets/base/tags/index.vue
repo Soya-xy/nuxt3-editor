@@ -1,8 +1,9 @@
 <script setup lang="ts">
 defineOptions({
-  name: '标签',
-  icon: 'i-mdi:button-cursor',
-  nxType: 'resource',
+  customOptions: {
+    name: '标签',
+    icon: 'i-mdi:button-cursor',
+  }
 })
 </script>
 
