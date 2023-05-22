@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import _ from 'lodash'
-import { ITreeNode, useEngine } from './engine/index'
+import { ITreeNode, useEngine } from '~/composables/engine/index'
 import type { GlobComponents } from '~/constants/type'
 import { Message } from '@arco-design/web-vue'
 

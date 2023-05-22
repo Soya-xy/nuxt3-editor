@@ -133,7 +133,6 @@ function save() {
     </div>
   </a-layout>
   <Ghost />
-  <Outline/>
 </template>
 
 <style scoped>

@@ -27,6 +27,12 @@ export default defineNuxtConfig({
     '@vue-macros/nuxt',
     '~/modules/setup-components',
   ],
+  imports:{
+    dirs:[
+      './composables/editor',
+      './composables/engine'
+    ]
+  },
   vite: {
     build: {
       target: 'esnext',
