@@ -1,7 +1,9 @@
 <template>
   <div>
-    123
-    <slot />
+    <div v-if="!slots.default">
+      <PlaceHolder name="行"></PlaceHolder>
+    </div>
+    <slot v-else />
   </div>
 </template>
 
@@ -10,12 +12,13 @@ defineOptions({
   customOptions: {
     name: '行',
     icon: 'i-mdi:button-cursor',
-    nxType: 'resource',
-    prop: {},
     emit: {},
-    slot: {
+    slots: {
       default: []
     }
   }
 })
+
+const slots = useSlots()
+console.log("🚀 ~ file: row.vue:23 ~ slots:", slots)
 </script>
