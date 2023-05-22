@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createEngine, useEngine } from '~/composables/engine'
 const engine = useEngine()
 const editor = useEditor()
 
@@ -36,6 +35,7 @@ onMounted(() => {
       engine.register(e)
     })
     useInsertion()
+    useOutLine()
   }
 })
 function save() {

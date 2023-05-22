@@ -92,8 +92,7 @@ export function DragDropEvent() {
 
     if (target === undefined)
       target = e.target as HTMLElement
-
-
+    
     // 判断是否从物料器拖拽
     const isWidget = target.id?.startsWith?.('nx')
 

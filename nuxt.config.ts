@@ -9,13 +9,15 @@ export default defineNuxtConfig({
       },
     },
   },
-
+  routeRules: {
+    '/editor/**': { ssr: false }
+  },
   components: {
     dirs: [{
       path: '~/components/Widgets',
       global: true,
     },
-    '~/components',
+      '~/components',
     ],
   },
   modules: [
@@ -27,8 +29,8 @@ export default defineNuxtConfig({
     '@vue-macros/nuxt',
     '~/modules/setup-components',
   ],
-  imports:{
-    dirs:[
+  imports: {
+    dirs: [
       './composables/editor',
       './composables/engine'
     ]

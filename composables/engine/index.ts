@@ -74,6 +74,8 @@ export const useEngine = defineStore('engine', () => {
   const nodesById = ref<ITreeNode>({})
   // 注册自定义事件
   const providers = reactive(new Set<Listen>())
+  //  当前鼠标是否在编辑器内
+  const isInEditor = ref(false)
 
   watch(currentEvent, (e) => {
     targetEvent.value = transformCoordinates(e?.data)
@@ -110,6 +112,7 @@ export const useEngine = defineStore('engine', () => {
   }
 
   return {
+    isInEditor,
     startEvent,
     currentEvent,
     targetEvent,

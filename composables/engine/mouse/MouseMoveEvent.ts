@@ -11,6 +11,11 @@ export function MouseMoveEvent(): Listen {
     engine.dispatch({
       type: 'mouse:move',
       payload: () => {
+        const target = e.target as HTMLElement
+        const editor = document.getElementById('NX-Editor')
+        if(target.id === 'NX-Editor' || editor?.contains(target)){
+          engine.isInEditor = true
+        }
       },
     })
   }
