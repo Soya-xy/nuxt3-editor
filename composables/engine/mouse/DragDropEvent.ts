@@ -92,11 +92,11 @@ export function DragDropEvent() {
 
     if (target === undefined)
       target = e.target as HTMLElement
-    
+
     // 判断是否从物料器拖拽
     const isWidget = target.id?.startsWith?.('nx')
 
-    engine.nodesById.title = isWidget ?
+    engine.nodesById['name'] = isWidget ?
       target.innerText :
       getAttribute(target.id)?.name
 
@@ -105,9 +105,8 @@ export function DragDropEvent() {
       target.getAttribute('nx-data-component')! :
       getAttribute(target.id)?.componentName
 
-    engine.nodesById.id = engine.nodesById.activeId = target.id
+    engine.nodesById.id = target.id
     engine.nodesById.isWidget = isWidget
-
     engine.startEvent = e
     engine.dragging = false
     onMouseDownAt = Date.now()
@@ -131,7 +130,7 @@ export function DragDropEvent() {
     }
     engine.dragging = false
     if (engine.nodesById.isWidget) {
-      editor.addComponent(comp, target, engine.nodesById)
+      editor.addComponent(comp, target)
     } else {
       editor.editComponent()
     }

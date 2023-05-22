@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
 import _ from 'lodash'
-import { ITreeNode, useEngine } from '~/composables/engine/index'
+import { useEngine } from '~/composables/engine/index'
 import type { GlobComponents } from '~/constants/type'
 import { Message } from '@arco-design/web-vue'
 
 export interface IComponents {
   name?: string
-  componentName: string
+  componentName?: string
   componentId?: string
   parentId?: string
   slotsName?: string[]
@@ -17,11 +17,11 @@ export function useNxId() {
   return `nx-${_.uniqueId()}`
 }
 export function getRecentNxElement(el: HTMLElement, atrName = 'editor-nx-'): HTMLElement | undefined {
-  if (el.id.startsWith(atrName) || el.id === 'NX-Editor') {
+  if (el?.id.startsWith(atrName) || el?.id === 'NX-Editor') {
     return el
   }
   else {
-    if (el.parentElement)
+    if (el?.parentElement)
       return getRecentNxElement(el.parentElement, atrName)
   }
   return undefined
@@ -35,7 +35,7 @@ export const useEditor = defineStore('editor', () => {
   const actionHistory = ref<[]>([])
   const isEditor = ref(true)
 
-  function addComponent(comp: GlobComponents, target: HTMLElement, nodes?: ITreeNode) {
+  function addComponent(comp: GlobComponents, target: HTMLElement) {
     const dom = getRecentNxElement(target)
     if (dom && comp.componentName) {
       componentsJson.value.push({
@@ -44,7 +44,7 @@ export const useEditor = defineStore('editor', () => {
         parentId: engine.stateId,
         ...comp.options
       })
-    }else{
+    } else {
       Message.error('该组件未定义组件名')
     }
   }

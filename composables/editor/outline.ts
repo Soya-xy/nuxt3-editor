@@ -4,9 +4,22 @@ import { MouseMoveEvent } from '~/composables/engine/mouse/MouseMoveEvent'
 
 const htmlNode = ref<HTMLElement>()
 const engine = useEngine()
-const canvas = document.getElementById('NX-Editor') as HTMLElement
 function drawLine(id: string) {
-  const element = document.getElementById(`#${id}`)
+  const canvas = document.getElementById('NX-Editor') as HTMLElement
+  const element = getRecentNxElement(document.getElementById(id)!)
+  const containerRect = canvas?.getBoundingClientRect()
+
+  if (element && containerRect && htmlNode.value) {
+    const rect = element.getBoundingClientRect();
+    htmlNode.value.style.display = 'block'
+    htmlNode.value.style.left = NumToPx(rect.left - containerRect.x)
+    htmlNode.value.style.top = NumToPx(rect.top - containerRect.y)
+    htmlNode.value.style.height = NumToPx(rect.height)
+    htmlNode.value.style.width = NumToPx(rect.width)
+    htmlNode.value.style.zIndex = (getMaxZIndex(element) + 1).toString()
+    if (canvas.contains(htmlNode.value)) return
+    canvas?.appendChild(htmlNode.value)
+  }
 }
 
 function handleDrag(e: MouseEvent) {
@@ -14,10 +27,10 @@ function handleDrag(e: MouseEvent) {
   if (!e.target) return
   const target = e.target as HTMLElement
   let previousState = engine.stateId
-  const nextState = target.id
+  const nextState = (getRecentNxElement(target) as HTMLElement)?.id
   if (nextState !== previousState) {
     engine.stateId = nextState
-    drawLine(engine.stateId)
+    drawLine(nextState)
   }
 }
 
@@ -36,7 +49,7 @@ export function useOutLine() {
   htmlNode.value = htmlDiv
 
   watchEffect(() => {
-    if (htmlDiv && !engine.dragging)
+    if (htmlDiv && !engine.isInEditor)
       htmlDiv.style.display = 'none'
   })
 

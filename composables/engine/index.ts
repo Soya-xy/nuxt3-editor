@@ -1,30 +1,12 @@
+import { componentNames } from './../../.nuxt/components.d';
 import { defineStore } from 'pinia'
-import type { ID } from './type'
 import { MouseMoveEvent } from './mouse/MouseMoveEvent'
 import { MouseClickEvent } from './mouse/MouseClickEvent'
 import { MouseOverEvent } from './mouse/MouseOverEvent'
 import { MouseOutEvent } from './mouse/MouseOutEvent'
 import { DragDropEvent } from './mouse/DragDropEvent'
-import type { GlobComponents } from '~/constants/type'
+import { IComponents } from '../editor'
 
-export interface ITreeNode {
-  id?: ID
-  title?: string
-  description?: string
-  parentId?: ID
-  children?: ID[]
-  isSlot?: boolean
-  documentId?: ID
-  componentName?: string
-  // 设计时的属性，比如readOnly， open等
-  designerProps?: GlobComponents
-  // 用来编辑属性的schema
-  // designerSchema?: INodeSchema
-  // 设计器专用属性，比如当前悬停节点
-  designerId?: string
-  activeId?: string
-  isWidget?: boolean
-}
 
 interface ISubscriber<EventType = any> {
   (payload?: EventType): void | boolean
@@ -53,12 +35,17 @@ export interface CustomMouseEvent extends MouseEvent {
   target: HTMLElement | EventTarget | null
 }
 
+interface NodesById extends IComponents {
+  id?: string
+  isWidget?: boolean
+}
+
 export const useEngine = defineStore('engine', () => {
   // 是否在拖动
   const dragging = ref(false)
   // 拖到droptip里面了
   const dropSlot = ref(false)
-  // 当前的点击/拖拽的节点Id
+  // 当前的悬停的节点Id
   const stateId = ref('')
   // 开始拖动的节点Id
   const startEvent = ref<MouseEvent>()
@@ -70,8 +57,10 @@ export const useEngine = defineStore('engine', () => {
   const draggingNodes = ref([])
   // 拖动中的组件
   const draggingResource = ref([])
-  // 当前的节点
-  const nodesById = ref<ITreeNode>({})
+  // 当前激活的节点
+  const nodesById = ref<NodesById>({
+    componentName: ''
+  })
   // 注册自定义事件
   const providers = reactive(new Set<Listen>())
   //  当前鼠标是否在编辑器内
@@ -81,10 +70,6 @@ export const useEngine = defineStore('engine', () => {
     targetEvent.value = transformCoordinates(e?.data)
   }, {
     deep: true,
-  })
-
-  watch(stateId, (e) => {
-    console.log('🚀 ~ file: index.ts:83 ~ watch ~ e:', e)
   })
 
   function register(provider: Listen) {

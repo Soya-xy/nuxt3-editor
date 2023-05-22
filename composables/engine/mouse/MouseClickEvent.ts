@@ -1,14 +1,21 @@
+import { find } from 'lodash'
 import { useEngine } from '..'
+import { IComponents } from '~/composables/editor'
 
 export function MouseClickEvent() {
   const engine = useEngine()
+  const editor = useEditor()
+
   const dom = document.getElementById('actionArea')
 
   function payload(e: MouseEvent) {
     engine.dispatch({
       type: 'mouse:click',
       payload: () => {
-        // console.log('IEvent', e)
+        const target = getRecentNxElement(e.target as HTMLElement)
+        if (target) {
+          engine.nodesById = find(editor.componentsJson, ['componentId', target.id]) as IComponents || {}
+        }
       },
     })
   }

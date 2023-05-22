@@ -20,5 +20,4 @@ defineOptions({
 })
 
 const slots = useSlots()
-console.log("🚀 ~ file: row.vue:23 ~ slots:", slots)
 </script>
