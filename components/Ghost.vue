@@ -12,7 +12,7 @@ watchEffect(() => {
 })
 
 function handleDrag(e: MouseEvent) {
-  if (engine.dragging && htmlNode.value) {
+  if (engine.dragging && htmlNode.value && engine.draggingNodes?.name) {
     engine.currentEvent = {
       type: 'drag:move',
       data: e,
