@@ -41,6 +41,15 @@ export const useEditor = defineStore('editor', () => {
   const actionHistory = ref<[]>([])
   const isEditor = ref(true)
 
+
+  function getJson(): IComponents[] {
+    const data = _.cloneDeep(componentsJson.value)
+    return construct(data, {
+      id: 'componentId',
+      pid: 'parentId',
+    })
+  }
+
   function addComponent(comp: GlobComponents, target: HTMLElement) {
     const dom = getRecentNxElement(target)
     if (dom && comp.componentName) {
@@ -55,14 +64,6 @@ export const useEditor = defineStore('editor', () => {
     } else {
       Message.error('该组件未定义组件名')
     }
-  }
-
-  function getJson(): IComponents[] {
-    const data = _.cloneDeep(componentsJson.value)
-    return construct(data, {
-      id: 'componentId',
-      pid: 'parentId',
-    })
   }
 
   function editComponent(target: HTMLElement) {
@@ -100,11 +101,33 @@ export const useEditor = defineStore('editor', () => {
 
   }
 
+  function deleteComponent(id: string) {
+    const data = _.cloneDeep(componentsJson.value)
+    const nowNode = _.findIndex(data, ['componentId', id])
+    if (nowNode !== -1) {
+      data.splice(nowNode, 1)
+      componentsJson.value = data
+    }
+  }
+
+  function cloneComponent(id: string) {
+    const data = _.cloneDeep(componentsJson.value)
+    const nowNode = _.findIndex(data, ['componentId', id])
+    if (nowNode !== -1) {
+      const item = _.cloneDeep(data[nowNode])
+      item.componentId = `editor-${useNxId()}`
+      data.splice(nowNode + 1, 0, item)
+      componentsJson.value = data
+    }
+  }
+
   return {
     isEditor,
     actionHistory,
     componentsJson,
     addComponent,
+    cloneComponent,
+    deleteComponent,
     editComponent,
     getJson,
   }

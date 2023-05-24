@@ -6,6 +6,7 @@ import { RenderToolBar, TOOLBAR_HEIGHT } from './ToolBar'
 const htmlNode = ref<HTMLElement>()
 const toolNode = ref<HTMLElement>()
 const engine = useEngine()
+let resizeObserver: ResizeObserver
 
 function drawLine(id: string) {
   const canvas = document.getElementById(EDITOR_ID) as HTMLElement
@@ -28,6 +29,8 @@ function drawLine(id: string) {
     toolNode.value.style.left = NumToPx(rect.width - (TOOLBAR_HEIGHT * 2))
     toolNode.value.style.top = NumToPx(rect.top - containerRect.y - TOOLBAR_HEIGHT - 2)
 
+    resizeObserver.observe(element)
+
     if (canvas.contains(htmlNode.value)) return
     canvas?.appendChild(htmlNode.value)
     if (canvas?.contains(toolNode.value)) return
@@ -49,8 +52,19 @@ function handleDrag(e: MouseEvent) {
   }
 }
 
+function refresh() {
+  if (engine.nodesById.componentId) {
+    drawLine(engine.nodesById.componentId)
+  } else {
+    htmlNode.value?.remove()
+    toolNode.value?.remove()
+  }
+}
+
 
 export function useActiveOutLine() {
+  resizeObserver = new ResizeObserver(refresh)
+
   let mouseMove: Listen
   mouseMove = MouseMoveEvent()
   mouseMove.subscribe(handleDrag)

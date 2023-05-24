@@ -32,7 +32,7 @@ export function RenderToolBar() {
   htmlDiv.style.fontSize = "12px"
   htmlDiv.style.padding = "0px"
   htmlDiv.style.userSelect = "none"
-  htmlDiv.appendChild(CloneButton(() => console.log("clone")))
-  htmlDiv.appendChild(DeleteButton(() => console.log("clone")))
+  htmlDiv.appendChild(CloneButton())
+  htmlDiv.appendChild(DeleteButton())
   return htmlDiv
 }
