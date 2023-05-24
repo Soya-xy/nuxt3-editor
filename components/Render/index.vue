@@ -8,7 +8,7 @@ const components = defineProp<IComponents[]>('components', { default: [] })
   <div block>
     <template v-if="components.length > 0">
       <template v-for="item in components" :key="item.componentId">
-        <component :is="resolveComponent(item.componentName)" :id="item.componentId" :nx-data="item" />
+        <component :is="resolveComponent(item.componentName)" :id="item.componentId" :nx-data="item" v-bind="item.props" />
       </template>
     </template>
   </div>

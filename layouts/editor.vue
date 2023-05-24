@@ -6,6 +6,7 @@ const actionArea = ref<HTMLElement>()
 const router = useRouter()
 const route = useRoute()
 const collapsed = ref(false)
+const tabCollapsed = ref(false)
 const menuActive = ref(['0'])
 const actionActive = ref(route.path)
 const actionMenu = ref([
@@ -23,6 +24,9 @@ const actionMenu = ref([
 ])
 function onCollapse() {
   collapsed.value = !collapsed.value
+}
+function onTabCollapse() {
+  tabCollapsed.value = !tabCollapsed.value
 }
 function actionClick(v: string) {
   actionActive.value = v
@@ -115,8 +119,12 @@ function save() {
             </a-breadcrumb>
           </a-layout-footer>
         </a-layout>
-        <a-layout-sider hide-trigger breakpoint="lg" :width="250">
-          <ControlsTab></ControlsTab>
+        <a-layout-sider hide-trigger breakpoint="lg" :width="250" :collapsed-width="10" :collapsed="tabCollapsed">
+          <ControlsTab v-show="!tabCollapsed"></ControlsTab>
+          <button class="right-toggle-button" @click="onTabCollapse">
+            <IconLeft v-if="tabCollapsed" />
+            <IconRight v-else />
+          </button>
         </a-layout-sider>
       </a-layout>
     </div>
@@ -140,9 +148,28 @@ function save() {
   border-color: var(--color-fill-3);
   background-color: var(--color-fill-1);
   color: var(--color-text-3);
-  ;
   border-radius: 0 5px 5px 0;
 }
+
+
+.right-toggle-button {
+  align-items: center;
+  border: 1px solid;
+  cursor: pointer;
+  display: flex;
+  font-size: 10px;
+  height: 30px;
+  justify-content: center;
+  position: absolute;
+  top: calc(50% - 15px);
+  left: -13px;
+  width: 13px;
+  border-color: var(--color-fill-3);
+  background-color: var(--color-fill-1);
+  color: var(--color-text-3);
+  border-radius: 5px 0px 0px 5px;
+}
+
 
 .layout-demo {
   height: 100vh;

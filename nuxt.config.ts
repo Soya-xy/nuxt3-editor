@@ -21,13 +21,14 @@ export default defineNuxtConfig({
     ],
   },
   modules: [
+    '@pinia/nuxt',
     '@vueuse/nuxt',
     '@unocss/nuxt',
-    '@pinia/nuxt',
     '@nuxtjs/color-mode',
     '@nuxt/devtools',
     '@vue-macros/nuxt',
     '~/modules/setup-components',
+
   ],
   imports: {
     dirs: [

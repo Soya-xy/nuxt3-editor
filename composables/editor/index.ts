@@ -10,6 +10,7 @@ export interface IComponents {
   componentId?: string
   parentId?: string
   slots?: boolean
+  props?: Record<string, any>
   children?: IComponents[]
 }
 
@@ -51,6 +52,7 @@ export const useEditor = defineStore('editor', () => {
   }
 
   function addComponent(comp: GlobComponents, target: HTMLElement) {
+    console.log("🚀 ~ file: index.ts:54 ~ addComponent ~ comp:", comp)
     const dom = getRecentNxElement(target)
     if (dom && comp.componentName) {
       const parent = find(componentsJson.value, ['componentId', engine.stateId]) as any

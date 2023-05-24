@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
 import type { IComponents } from '~/composables/editor'
 
 definePageMeta({
@@ -6,15 +7,17 @@ definePageMeta({
 })
 
 const editor = useEditor()
+const { componentsJson } = storeToRefs(editor)
 let components = ref<IComponents[]>([])
 watch(
-  () => editor.componentsJson,
+  () => componentsJson.value,
   () => {
     components.value = editor.getJson()
     console.log('🚀 ~ file: index.vue:16 ~ components:', components.value)
   },
   { deep: true, immediate: true },
 )
+
 </script>
 
 <template>
