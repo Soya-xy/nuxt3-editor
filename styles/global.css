@@ -51,7 +51,10 @@ html.dark {
 }
 
 
-*{
+p,
+span,
+button,
+div {
   user-select: none !important;
   color: #000;
 }

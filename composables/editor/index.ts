@@ -15,11 +15,14 @@ export interface IComponents {
 
 export const EDITOR_ID = 'NX-Editor'
 export const EDITOR_ATTR = 'editor-nx-'
-
+export const TOOLBAR_ID = 'toolbar-'
 export function useNxId() {
   return `nx-${_.uniqueId()}`
 }
 export function getRecentNxElement(el: HTMLElement, atrName = EDITOR_ATTR): HTMLElement | undefined {
+  // 如果点击的是toolbar，不做处理
+  if (el?.id.startsWith(TOOLBAR_ID)) return undefined
+
   if (el?.id.startsWith(atrName) || el?.id === EDITOR_ID) {
     return el
   }
@@ -83,7 +86,7 @@ export const useEditor = defineStore('editor', () => {
     // 在componentsJson中将nowNode移动到targetNode的位置
     if (nowNode !== -1 && targetNode !== -1) {
       console.log(data, data[targetNode]);
-      
+
       data[nowNode].parentId = data[targetNode].parentId
 
       if (data[targetNode].slots) {

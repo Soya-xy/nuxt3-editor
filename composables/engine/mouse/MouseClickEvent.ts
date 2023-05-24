@@ -13,6 +13,7 @@ export function MouseClickEvent() {
       type: 'mouse:click',
       payload: () => {
         const target = getRecentNxElement(e.target as HTMLElement)
+        console.log("🚀 ~ file: MouseClickEvent.ts:16 ~ payload ~ target:", target)
         if (target) {
           const item = find(cloneDeep(editor.componentsJson), ['componentId', target.id]) as IComponents || {}
           engine.nodesById = {
