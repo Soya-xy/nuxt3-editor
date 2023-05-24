@@ -15,6 +15,7 @@ function drawLine(id: string) {
 
   if (element && containerRect && htmlNode.value && !engine.dragging && toolNode.value) {
     const rect = element.getBoundingClientRect();
+    
     htmlNode.value.style.display = 'block'
     htmlNode.value.style.left = NumToPx(rect.left - containerRect.x)
     htmlNode.value.style.top = NumToPx(rect.top - containerRect.y)
@@ -26,7 +27,7 @@ function drawLine(id: string) {
     toolNode.value.style.display = 'flex'
     toolNode.value.style.zIndex = (getMaxZIndex(element) + 1).toString()
     // *2 目前2个菜单
-    toolNode.value.style.left = NumToPx(rect.width - (TOOLBAR_HEIGHT * 2))
+    toolNode.value.style.left = NumToPx(rect.left - containerRect.x + rect.width - (TOOLBAR_HEIGHT * 2))
     toolNode.value.style.top = NumToPx(rect.top - containerRect.y - TOOLBAR_HEIGHT - 2)
 
     resizeObserver.observe(element)
