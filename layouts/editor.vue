@@ -34,7 +34,7 @@ onMounted(() => {
     createEngine().forEach((e) => {
       engine.register(e)
     })
-    
+
     useInsertion()
     useOutLine()
     useActiveOutLine()
@@ -115,21 +115,8 @@ function save() {
             </a-breadcrumb>
           </a-layout-footer>
         </a-layout>
-        <a-layout-sider hide-trigger breakpoint="lg" :width="220">
-          <a-menu v-model:selected-keys="menuActive" h-full :default-selected-keys="['0']" @collapse="onCollapse">
-            <a-menu-item key="0">
-              <template #icon>
-                <IconBug />
-              </template>
-              Bugs
-            </a-menu-item>
-            <a-menu-item key="1">
-              <template #icon>
-                <IconBug />
-              </template>
-              Bug
-            </a-menu-item>
-          </a-menu>
+        <a-layout-sider hide-trigger breakpoint="lg" :width="250">
+          <ControlsTab></ControlsTab>
         </a-layout-sider>
       </a-layout>
     </div>
