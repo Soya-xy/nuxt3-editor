@@ -86,8 +86,6 @@ export const useEditor = defineStore('editor', () => {
 
     // 在componentsJson中将nowNode移动到targetNode的位置
     if (nowNode !== -1 && targetNode !== -1) {
-      console.log(data, data[targetNode]);
-
       data[nowNode].parentId = data[targetNode].parentId
 
       if (data[targetNode].slots) {
