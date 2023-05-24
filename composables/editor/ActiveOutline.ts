@@ -15,20 +15,22 @@ function drawLine(id: string) {
 
   if (element && containerRect && htmlNode.value && !engine.dragging && toolNode.value) {
     const rect = element.getBoundingClientRect();
-    
+    const zIndex = (getMaxZIndex(element) + 1).toString()
+    const left = rect.left - containerRect.x
+    const top = rect.top - containerRect.y
     htmlNode.value.style.display = 'block'
-    htmlNode.value.style.left = NumToPx(rect.left - containerRect.x)
-    htmlNode.value.style.top = NumToPx(rect.top - containerRect.y)
+    htmlNode.value.style.left = NumToPx(left)
+    htmlNode.value.style.top = NumToPx(top)
     htmlNode.value.style.height = NumToPx(rect.height)
     htmlNode.value.style.width = NumToPx(rect.width)
-    htmlNode.value.style.zIndex = (getMaxZIndex(element) + 1).toString()
+    htmlNode.value.style.zIndex = zIndex
 
     // 菜单栏
     toolNode.value.style.display = 'flex'
-    toolNode.value.style.zIndex = (getMaxZIndex(element) + 1).toString()
+    toolNode.value.style.zIndex = zIndex
     // *2 目前2个菜单
-    toolNode.value.style.left = NumToPx(rect.left - containerRect.x + rect.width - (TOOLBAR_HEIGHT * 2))
-    toolNode.value.style.top = NumToPx(rect.top - containerRect.y - TOOLBAR_HEIGHT - 2)
+    toolNode.value.style.left = NumToPx(left + rect.width - (TOOLBAR_HEIGHT * 2))
+    toolNode.value.style.top = NumToPx(top - TOOLBAR_HEIGHT - 2)
 
     resizeObserver.observe(element)
 
