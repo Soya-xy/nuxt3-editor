@@ -1,11 +1,12 @@
 <template>
-  <a-select placeholder="Please select ..." :options="options">
+  <a-select placeholder="Please select ..." :options="options" :default-value="value" @change="change">
   </a-select>
 </template>
 
 <script setup lang='ts'>
+const change = defineEmit()
 const type = defineProp<string>('type')
-console.log("🚀 ~ file: Select.vue:8 ~ type:", type)
+const value = defineProp<string>('value')
 const options = computed(() => {
   if (type.value === "BaseButtonBtn") {
     return [
@@ -15,4 +16,5 @@ const options = computed(() => {
     return []
   }
 })
+
 </script>

@@ -55,7 +55,8 @@ export const useEditor = defineStore('editor', () => {
     console.log("🚀 ~ file: index.ts:54 ~ addComponent ~ comp:", comp)
     const dom = getRecentNxElement(target)
     if (dom && comp.componentName) {
-      const parent = find(componentsJson.value, ['componentId', engine.stateId]) as any
+      const data = _.cloneDeep(componentsJson.value)
+      const parent = find(data, ['componentId', engine.stateId]) as any
       const parentId = parent ? (parent?.slots ? engine.stateId : parent.parentId) : engine.stateId
       componentsJson.value.push({
         componentName: comp.componentName,

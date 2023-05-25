@@ -6,7 +6,8 @@ import type { IComponent } from '~/constants/type'
 const components = await import('~/constants/components.json').then(m => m.default) as IComponent
 
 function getWidget(componentName: any) {
-  const comp = _.compact(_.map(_.values(components), (value) => {
+  const data = _.cloneDeep(components)
+  const comp = _.compact(_.map(_.values(data), (value) => {
     if (isArr(value?.children))
       return _.find(value.children, v => v.componentName === componentName)
   }))

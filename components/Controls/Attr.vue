@@ -5,25 +5,41 @@
         <div>{{ ATTR_NAME[v].value }}</div>
       </a-col>
       <a-col :span="18">
-        <a-input v-if="ATTR_NAME[v].type === 'input'"></a-input>
-        <ControlsPropsSelect v-if="ATTR_NAME[v].type === 'select'" :type="item?.componentName" />
+        <a-input v-if="ATTR_NAME[v].type === 'input'" :model-value="item?.props?.value"
+          @input="e => changeHandle('value', e)"></a-input>
+        <ControlsPropsSelect v-if="ATTR_NAME[v].type === 'select'" :type="item?.componentName" :value="item?.props?.type"
+          @change="e => changeHandle('type', e)" />
       </a-col>
     </a-row>
   </a-space>
 </template>
 
 <script setup lang="ts">
-import { find } from 'lodash';
+import { Message } from '@arco-design/web-vue';
+import { cloneDeep, find } from 'lodash';
 import { ATTR_NAME } from '~/constants/widgets'
 const editor = useEditor()
 const componentId = defineProp<string>()
-const item = find(editor.componentsJson, ['componentId', componentId.value])
-console.log("🚀 ~ file: Attr.vue:22 ~ item:", item)
+
+const item = computed(() => find(cloneDeep(editor.componentsJson), ['componentId', componentId.value]))
+
 const attrList = computed(() => {
-  if (item?.props) {
-    return Object.keys(item?.props)
+  if (item.value?.props) {
+    return Object.keys(item.value?.props)
   } else {
     return []
   }
 })
+
+function changeHandle(key: string, value: any) {
+  const item = find(editor.componentsJson, ['componentId', componentId.value])
+  if (!item) return Message.warning('未找到组件')
+  if (item?.props)
+    item.props[key] = value
+  else {
+    item['props'] = {
+      [key]: value
+    }
+  }
+}
 </script>

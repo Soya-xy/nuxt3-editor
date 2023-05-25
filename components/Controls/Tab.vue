@@ -18,6 +18,12 @@
 </template>
 
 <script setup lang='ts'>
+import { storeToRefs } from 'pinia';
+
 const engine = useEngine()
-const componentId = computed(() => engine.nodesById?.componentId)
+const { nodesById } = storeToRefs(engine)
+const componentId = ref()
+watch(() => nodesById.value?.componentId, (val) => {
+  componentId.value = val
+})
 </script>
