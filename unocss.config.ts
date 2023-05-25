@@ -16,9 +16,9 @@ export default defineConfig({
       'flex-center': 'items-center justify-center',
       'wh-full': 'w-full h-full',
     },
-    ['btn', 'px-4 py-1 rounded inline-block bg-teal-600 text-white cursor-pointer hover:bg-teal-700 disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50'],
-    ['icon-btn', 'inline-block cursor-pointer select-none opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-teal-600'],
-    ['icon', 'inline-block select-none opacity-75 transition duration-200 ease-in-out hover:text-teal-600'],
+    ['btn', 'px-4 py-1 rounded inline-block bg-[#2D5CF6] text-white cursor-pointer hover:bg-[#2D5CF6] disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50'],
+    ['icon-btn', 'inline-block cursor-pointer select-none opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-[#2D5CF6]'],
+    ['icon', 'inline-block select-none opacity-75 transition duration-200 ease-in-out hover:text-[#2D5CF6]'],
   ],
   safelist: [
     'i-mdi:button-cursor',

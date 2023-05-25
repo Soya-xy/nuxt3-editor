@@ -149,7 +149,10 @@ function redo() {
             <div flex my1 justify="start">
               <button v-for="v in  actionMenu " :key="v.title" p1 hover:bg-gray-200 ml2
                 :class="{ 'cursor-not-allowed': !v.active }" @click="v.method" :disabled="!v.active">
-                <i icon-btn :class="{ [v.icon]: true, 'cursor-not-allowed': !v.active }" />
+                <i icon-btn :class="{
+                  [v.icon]: true, 'cursor-not-allowed': !v.active,
+                  'text-gray-500 hover:text-gray-500': !v.active
+                }" />
               </button>
             </div>
             <div flex my1 justify="end">
