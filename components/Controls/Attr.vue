@@ -5,10 +5,10 @@
         <div>{{ ATTR_NAME[v].value }}</div>
       </a-col>
       <a-col :span="18">
-        <a-input v-if="ATTR_NAME[v].type === 'input'" :model-value="item?.props?.value"
-          @input="e => changeHandle('value', e)"></a-input>
+        <ControlsPropsInput v-if="ATTR_NAME[v].type === 'input'" :type="item?.componentName" :value="item?.props?.value"
+          @change="e => changeHandle(v, e)"></ControlsPropsInput>
         <ControlsPropsSelect v-if="ATTR_NAME[v].type === 'select'" :type="item?.componentName" :value="item?.props?.type"
-          @change="e => changeHandle('type', e)" />
+          @change="e => changeHandle(v, e)" />
       </a-col>
     </a-row>
   </a-space>
