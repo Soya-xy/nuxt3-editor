@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import _, { find } from 'lodash'
+import _, { cloneDeep, find } from 'lodash'
 import { useEngine } from '~/composables/engine/index'
 import type { GlobComponents } from '~/constants/type'
 import { Message } from '@arco-design/web-vue'
@@ -39,9 +39,29 @@ export const DraggingNodes = ref('')
 export const useEditor = defineStore('editor', () => {
   const engine = useEngine()
   const componentsJson = ref<IComponents[]>([])
-  const actionHistory = ref<[]>([])
+  const actionHistory = ref<Array<IComponents[]>>([])
   const isEditor = ref(true)
+  const isUnDo = ref(false)
+  const shotIndex = ref(0)
+  const changeType = ref('change')
+  watch(() => componentsJson.value, (val) => {
+    if (isUnDo.value) {
+      if (changeType.value !== 'undo') {
+        isUnDo.value = false
+        actionHistory.value = [cloneDeep(val)]
+        shotIndex.value = 0
+      } else {
+        changeType.value = 'change'
+      }
+      return
+    }
 
+
+    if (Array.isArray(actionHistory.value))
+      actionHistory.value.push(cloneDeep(val))
+  }, {
+    deep: true
+  })
 
   function getJson(): IComponents[] {
     const data = _.cloneDeep(componentsJson.value)
@@ -52,7 +72,6 @@ export const useEditor = defineStore('editor', () => {
   }
 
   function addComponent(comp: GlobComponents, target: HTMLElement) {
-    console.log("🚀 ~ file: index.ts:54 ~ addComponent ~ comp:", comp)
     const dom = getRecentNxElement(target)
     if (dom && comp.componentName) {
       const data = _.cloneDeep(componentsJson.value)
@@ -122,10 +141,25 @@ export const useEditor = defineStore('editor', () => {
     }
   }
 
+  function editHistory(index: number) {
+    console.log("🚀 ~ file: index.ts:145 ~ editHistory ~ index:", index)
+    isUnDo.value = true
+    changeType.value = 'undo'
+    // if (index === -1) {
+    //   componentsJson.value = []
+    //   return
+    // }
+    if (actionHistory.value[index])
+      componentsJson.value = actionHistory.value[index]
+
+  }
   return {
     isEditor,
+    isUnDo,
     actionHistory,
     componentsJson,
+    shotIndex,
+    editHistory,
     addComponent,
     cloneComponent,
     deleteComponent,

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
+
 const engine = useEngine()
 const editor = useEditor()
 
@@ -9,7 +11,34 @@ const collapsed = ref(false)
 const tabCollapsed = ref(false)
 const menuActive = ref(['0'])
 const actionActive = ref(route.path)
-const actionMenu = ref([
+const { shotIndex } = storeToRefs(editor)
+const actionMenu = computed(() => {
+  const data = [
+    {
+      title: '撤销',
+      icon: 'i-carbon:undo',
+      active: false,
+      method: undo,
+    },
+    {
+      title: '还原',
+      icon: 'i-carbon:redo',
+      active: shotIndex.value > 0,
+      method: redo,
+    },
+  ]
+
+  if (editor.actionHistory.length > 0) {
+    data[0].active = true
+  }
+
+  if (editor.actionHistory.length - 1 - shotIndex.value <= 0) {
+    data[0].active = false
+  }
+
+  return data
+})
+const btnMenu = ref([
   {
     title: '画板',
     icon: 'i-carbon:insert-syntax',
@@ -20,7 +49,6 @@ const actionMenu = ref([
     icon: 'i-mdi:code-json',
     url: '/editor/json',
   },
-
 ])
 function onCollapse() {
   collapsed.value = !collapsed.value
@@ -46,6 +74,26 @@ onMounted(() => {
 })
 function save() {
   console.log(JSON.stringify(editor.componentsJson))
+}
+
+function undo() {
+
+  if (editor.actionHistory.length <= 0) return
+  if (editor.actionHistory.length - 1 - shotIndex.value < 0) {
+    shotIndex.value = editor.actionHistory.length - 1
+    return
+  }
+
+  shotIndex.value += 1
+  editor.editHistory(editor.actionHistory.length - 1 - shotIndex.value)
+}
+function redo() {
+  if (shotIndex.value <= 0) {
+    shotIndex.value = 0
+    return
+  }
+  shotIndex.value -= 1
+  editor.editHistory(editor.actionHistory.length - 1 - shotIndex.value)
 }
 </script>
 
@@ -97,11 +145,19 @@ function save() {
           </div>
         </a-layout-sider>
         <a-layout style="padding: 0 18px;">
-          <div flex my1 justify="end">
-            <button v-for="v in actionMenu" :key="v.url" p1 hover:bg-gray-200 ml2
-              :class="{ 'bg-white': actionActive === v.url }" @click="actionClick(v.url)">
-              <i icon-btn :class="v.icon" />
-            </button>
+          <div flex justify="between">
+            <div flex my1 justify="start">
+              <button v-for="v in  actionMenu " :key="v.title" p1 hover:bg-gray-200 ml2
+                :class="{ 'cursor-not-allowed': !v.active }" @click="v.method" :disabled="!v.active">
+                <i icon-btn :class="{ [v.icon]: true, 'cursor-not-allowed': !v.active }" />
+              </button>
+            </div>
+            <div flex my1 justify="end">
+              <button v-for=" v  in  btnMenu " :key="v.url" p1 hover:bg-gray-200 ml2
+                :class="{ 'bg-white': actionActive === v.url }" @click="actionClick(v.url)">
+                <i icon-btn :class="v.icon" />
+              </button>
+            </div>
           </div>
           <a-layout-content>
             <div id="NX-Editor" wh-full transform="">

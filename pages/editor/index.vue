@@ -7,6 +7,7 @@ definePageMeta({
 })
 
 const editor = useEditor()
+
 const { componentsJson } = storeToRefs(editor)
 let components = ref<IComponents[]>([])
 watch(
