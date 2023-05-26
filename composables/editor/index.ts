@@ -37,13 +37,16 @@ export function getRecentNxElement(el: HTMLElement, atrName = EDITOR_ATTR): HTML
 export const DraggingNodes = ref('')
 
 export const useEditor = defineStore('editor', () => {
+  
   const engine = useEngine()
-  const componentsJson = ref<IComponents[]>([])
-  const actionHistory = ref<Array<IComponents[]>>([])
-  const isEditor = ref(true)
+  const componentsJson = ref<IComponents[]>([]) // 组件结构
+  const actionHistory = ref<Array<IComponents[]>>([]) // 历史记录
+  const isEditor = ref(true) 
   const isUnDo = ref(false)
   const shotIndex = ref(0)
   const changeType = ref('change')
+
+  // undo
   watch(() => componentsJson.value, (val) => {
     if (isUnDo.value) {
       if (changeType.value !== 'undo') {
@@ -142,13 +145,8 @@ export const useEditor = defineStore('editor', () => {
   }
 
   function editHistory(index: number) {
-    console.log("🚀 ~ file: index.ts:145 ~ editHistory ~ index:", index)
     isUnDo.value = true
     changeType.value = 'undo'
-    // if (index === -1) {
-    //   componentsJson.value = []
-    //   return
-    // }
     if (actionHistory.value[index])
       componentsJson.value = actionHistory.value[index]
 
