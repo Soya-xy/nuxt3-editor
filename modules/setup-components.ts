@@ -1,5 +1,5 @@
-import JSON5 from 'json5';
 import { writeFile } from 'node:fs'
+import JSON5 from 'json5'
 import { defineNuxtModule, useNuxt } from '@nuxt/kit'
 import { getComponentAttr } from '../server/utils'
 import {
@@ -27,9 +27,9 @@ export default defineNuxtModule({
           const item: Item = {
             componentName: component.pascalName,
           }
-          if (options) {
+          if (options)
             item.options = JSON5.parse(options).customOptions
-          }
+
           if (data[type]?.children) {
             data[type].children.push(item)
           }

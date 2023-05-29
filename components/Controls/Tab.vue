@@ -1,8 +1,19 @@
+<script setup lang='ts'>
+import { storeToRefs } from 'pinia'
+
+const engine = useEngine()
+const { nodesById } = storeToRefs(engine)
+const componentId = ref()
+watch(() => nodesById.value?.componentId, (val) => {
+  componentId.value = val
+})
+</script>
+
 <template>
   <div>
-    <a-tabs default-active-key="1" v-if="componentId">
+    <a-tabs v-if="componentId" default-active-key="1">
       <a-tab-pane key="1" title="属性" px4>
-        <ControlsAttr :componentId="componentId" />
+        <ControlsAttr :component-id="componentId" />
       </a-tab-pane>
       <a-tab-pane key="2" title="样式">
         Content of Tab Panel 2
@@ -16,14 +27,3 @@
     </a-tabs>
   </div>
 </template>
-
-<script setup lang='ts'>
-import { storeToRefs } from 'pinia';
-
-const engine = useEngine()
-const { nodesById } = storeToRefs(engine)
-const componentId = ref()
-watch(() => nodesById.value?.componentId, (val) => {
-  componentId.value = val
-})
-</script>

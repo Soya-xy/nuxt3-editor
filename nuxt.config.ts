@@ -10,31 +10,31 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    '/editor/**': { ssr: false }
+    '/editor/**': { ssr: false },
   },
   components: {
     dirs: [{
       path: '~/components/Widgets',
       global: true,
     },
-      '~/components',
+    '~/components',
     ],
   },
   modules: [
+    '@vue-macros/nuxt',
     '@pinia/nuxt',
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@nuxtjs/color-mode',
     '@nuxt/devtools',
-    '@vue-macros/nuxt',
     '~/modules/setup-components',
 
   ],
   imports: {
     dirs: [
       './composables/editor',
-      './composables/engine'
-    ]
+      './composables/engine',
+    ],
   },
   vite: {
     build: {

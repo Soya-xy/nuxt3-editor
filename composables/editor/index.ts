@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import _, { cloneDeep, find } from 'lodash'
+import { Message } from '@arco-design/web-vue'
 import { useEngine } from '~/composables/engine/index'
 import type { GlobComponents } from '~/constants/type'
-import { Message } from '@arco-design/web-vue'
 
 export interface IComponents {
   name?: string
@@ -22,7 +22,8 @@ export function useNxId() {
 }
 export function getRecentNxElement(el: HTMLElement, atrName = EDITOR_ATTR): HTMLElement | undefined {
   // 如果点击的是toolbar，不做处理
-  if (el?.id.startsWith(TOOLBAR_ID)) return undefined
+  if (el?.id.startsWith(TOOLBAR_ID))
+    return undefined
 
   if (el?.id.startsWith(atrName) || el?.id === EDITOR_ID) {
     return el
@@ -37,11 +38,10 @@ export function getRecentNxElement(el: HTMLElement, atrName = EDITOR_ATTR): HTML
 export const DraggingNodes = ref('')
 
 export const useEditor = defineStore('editor', () => {
-  
   const engine = useEngine()
   const componentsJson = ref<IComponents[]>([]) // 组件结构
   const actionHistory = ref<Array<IComponents[]>>([]) // 历史记录
-  const isEditor = ref(true) 
+  const isEditor = ref(true)
   const isUnDo = ref(false)
   const shotIndex = ref(0)
   const changeType = ref('change')
@@ -53,17 +53,17 @@ export const useEditor = defineStore('editor', () => {
         isUnDo.value = false
         actionHistory.value = [cloneDeep(val)]
         shotIndex.value = 0
-      } else {
+      }
+      else {
         changeType.value = 'change'
       }
       return
     }
 
-
     if (Array.isArray(actionHistory.value))
       actionHistory.value.push(cloneDeep(val))
   }, {
-    deep: true
+    deep: true,
   })
 
   function getJson(): IComponents[] {
@@ -84,16 +84,18 @@ export const useEditor = defineStore('editor', () => {
         componentName: comp.componentName,
         componentId: `editor-${useNxId()}`,
         parentId,
-        ...comp.options
+        ...comp.options,
       })
-    } else {
+    }
+    else {
       Message.error('该组件未定义组件名')
     }
   }
 
   function editComponent(target: HTMLElement) {
     const node = engine.draggingNodes
-    if (!node?.componentId || node.componentId === target.id) return
+    if (!node?.componentId || node.componentId === target.id)
+      return
     const data = _.cloneDeep(componentsJson.value)
     const nowNode = _.findIndex(data, ['componentId', node.componentId])
     const targetNode = _.findIndex(data, ['componentId', target.id])
@@ -113,15 +115,13 @@ export const useEditor = defineStore('editor', () => {
     if (nowNode !== -1 && targetNode !== -1) {
       data[nowNode].parentId = data[targetNode].parentId
 
-      if (data[targetNode].slots) {
+      if (data[targetNode].slots)
         data[nowNode].parentId = data[targetNode].componentId
-      }
+
       const now = data.splice(nowNode, 1)[0]
       data.splice(targetNode, 0, now)
       componentsJson.value = data
     }
-
-
   }
 
   function deleteComponent(id: string) {
@@ -149,7 +149,6 @@ export const useEditor = defineStore('editor', () => {
     changeType.value = 'undo'
     if (actionHistory.value[index])
       componentsJson.value = actionHistory.value[index]
-
   }
   return {
     isEditor,

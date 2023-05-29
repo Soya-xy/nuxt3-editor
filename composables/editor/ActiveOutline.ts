@@ -1,7 +1,7 @@
+import { RenderToolBar, TOOLBAR_HEIGHT } from './ToolBar'
 import { useEngine } from '~/composables/engine'
 import type { Listen } from '~/composables/engine'
 import { MouseMoveEvent } from '~/composables/engine/mouse/MouseMoveEvent'
-import { RenderToolBar, TOOLBAR_HEIGHT } from './ToolBar'
 
 const htmlNode = ref<HTMLElement>()
 const toolNode = ref<HTMLElement>()
@@ -14,7 +14,7 @@ function drawLine(id: string) {
   const containerRect = canvas?.getBoundingClientRect()
 
   if (element && containerRect && htmlNode.value && !engine.dragging && toolNode.value) {
-    const rect = element.getBoundingClientRect();
+    const rect = element.getBoundingClientRect()
     const zIndex = (getMaxZIndex(element) + 1).toString()
     const left = rect.left - containerRect.x
     const top = rect.top - containerRect.y
@@ -34,49 +34,51 @@ function drawLine(id: string) {
 
     resizeObserver.observe(element)
 
-    if (canvas.contains(htmlNode.value)) return
+    if (canvas.contains(htmlNode.value))
+      return
     canvas?.appendChild(htmlNode.value)
-    if (canvas?.contains(toolNode.value)) return
+    if (canvas?.contains(toolNode.value))
+      return
     canvas?.appendChild(toolNode.value)
-
   }
 }
 
 function handleDrag(e: MouseEvent) {
-  if (!engine.isInEditor) return
-  if (!e.target) return
-  if (engine.nodesById.isWidget) return
+  if (!engine.isInEditor)
+    return
+  if (!e.target)
+    return
+  if (engine.nodesById.isWidget)
+    return
   if (!engine.nodesById.componentId && htmlNode.value && toolNode.value) {
     htmlNode.value.style.display = 'none'
     toolNode.value.style.display = 'none'
   }
-  if (engine.nodesById.componentId) {
+  if (engine.nodesById.componentId)
     drawLine(engine.nodesById.componentId)
-  }
 }
 
 function refresh() {
   if (engine.nodesById.componentId) {
     drawLine(engine.nodesById.componentId)
-  } else {
+  }
+  else {
     htmlNode.value?.remove()
     toolNode.value?.remove()
   }
 }
 
-
 export function useActiveOutLine() {
   resizeObserver = new ResizeObserver(refresh)
 
-  let mouseMove: Listen
-  mouseMove = MouseMoveEvent()
+  const mouseMove: Listen = MouseMoveEvent()
   mouseMove.subscribe(handleDrag)
 
   const htmlDiv = document.createElement('div')
-  htmlDiv.style.backgroundColor = "transparent"
-  htmlDiv.style.position = "fixed"
-  htmlDiv.style.border = `solid 2px #1890ff`
-  htmlDiv.style.pointerEvents = "none"
+  htmlDiv.style.backgroundColor = 'transparent'
+  htmlDiv.style.position = 'fixed'
+  htmlDiv.style.border = 'solid 2px #1890ff'
+  htmlDiv.style.pointerEvents = 'none'
   htmlNode.value = htmlDiv
 
   const toolDiv = RenderToolBar()

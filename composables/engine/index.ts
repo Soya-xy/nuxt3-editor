@@ -1,11 +1,10 @@
 import { defineStore } from 'pinia'
+import type { IComponents } from '../editor'
 import { MouseMoveEvent } from './mouse/MouseMoveEvent'
 import { MouseClickEvent } from './mouse/MouseClickEvent'
 import { MouseOverEvent } from './mouse/MouseOverEvent'
 import { MouseOutEvent } from './mouse/MouseOutEvent'
 import { DragDropEvent } from './mouse/DragDropEvent'
-import { IComponents } from '../editor'
-
 
 interface ISubscriber<EventType = any> {
   (payload?: EventType): void | boolean
@@ -54,13 +53,13 @@ export const useEngine = defineStore('engine', () => {
   const targetEvent = ref<CustomMouseEvent | undefined>(undefined)
   // 拖动中的节点
   const draggingNodes = ref<NodesById>({
-    componentName: ''
+    componentName: '',
   })
   // 拖动中的组件
   const draggingResource = ref([])
   // 当前激活的节点
   const nodesById = ref<NodesById>({
-    componentName: ''
+    componentName: '',
   })
   // 注册自定义事件
   const providers = reactive(new Set<Listen>())

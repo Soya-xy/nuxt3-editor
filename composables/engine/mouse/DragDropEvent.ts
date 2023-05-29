@@ -28,7 +28,7 @@ export function DragDropEvent() {
   const dom = document.getElementById('actionArea')
   // 起始位置
   let onMouseDownAt = 0
-  function payload(e: MouseEvent) {
+  function payload() {
     engine.dispatch({
       type: 'drag:start',
       payload: () => {
@@ -77,15 +77,14 @@ export function DragDropEvent() {
     if ((e.target as any)?.closest?.('.monaco-editor'))
       return
 
-
-
     let target: HTMLElement | undefined
     // 判断e.target的标签是否的I
     if ((e.target as any)?.tagName === 'I') {
       target = (e.target as any).parentNode
       if (!(e.target as any).parentNode?.id?.startsWith?.('nx'))
         return
-    } else if (getRecentNxElement(e.target as HTMLElement)) {
+    }
+    else if (getRecentNxElement(e.target as HTMLElement)) {
       target = getRecentNxElement(e.target as HTMLElement)
     }
     // 判断e.target的id是否是nx开头
@@ -96,17 +95,16 @@ export function DragDropEvent() {
     if (target === undefined)
       target = e.target as HTMLElement
 
-
     // 判断是否从物料器拖拽
     const isWidget = target.id?.startsWith?.('nx')
 
     engine.draggingNodes = {
-      componentName: isWidget ?
-        target.getAttribute('nx-data-component')! :
-        getAttribute(target.id)?.componentName || "",
-      name: isWidget ?
-        target.innerText :
-        getAttribute(target.id)?.name,
+      componentName: isWidget
+        ? target.getAttribute('nx-data-component')!
+        : (getAttribute(target.id)?.componentName || ''),
+      name: isWidget
+        ? target.innerText
+        : getAttribute(target.id)?.name,
       isWidget,
       componentId: isWidget ? '' : getAttribute(target.id)?.componentId,
     }
@@ -118,27 +116,29 @@ export function DragDropEvent() {
   }
 
   function onDragEnd(e: MouseEvent) {
-
-    if (!engine.draggingNodes?.componentName) return
+    if (!engine.draggingNodes?.componentName)
+      return
 
     const comp = getWidget(engine.draggingNodes?.componentName)
 
-    if (!comp) return
+    if (!comp)
+      return
 
     let target = document.getElementById(EDITOR_ID) as HTMLElement
 
-    if (engine.stateId) {
+    if (engine.stateId)
       target = document.getElementById(engine.stateId) as HTMLElement
-    } else {
+
+    else
       target = e.target as HTMLElement
-    }
+
     engine.dragging = false
 
-    if (engine.draggingNodes.isWidget) {
+    if (engine.draggingNodes.isWidget)
       editor.addComponent(comp, target)
-    } else {
+
+    else
       editor.editComponent(target)
-    }
   }
 
   function onMouseUp(e: MouseEvent) {

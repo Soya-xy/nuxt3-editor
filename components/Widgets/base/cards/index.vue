@@ -3,7 +3,7 @@ defineOptions({
   customOptions: {
     name: '卡片',
     icon: 'i-carbon:3d-cursor',
-  }
+  },
 })
 </script>
 

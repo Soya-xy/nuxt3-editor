@@ -7,7 +7,7 @@ import {
   MagicString,
   parseSFC,
 } from '@vue-macros/common'
-import { checkDefaultExport, filterMacro } from 'unplugin-vue-define-options/dist/api'
+import { filterMacro } from 'unplugin-vue-define-options/dist/api'
 
 export const ROOT_DIR = 'components'
 export const COMPONENT_DIR = '/Widgets'
@@ -22,13 +22,12 @@ function getNodePos(
   else return [offset + nodes.start!, offset + nodes.end!]
 }
 
-
 export function getComponentAttr(filePath: string) {
   const code = readFileSync(filePath, 'utf8')
   const sfc = parseSFC(code, filePath)
   if (!sfc.scriptSetup)
     return
-  const { scriptSetup, getSetupAst, getScriptAst } = sfc
+  const { scriptSetup, getSetupAst } = sfc
   const setupOffset = scriptSetup.loc.start.offset
   const setupAst = getSetupAst()!
 
@@ -39,9 +38,9 @@ export function getComponentAttr(filePath: string) {
   else if (nodes.length > 1)
     throw new SyntaxError(`duplicate ${DEFINE_OPTIONS}() call`)
 
-  const scriptAst = getScriptAst()!
-  if (scriptAst)
-    checkDefaultExport(scriptAst.body)
+  // const scriptAst = getScriptAst()!
+  // if (scriptAst)
+  //   checkDefaultExport(scriptAst.body)
 
   const s = new MagicString(code)
 

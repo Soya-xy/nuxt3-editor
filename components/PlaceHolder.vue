@@ -1,7 +1,12 @@
+<script setup lang='ts'>
+const slots = useSlots()
+const name = defineProp<string>('name', { default: '占位' })
+</script>
+
 <template>
   <div>
     <slot>
-      <div class="shell" v-if="slots.default">
+      <div v-if="slots.default" class="shell">
         <div class="inner">
           {{ name }}
         </div>
@@ -10,10 +15,6 @@
   </div>
 </template>
 
-<script setup lang='ts'>
-const slots = useSlots()
-const name = defineProp<string>('name', { default: '占位' })
-</script>
 <style scoped>
 .shell {
   display: flex;

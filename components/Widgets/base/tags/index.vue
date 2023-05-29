@@ -3,7 +3,7 @@ defineOptions({
   customOptions: {
     name: '标签',
     icon: 'i-mdi:button-cursor',
-  }
+  },
 })
 </script>
 

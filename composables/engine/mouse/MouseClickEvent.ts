@@ -1,6 +1,6 @@
 import { cloneDeep, find } from 'lodash'
 import { useEngine } from '..'
-import { IComponents } from '~/composables/editor'
+import type { IComponents } from '~/composables/editor'
 
 export function MouseClickEvent() {
   const engine = useEngine()

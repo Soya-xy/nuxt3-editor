@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
+import { storeToRefs } from 'pinia'
 
 const engine = useEngine()
 const editor = useEditor()
@@ -28,13 +28,11 @@ const actionMenu = computed(() => {
     },
   ]
 
-  if (editor.actionHistory.length > 0) {
+  if (editor.actionHistory.length > 0)
     data[0].active = true
-  }
 
-  if (editor.actionHistory.length - 1 - shotIndex.value <= 0) {
+  if (editor.actionHistory.length - 1 - shotIndex.value <= 0)
     data[0].active = false
-  }
 
   return data
 })
@@ -77,8 +75,8 @@ function save() {
 }
 
 function undo() {
-
-  if (editor.actionHistory.length <= 0) return
+  if (editor.actionHistory.length <= 0)
+    return
   if (editor.actionHistory.length - 1 - shotIndex.value < 0) {
     shotIndex.value = editor.actionHistory.length - 1
     return
@@ -147,17 +145,24 @@ function redo() {
         <a-layout style="padding: 0 18px;">
           <div flex justify="between">
             <div flex my1 justify="start">
-              <button v-for="v in  actionMenu " :key="v.title" p1 hover:bg-gray-200 ml2
-                :class="{ 'cursor-not-allowed': !v.active }" @click="v.method" :disabled="!v.active">
-                <i icon-btn :class="{
-                  [v.icon]: true, 'cursor-not-allowed': !v.active,
-                  'text-gray-500 hover:text-gray-500': !v.active
-                }" />
+              <button
+                v-for="v in actionMenu " :key="v.title" p1 hover:bg-gray-200 ml2
+                :class="{ 'cursor-not-allowed': !v.active }" :disabled="!v.active" @click="v.method"
+              >
+                <i
+                  icon-btn :class="{
+                    [v.icon]: true,
+                    'cursor-not-allowed': !v.active,
+                    'text-gray-500 hover:text-gray-500': !v.active,
+                  }"
+                />
               </button>
             </div>
             <div flex my1 justify="end">
-              <button v-for=" v  in  btnMenu " :key="v.url" p1 hover:bg-gray-200 ml2
-                :class="{ 'bg-white': actionActive === v.url }" @click="actionClick(v.url)">
+              <button
+                v-for=" v in btnMenu " :key="v.url" p1 hover:bg-gray-200 ml2
+                :class="{ 'bg-white': actionActive === v.url }" @click="actionClick(v.url)"
+              >
                 <i icon-btn :class="v.icon" />
               </button>
             </div>
@@ -179,7 +184,7 @@ function redo() {
           </a-layout-footer>
         </a-layout>
         <a-layout-sider hide-trigger breakpoint="lg" :width="250" :collapsed-width="10" :collapsed="tabCollapsed">
-          <ControlsTab v-show="!tabCollapsed"></ControlsTab>
+          <ControlsTab v-show="!tabCollapsed" />
           <button class="right-toggle-button" @click="onTabCollapse">
             <IconLeft v-if="tabCollapsed" />
             <IconRight v-else />
@@ -210,7 +215,6 @@ function redo() {
   border-radius: 0 5px 5px 0;
 }
 
-
 .right-toggle-button {
   align-items: center;
   border: 1px solid;
@@ -228,7 +232,6 @@ function redo() {
   color: var(--color-text-3);
   border-radius: 5px 0px 0px 5px;
 }
-
 
 .layout-demo {
   height: 100vh;

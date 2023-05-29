@@ -51,14 +51,13 @@ export function getMaxZIndex(el: Element, max = 0): number {
     return maxZIndex
 }
 
-
 export function getTopRect(nodeId: string): any {
-  const rect = document.querySelector(nodeId)?.getBoundingClientRect() as any;
+  const rect = document.querySelector(nodeId)?.getBoundingClientRect() as any
 
   if (rect) {
     const editor = document.getElementById(EDITOR_ID)
     const frameRect = editor!.getBoundingClientRect()
-    const scale = frameRect.width / (editor as any)['offsetWidth']
+    const scale = frameRect.width / (editor as any).offsetWidth
     rect.oLeft = (rect.left * scale) - frameRect.left
     rect.oTop = (rect.top * scale) - frameRect.top
     // rect.x = rect.x * scale + frameRect.x

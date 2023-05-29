@@ -14,44 +14,45 @@ function handleDrag(e: MouseEvent) {
     // if (engine.nodesById.haveSlots) {
     // nodeId = `#${engine.stateId} [name=${engine.nodesById.haveSlots}]`
     // } else {
-    nodeId = '#' + engine.stateId
+    nodeId = `#${engine.stateId}`
     // }
-    if (nodeId === '#' || !engine.stateId) return
+    if (nodeId === '#' || !engine.stateId)
+      return
     const { width, height, x: rectX, y: rectY, oLeft, oTop } = getTopRect(nodeId)!
     const { x, y } = e
     let position = ''
-    if (!width && !height) return
-    if (x - rectX < width / 2) {
+    if (!width && !height)
+      return
+    if (x - rectX < width / 2)
       position = 'left'
-    } else {
+
+    else
       position = 'right'
-    }
 
-    if (y - rectY < height / 10) {
+    if (y - rectY < height / 10)
       position = 'top'
-    } else if (y - rectY > height - (height / 9)) {
-      position = 'bottom'
-    }
 
+    else if (y - rectY > height - (height / 9))
+      position = 'bottom'
 
     const container = document.getElementById(engine.stateId)
-    if (!container?.contains(htmlNode.value)) {
+    if (!container?.contains(htmlNode.value))
       container?.appendChild(htmlNode.value)
-    }
 
     htmlNode.value.style.display = 'block'
     htmlNode.value.style.left = NumToPx(oLeft)
     htmlNode.value.style.top = NumToPx(oTop)
-    if (position === 'right') {
+    if (position === 'right')
       htmlNode.value.style.left = NumToPx(oLeft + width)
-    }
-    if (position === 'bottom') {
+
+    if (position === 'bottom')
       htmlNode.value.style.top = NumToPx(oTop + height)
-    }
+
     if (['left', 'right'].includes(position)) {
       htmlNode.value.style.width = NumToPx(2)
       htmlNode.value.style.height = NumToPx(height)
-    } else {
+    }
+    else {
       htmlNode.value.style.width = NumToPx(width)
       htmlNode.value.style.height = NumToPx(2)
     }
@@ -59,16 +60,14 @@ function handleDrag(e: MouseEvent) {
   }
 }
 
-
 export function useInsertion() {
-  let mouseMove: Listen
-  mouseMove = MouseMoveEvent()
+  const mouseMove: Listen = MouseMoveEvent()
   mouseMove.subscribe(handleDrag)
 
   const htmlCursorNode = document.createElement('div')
-  htmlCursorNode.style.position = "fixed"
-  htmlCursorNode.style.display = "none"
-  htmlCursorNode.style.pointerEvents = "none"
+  htmlCursorNode.style.position = 'fixed'
+  htmlCursorNode.style.display = 'none'
+  htmlCursorNode.style.pointerEvents = 'none'
   htmlNode.value = htmlCursorNode
 
   watchEffect(() => {

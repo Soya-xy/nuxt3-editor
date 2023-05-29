@@ -21,9 +21,11 @@ const defaultActiveKey = ref(Array.from(Object.keys(components), (v, k) => k))
       <a-collapse :default-active-key="defaultActiveKey" :bordered="false">
         <a-collapse-item v-for="(v, key, index) in components" :key="index" :header="key" :style="customStyle">
           <a-row class="grid-demo" :gutter="[12, 12]">
-            <a-col v-for="item, index in v.children" :key="index" :span="8">
-              <div :id="nxid()" flex="~ col center" bg="#f0f0f0" px1 py2 rounded-2 text-sm cursor="move"
-                :nx-data-component="item?.componentName">
+            <a-col v-for="item, idx in v.children" :key="idx" :span="8">
+              <div
+                :id="nxid()" flex="~ col center" bg="#f0f0f0" px1 py2 rounded-2 text-sm cursor="move"
+                :nx-data-component="item?.componentName"
+              >
                 <i :class="item?.options?.icon" class="text-2xl icon" />
                 {{ item?.options?.name }}
               </div>

@@ -4,7 +4,7 @@ export function MouseOverEvent() {
   const engine = useEngine()
   const dom = document.getElementById('actionArea')
 
-  function payload(e: MouseEvent) {
+  function payload() {
     engine.dispatch({
       type: 'mouse:over',
       payload: () => {

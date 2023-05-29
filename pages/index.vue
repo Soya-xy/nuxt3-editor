@@ -7,7 +7,9 @@ const online = useOnline()
     <Suspense>
       <ClientOnly>
         <div v-if="online">
-          <NuxtLink btn to="editor" m2>To Edit</NuxtLink>
+          <NuxtLink btn to="editor" m2>
+            To Edit
+          </NuxtLink>
         </div>
         <div v-else text-gray:80>
           You're offline

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
+import { storeToRefs } from 'pinia'
 import type { IComponents } from '~/composables/editor'
 
 definePageMeta({
@@ -9,7 +9,7 @@ definePageMeta({
 const editor = useEditor()
 
 const { componentsJson } = storeToRefs(editor)
-let components = ref<IComponents[]>([])
+const components = ref<IComponents[]>([])
 watch(
   () => componentsJson.value,
   () => {
@@ -18,7 +18,6 @@ watch(
   },
   { deep: true, immediate: true },
 )
-
 </script>
 
 <template>

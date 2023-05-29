@@ -1,23 +1,24 @@
-<template>
- <div>
-    <PlaceHolder name="行" :id="id">
-      <Render v-if="nxData?.children" :components="nxData.children"></Render>
-    </PlaceHolder>
-  </div>
-</template>
-
 <script setup lang='ts'>
-import { IComponents } from '~/composables/editor';
+import type { IComponents } from '~/composables/editor'
+
 defineOptions({
   customOptions: {
     name: '行',
     icon: 'i-mdi:button-cursor',
     emit: {},
     slots: {
-      default: []
-    }
-  }
+      default: [],
+    },
+  },
 })
 const nxData = defineProp<IComponents>()
 const id = defineProp<string>()
 </script>
+
+<template>
+  <div>
+    <PlaceHolder :id="id" name="行">
+      <Render v-if="nxData?.children" :components="nxData.children" />
+    </PlaceHolder>
+  </div>
+</template>

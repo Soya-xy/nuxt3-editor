@@ -13,9 +13,8 @@ export function MouseMoveEvent(): Listen {
       payload: () => {
         const target = e.target as HTMLElement
         const editor = document.getElementById(EDITOR_ID)
-        if(target.id === EDITOR_ID || editor?.contains(target)){
+        if (target.id === EDITOR_ID || editor?.contains(target))
           engine.isInEditor = true
-        }
       },
     })
   }
