@@ -119,11 +119,17 @@ function redo() {
           <a-menu v-model:selected-keys="menuActive" h-full :default-selected-keys="['0']" @collapse="onCollapse">
             <a-menu-item key="0">
               <template #icon>
-                <IconBug />
+                <IconRelation />
               </template>
-              Bugs
+              路由
             </a-menu-item>
             <a-menu-item key="1">
+              <template #icon>
+                <IconCodeSquare />
+              </template>
+              页面
+            </a-menu-item>
+            <a-menu-item key="2">
               <template #icon>
                 <IconBug />
               </template>

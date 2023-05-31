@@ -5,11 +5,11 @@ const active = defineProp<string[]>('active', {
 const currentTab = computed(() => {
   switch (active.value[0]) {
     case '0':
-      return resolveComponent('Page')
+      return resolveComponent('PageRouter')
     case '1':
+      return resolveComponent('Page')
+    case '2':
       return resolveComponent('PageTree')
-    default:
-      return resolveComponent('PageContent')
   }
 })
 

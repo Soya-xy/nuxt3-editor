@@ -37,8 +37,16 @@ export function getRecentNxElement(el: HTMLElement, atrName = EDITOR_ATTR): HTML
 
 export const DraggingNodes = ref('')
 
+interface Router {
+  name: string
+  path: string
+  components: IComponents[]
+}
+
 export const useEditor = defineStore('editor', () => {
   const engine = useEngine()
+  const router = ref<Router[]>([]) // 路由
+  const routerActive = ref(0) // 当前编辑路由
   const componentsJson = ref<IComponents[]>([]) // 组件结构
   const actionHistory = ref<Array<IComponents[]>>([]) // 历史记录
   const isEditor = ref(true)
@@ -153,9 +161,11 @@ export const useEditor = defineStore('editor', () => {
   return {
     isEditor,
     isUnDo,
+    routerActive,
     actionHistory,
     componentsJson,
     shotIndex,
+    router,
     editHistory,
     addComponent,
     cloneComponent,
