@@ -1,7 +1,8 @@
 <script setup lang='ts'>
 const active = defineProp<string[]>('active', {
-  default: [0],
+  default: ['0'],
 })
+
 const currentTab = computed(() => {
   switch (active.value[0]) {
     case '0':
@@ -19,5 +20,5 @@ watch(() => currentTab.value, (val) => {
 </script>
 
 <template>
-  <component :is="currentTab" class="tab" />
+  <component :is="currentTab" />
 </template>

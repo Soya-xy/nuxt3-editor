@@ -11,7 +11,7 @@ const collapsed = ref(false)
 const tabCollapsed = ref(false)
 const menuActive = ref(['0'])
 const actionActive = ref(route.path)
-const { shotIndex } = storeToRefs(editor)
+const { shotIndex, router: routerStore, routerActive } = storeToRefs(editor)
 const actionMenu = computed(() => {
   const data = [
     {
@@ -71,7 +71,7 @@ onMounted(() => {
   }
 })
 function save() {
-  console.log(JSON.stringify(editor.componentsJson))
+  console.log(JSON.stringify(editor.router))
 }
 
 function undo() {
@@ -149,7 +149,7 @@ function redo() {
           </div>
         </a-layout-sider>
         <a-layout style="padding: 0 18px;">
-          <div flex justify="between">
+          <div flex justify="between" items="center">
             <div flex my1 justify="start">
               <button
                 v-for="v in actionMenu " :key="v.title" p1 hover:bg-gray-200 ml2
@@ -163,6 +163,9 @@ function redo() {
                   }"
                 />
               </button>
+            </div>
+            <div v-if="routerStore[routerActive]?.name">
+              当前路由名称：{{ routerStore[routerActive]?.name }}
             </div>
             <div flex my1 justify="end">
               <button

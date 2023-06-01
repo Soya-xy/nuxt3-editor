@@ -46,7 +46,7 @@ interface Router {
 export const useEditor = defineStore('editor', () => {
   const engine = useEngine()
   const router = ref<Router[]>([]) // 路由
-  const routerActive = ref(0) // 当前编辑路由
+  const routerActive = ref(-1) // 当前编辑路由
   const componentsJson = ref<IComponents[]>([]) // 组件结构
   const actionHistory = ref<Array<IComponents[]>>([]) // 历史记录
   const isEditor = ref(true)
@@ -70,6 +70,8 @@ export const useEditor = defineStore('editor', () => {
 
     if (Array.isArray(actionHistory.value))
       actionHistory.value.push(cloneDeep(val))
+
+    router.value[routerActive.value].components = cloneDeep(val)
   }, {
     deep: true,
   })
@@ -83,6 +85,9 @@ export const useEditor = defineStore('editor', () => {
   }
 
   function addComponent(comp: GlobComponents, target: HTMLElement) {
+    if (routerActive.value === -1 || !router.value[routerActive.value]?.path)
+      return Message.error('请先选择路由')
+
     const dom = getRecentNxElement(target)
     if (dom && comp.componentName) {
       const data = _.cloneDeep(componentsJson.value)
