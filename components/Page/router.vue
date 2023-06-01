@@ -47,6 +47,13 @@ function changeRouter(e: string) {
   routerActive.value = Number(e)
   componentsJson.value = router.value[Number(e)].components
 }
+
+function deleteRouter(index: number) {
+  router.value.splice(index, 1)
+  routerActive.value = -1
+  componentsJson.value = []
+
+}
 </script>
 
 <template>
@@ -63,7 +70,19 @@ function changeRouter(e: string) {
       @menu-item-click="changeRouter"
     >
       <a-menu-item v-for="v, k in router" :key="`${k}`">
-        {{ v.name }}
+        <div flex items-center justify="between">
+          <p>
+            {{ v.name }}
+          </p>
+          <a-popconfirm content="确定要删除当前路由吗？" @ok="deleteRouter(k)">
+            <button
+              w-32px h-32px text-center bg-gray-200 hover="bg-red-500 text-white"
+              rounded class="leading-4"
+            >
+              <i icon-btn i-carbon:trash-can mx-auto hover:text-white />
+            </button>
+          </a-popconfirm>
+        </div>
       </a-menu-item>
     </a-menu>
   </a-card>

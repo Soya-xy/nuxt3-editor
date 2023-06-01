@@ -71,7 +71,8 @@ export const useEditor = defineStore('editor', () => {
     if (Array.isArray(actionHistory.value))
       actionHistory.value.push(cloneDeep(val))
 
-    router.value[routerActive.value].components = cloneDeep(val)
+    if (routerActive.value !== -1)
+      router.value[routerActive.value].components = cloneDeep(val)
   }, {
     deep: true,
   })
