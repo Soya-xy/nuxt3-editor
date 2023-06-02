@@ -52,7 +52,6 @@ function deleteRouter(index: number) {
   router.value.splice(index, 1)
   routerActive.value = -1
   componentsJson.value = []
-
 }
 </script>
 
