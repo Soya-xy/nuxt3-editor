@@ -6,7 +6,7 @@
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "vite build",
+    "dev": "cross-env NODE_ENV=development vite",
     "build": "cross-env NODE_ENV=production vite build"
   },
   "peerDependencies": {
@@ -16,6 +16,7 @@
     "@antfu/eslint-config": "^0.39.5",
     "@arco-design/web-vue": "^2.47.0",
     "@iconify/json": "^2.2.73",
+    "@lc/unplugin-setup-components": "workspace:*",
     "@vitejs/plugin-vue": "^4.2.3",
     "cross-env": "^7.0.3",
     "eslint": "^8.42.0",

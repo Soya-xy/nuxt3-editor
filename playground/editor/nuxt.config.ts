@@ -27,7 +27,7 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     '@nuxtjs/color-mode',
     '@nuxt/devtools',
-    '~/modules/setup-components',
+    // '~/modules/setup-components',
   ],
   imports: {
     dirs: [

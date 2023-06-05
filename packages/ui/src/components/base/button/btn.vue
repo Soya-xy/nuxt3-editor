@@ -9,7 +9,7 @@ defineOptions({
     },
   },
 })
-const value = defineProp<string>('value', { default: '按钮' })
+const value = defineProp<string>('value', { default: '按钮332' })
 const type = defineProp<'primary' | 'secondary' | 'outline' | 'dashed' | 'text'>('type', { default: 'primary' })
 </script>
 

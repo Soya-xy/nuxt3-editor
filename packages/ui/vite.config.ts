@@ -9,11 +9,13 @@ import AutoImport from 'unplugin-auto-import/vite'
 import VueMacros from 'unplugin-vue-macros'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
+import SetupComponents from '@lc/unplugin-setup-components/vite'
+
+const isDEV = process.env.NODE_ENV === 'development'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    dts(),
     VueMacros.vite({
       plugins: {
         vue: vue(),
@@ -42,6 +44,10 @@ export default defineConfig({
     Icons(),
     // https://github.com/antfu/unocss
     Unocss(),
+    SetupComponents({
+      globs: ['src/components/*/**/*.{vue}'],
+    }),
+    !isDEV && dts(),
   ],
 
   build: {
