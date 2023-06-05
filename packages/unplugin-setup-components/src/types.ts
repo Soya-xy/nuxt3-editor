@@ -1,0 +1,5 @@
+export interface Options {
+  // define your plugin options here
+  globs: string[]
+
+}
