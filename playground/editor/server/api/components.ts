@@ -1,5 +1,8 @@
-export default defineEventHandler(() => {
-  console.log('测试导出事件')
+import { generateCode } from '@lc/generated'
 
-  return 'Hello World'
+export default defineEventHandler(async (event) => {
+  const body = await readBody(event)
+  const lc = generateCode(body)
+  console.log('🚀 ~ file: components.ts:6 ~ defineEventHandler ~ lc:', lc)
+  return { body }
 })

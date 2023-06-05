@@ -55,12 +55,13 @@ export default defineNuxtModule({
   },
   hooks: {
     'builder:watch': (event, path) => {
-      if (event === 'change' && path.includes('components/Widgets'))
+      if (event === 'change' && path.includes('components/Widgets')) {
         generateJson(allComponent)
-      console.info(
+        console.info(
         `%cChange: ${path} update`,
         'color: green;',
-      )
+        )
+      }
     },
   },
 })

@@ -13,14 +13,14 @@
     "import": "./dist/index.mjs"
   },
   "scripts": {
-    "dev": "tsup",
-    "build": "tsup",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "cross-env DEV=true tsup",
+    "build": "tsup"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "fast-glob": "^3.2.12",
     "tsup": "^6.7.0"
   }
 }
