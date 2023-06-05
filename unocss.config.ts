@@ -23,6 +23,8 @@ export default defineConfig({
   safelist: [
     'i-mdi:button-cursor',
     'i-carbon:3d-cursor',
+    'i-tabler:line-dashed',
+    
   ],
   presets: [
     presetUno(),
