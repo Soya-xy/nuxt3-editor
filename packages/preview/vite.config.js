@@ -3,9 +3,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
-import Unocss from 'unocss/vite'
 import Components from 'unplugin-vue-components/vite'
-import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -34,9 +32,7 @@ export default defineConfig({
     },
   },
   plugins: [
-    vue({
-      reactivityTransform: true,
-    }),
+    vue(),
     AutoImport({
       imports: [
         'vue',
@@ -44,7 +40,6 @@ export default defineConfig({
         '@vueuse/core',
         { 'vue-request': ['useRequest', 'usePagination'] },
         { '~/utils/ajax': ['api'] },
-        { '@arco-design/web-vue': ['Message', 'Notification'] },
       ],
       dts: true,
     }),
@@ -54,16 +49,10 @@ export default defineConfig({
       directoryAsNamespace: true,
       dts: true,
       resolvers: [
-        ArcoResolver({
-          importStyle: 'less',
-          resolveIcons: true,
-        }),
         IconsResolver(),
       ],
     }),
     Icons(),
-    // https://github.com/antfu/unocss
-    Unocss(),
   ],
   resolve: {
     alias: {

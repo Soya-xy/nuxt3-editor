@@ -6,5 +6,6 @@ export default defineConfig({
   format: ['cjs', 'esm'],
   target: 'node16.14',
   clean: true,
-  onSuccess:'pnpm run watch'
+  watch: true,
+  // onSuccess: 'pnpm run watch'
 })

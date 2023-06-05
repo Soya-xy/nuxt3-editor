@@ -1,8 +1,10 @@
 <script setup>
+import { Button, Cards } from '@lc/ui'
 </script>
 
 <template>
   <div>
-    index
+    <Cards />
+    <Button />
   </div>
 </template>

@@ -10,8 +10,7 @@ const CODE = [
 describe('core', () => {
   test('generateCode', async () => {
     CODE.forEach(async (v) => {
-      const d = await generateRoute(v.name, v.path, v.components)
-      console.log("🚀 ~ file: core.test.ts:13 ~ CODE.forEach ~ d:", d)
+       await generateRoute(v.name, v.path, v.components)
     });
   })
 })

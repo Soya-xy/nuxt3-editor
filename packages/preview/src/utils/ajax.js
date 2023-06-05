@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Message } from '@arco-design/web-vue'
+
 // import store from "@/store";
 // 根据环境不同引入不同api地址
 const baseApi = '/emergency/api'
@@ -45,9 +45,9 @@ service.interceptors.response.use(
     if (!res) {
       // // 登录超时,重新登录
       if (res?.message) {
-        Message({
-          content: res.message || res.msg,
-        })
+        // Message({
+        //   content: res.message || res.msg,
+        // })
       }
       return Promise.reject(res || 'error')
     }
@@ -57,7 +57,7 @@ service.interceptors.response.use(
   },
   (error) => {
     const res = error.response
-    Message.error(res.data.message)
+    // Message.error(res.data.message)
     return Promise.reject(error)
   },
 )

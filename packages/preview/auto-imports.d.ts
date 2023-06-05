@@ -5,8 +5,6 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
-  const Message: typeof import('@arco-design/web-vue')['Message']
-  const Notification: typeof import('@arco-design/web-vue')['Notification']
   const api: typeof import('~/utils/ajax')['api']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']

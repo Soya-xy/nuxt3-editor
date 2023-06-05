@@ -1,9 +1,15 @@
-export const V3 = `<script setup>
-</script>
+import { IComponents } from "../types"
 
-<template>
-  <div>
-    index
-  </div>
-</template>
-`
+export const V3 = (item: IComponents) => {
+  console.log("🚀 ~ file: page.ts:2 ~ V3 ~ item:", item)
+  return `<script setup>
+  </script>
+  
+  <template>
+    <div>
+      index
+    </div>
+  </template>
+  `
+}
+

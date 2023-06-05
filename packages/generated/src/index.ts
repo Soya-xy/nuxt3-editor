@@ -3,29 +3,35 @@ import { V3 } from "./template/page";
 import * as fg from 'fast-glob'
 import fs from 'node:fs'
 import path from 'node:path'
-
-
-const COMPONENT_PATH = path.resolve(__dirname, '../../../playground/editor/components/Widgets/**/*.vue')
-const GENERATE_ROUTE_PATH = path.resolve(__dirname, '../../../packages/preview/src/pages')
-const WATCH_PATH = path.resolve(__dirname, '../../../playground/editor/constants/save.json')
+import {
+  COMPONENT_PATH,
+  GENERATE_ROUTE_PATH,
+  WATCH_PATH,
+  getJSON,
+  loopComponent,
+} from './utils'
 
 
 // 监听这个文件
-fs.watchFile(path.resolve(__dirname, WATCH_PATH), (eventType, filename) => {
-  const CODE = JSON.parse(fs.readFileSync(WATCH_PATH).toString())
+// fs.watchFile(path.resolve(__dirname, WATCH_PATH), (eventType, filename) => {
+//   const CODE = JSON.parse(fs.readFileSync(WATCH_PATH).toString())
 
-  CODE.forEach(async (v: any) => {
-    const d = await generateRoute(v.name, v.path, v.components)
-    console.log("🚀 ~ file: core.test.ts:13 ~ CODE.forEach ~ d:", d)
-  });
-})
+//   CODE.forEach(async (v: any) => {
+//     const d = await generateRoute(v.name, v.path, v.components)
+//     console.log("🚀 ~ file: core.test.ts:13 ~ CODE.forEach ~ d:", d)
+//   });
+// })
 
 
-export const generateCode = async (name: string, code: IComponents[]) => {
+export const generateCode = async (name: string, code: IComponents[], routePath: string) => {
 
-  // const entries = await fg([COMPONENT_PATH]);
-  // console.log("🚀 ~ file: index.ts:6 ~ generateCode ~ entries:", entries)
-  return V3
+  const content = getJSON(code)
+  loopComponent(content, (item) => {
+    const content = V3(item)
+    fs.writeFileSync(routePath, content)
+
+  })
+
 }
 
 export const generateRoute = async (name: string, route: string, code: IComponents[]) => {
@@ -37,14 +43,12 @@ export const generateRoute = async (name: string, route: string, code: IComponen
     //   return '文件已存在'
     // } else {
     const fdPath = routePath.split(path.sep).slice(0, -1).join(path.posix.sep)
-    console.log("🚀 ~ file: index.ts:41 ~ generateRoute ~ fdPath:", fdPath)
     if (!fs.existsSync(fdPath)) {
-      fs.mkdirSync(fdPath,{
+      fs.mkdirSync(fdPath, {
         recursive: true
       })
     }
-    const content = await generateCode(name, code)
-    fs.writeFileSync(routePath, content)
+    await generateCode(name, code, routePath)
     // }
   }
 }
