@@ -11,7 +11,6 @@ defineOptions({
 })
 const value = defineProp<string>('value', { default: '按钮' })
 const type = defineProp<'primary' | 'secondary' | 'outline' | 'dashed' | 'text'>('type', { default: 'primary' })
-console.log('🚀 ~ file: btn.vue:14 ~ type:', type.value)
 </script>
 
 <template>

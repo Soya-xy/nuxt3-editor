@@ -28,7 +28,6 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxt/devtools',
     '~/modules/setup-components',
-
   ],
   imports: {
     dirs: [
@@ -47,6 +46,7 @@ export default defineNuxtConfig({
     // but missing on offline, disabling extraction it until fixed
     payloadExtraction: false,
     inlineSSRStyles: false,
+    watcher: 'chokidar',
   },
   css: [
     '@unocss/reset/tailwind.css',
