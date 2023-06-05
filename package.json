@@ -17,8 +17,8 @@
   "author": "Soya",
   "packageManager": "pnpm@8.6.0",
   "devDependencies": {
-    "cross-env": "^7.0.3",
-    "vitest": "^0.31.4"
+    "vitest": "^0.31.4",
+    "execa": "^6.1.0"
   },
   "engines": {
     "node": "^14.18.0 || >=16.10.0"

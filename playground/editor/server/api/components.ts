@@ -1,8 +1,13 @@
-import { generateCode } from '@lc/generated'
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
-  const lc = generateCode(body)
-  console.log('🚀 ~ file: components.ts:6 ~ defineEventHandler ~ lc:', lc)
+  if (import.meta.env.NODE_ENV === 'development')
+    fs.writeFileSync(path.resolve(dirname, '../../constants/save.json'), JSON.stringify(body))
+
   return { body }
 })

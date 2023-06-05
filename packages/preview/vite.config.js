@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
@@ -67,11 +67,12 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '~': path.resolve(__dirname, 'src')
+      '~': path.resolve(__dirname, 'src'),
     },
   },
   server: {
     host: '0.0.0.0',
+    port: 5555,
     proxy: {
       [apiPrefix]: {
         target: `http://${process.env.API_SERVER}`,

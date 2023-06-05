@@ -14,10 +14,6 @@ watch(
   () => componentsJson.value,
   () => {
     components.value = editor.getJson()
-    $fetch('/api/components', {
-      method: 'post',
-      body: components.value,
-    })
     console.log('🚀 ~ file: index.vue:16 ~ components:', components.value)
   },
   { deep: true, immediate: true },

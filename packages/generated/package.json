@@ -13,7 +13,8 @@
     "import": "./dist/index.mjs"
   },
   "scripts": {
-    "dev": "cross-env DEV=true tsup",
+    "dev": "tsup",
+    "watch" : "node dist/index.js",
     "build": "tsup"
   },
   "keywords": [],

@@ -72,6 +72,10 @@ onMounted(() => {
 })
 function save() {
   console.log(JSON.stringify(editor.router))
+  $fetch('/api/components', {
+    method: 'post',
+    body: editor.router,
+  })
 }
 
 function undo() {

@@ -14,6 +14,8 @@ elk-translation-status.json
 public/shiki
 public/emojis
 constants/components.json
+constants/save.json
+
 *~
 *swp
 *swo
