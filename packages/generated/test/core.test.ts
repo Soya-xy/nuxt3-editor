@@ -1,6 +1,5 @@
-import { generateCode, generateRoute } from '../src';
+import { generateCode, generateRoute } from '../dist';
 import { describe, test } from 'vitest'
-import '../src'
 const CODE = [
   {
     "name": "works",

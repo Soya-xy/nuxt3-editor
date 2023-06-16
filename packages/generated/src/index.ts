@@ -22,11 +22,15 @@ import {
 
 export const generateCode = async (name: string, code: IComponents[], routePath: string) => {
 
+  if(code.length === 0){
+    fs.writeFileSync(routePath, V3())
+    return
+  }
+
   const content = getJSON(code)
   loopComponent(content, (item) => {
     const content = V3(item)
     fs.writeFileSync(routePath, content)
-
   })
 
 }
