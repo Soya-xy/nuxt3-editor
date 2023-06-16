@@ -31,7 +31,7 @@ export const generateCode = async (name: string, code: IComponents[], routePath:
 
 }
 
-export const generateRoute = async (name: string, route: string, code: IComponents[]) => {
+export const generateRoute = async (name: string, route: string, code: IComponents[] = []) => {
   if (route.startsWith('/')) {
 
     const routePath = path.resolve(GENERATE_ROUTE_PATH, `.${route.replace('/', path.sep)}.vue`)

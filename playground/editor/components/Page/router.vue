@@ -33,6 +33,14 @@ function handleBeforeOk(done: any) {
     path: form.value.path,
     components: [],
   })
+  $fetch('/api/components', {
+    method: 'POST',
+    body: {
+      name: form.value.name,
+      path: form.value.path,
+      components: [],
+    },
+  })
   form.value = {
     name: '',
     path: '',
