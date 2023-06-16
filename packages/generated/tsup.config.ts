@@ -7,5 +7,6 @@ export default defineConfig({
   target: 'node16.14',
   clean: true,
   watch: true,
+  dts: true,
   // onSuccess: 'pnpm run watch'
 })

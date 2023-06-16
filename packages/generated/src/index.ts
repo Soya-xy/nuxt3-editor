@@ -1,12 +1,9 @@
 import { IComponents } from "./types";
 import { V3 } from "./template/page";
-import * as fg from 'fast-glob'
 import fs from 'node:fs'
 import path from 'node:path'
 import {
-  COMPONENT_PATH,
   GENERATE_ROUTE_PATH,
-  WATCH_PATH,
   getJSON,
   loopComponent,
 } from './utils'
