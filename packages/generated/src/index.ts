@@ -3,7 +3,7 @@ import { V3 } from "./template/page";
 import fs from 'node:fs'
 import path from 'node:path'
 import {
-  GENERATE_ROUTE_PATH,
+  generatePath,
   getJSON,
   loopComponent,
 } from './utils'
@@ -38,7 +38,7 @@ export const generateCode = async (name: string, code: IComponents[], routePath:
 export const generateRoute = async (name: string, route: string, code: IComponents[] = []) => {
   if (route.startsWith('/')) {
 
-    const routePath = path.resolve(GENERATE_ROUTE_PATH, `.${route.replace('/', path.sep)}.vue`)
+    const routePath = generatePath(route)
 
     // if (fs.existsSync(routePath)) {
     //   return '文件已存在'

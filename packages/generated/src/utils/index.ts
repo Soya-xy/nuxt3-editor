@@ -6,6 +6,11 @@ export const COMPONENT_PATH = path.resolve(__dirname, '../../../playground/edito
 export const GENERATE_ROUTE_PATH = path.resolve(__dirname, '../../../packages/preview/src/pages')
 export const WATCH_PATH = path.resolve(__dirname, '../../../playground/editor/constants/save.json')
 
+
+export function generatePath(name:string){
+  return path.resolve(GENERATE_ROUTE_PATH, `.${name.replace('/', path.sep)}.vue`)
+}
+
 export const getJSON = (data: IComponents[]) => {
   return construct(data, {
     id: 'componentId',
