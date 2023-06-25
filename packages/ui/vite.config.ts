@@ -47,7 +47,7 @@ export default defineConfig({
     SetupComponents({
       globs: ['src/components/*/**/*.{vue}'],
       path: 'src/components',
-      root: process,
+      root: process.cwd(),
     }),
     !isDEV && dts(),
   ],
