@@ -1,4 +1,12 @@
 <script setup lang='ts'>
+withDefaults(defineProps<{
+  value: string
+  type: 'primary' | 'secondary' | 'outline' | 'dashed' | 'text'
+}>(), {
+  type: 'primary',
+  value: '按钮',
+})
+
 defineOptions({
   customOptions: {
     name: '按钮',
@@ -9,8 +17,6 @@ defineOptions({
     },
   },
 })
-const value = defineProp<string>('value', { default: '按钮' })
-const type = defineProp<'primary' | 'secondary' | 'outline' | 'dashed' | 'text'>('type', { default: 'primary' })
 </script>
 
 <template>
