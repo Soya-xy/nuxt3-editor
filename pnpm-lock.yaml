@@ -8,9 +8,6 @@ importers:
 
   .:
     devDependencies:
-      execa:
-        specifier: ^7.1.1
-        version: 7.1.1
       vitest:
         specifier: ^0.32.0
         version: 0.32.0
@@ -251,6 +248,9 @@ importers:
       '@lc/generated':
         specifier: workspace:*
         version: link:../../packages/generated
+      '@lc/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       '@nuxt/devtools':
         specifier: ^0.5.5
         version: 0.5.5(nuxt@3.5.2)(vite@4.3.9)

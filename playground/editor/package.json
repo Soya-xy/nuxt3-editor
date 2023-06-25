@@ -28,6 +28,7 @@
     "@iconify-json/mdi": "^1.1.52",
     "@iconify-json/twemoji": "^1.1.11",
     "@lc/generated": "workspace:*",
+    "@lc/ui": "workspace:*",
     "@nuxt/devtools": "^0.5.5",
     "@nuxtjs/color-mode": "^3.2.0",
     "@pinia/nuxt": "^0.4.11",
