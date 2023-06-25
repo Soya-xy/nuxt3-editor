@@ -21,6 +21,8 @@ defineOptions({
 
 <template>
   <a-button :type="type" inline-block>
-    {{ value }}
+    <p text-red>
+      {{ value }}
+    </p>
   </a-button>
 </template>

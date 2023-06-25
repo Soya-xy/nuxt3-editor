@@ -4,9 +4,10 @@ import { mergeConfig } from "vite";
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ArcoResolver } from 'unplugin-vue-components/resolvers'
+import Unocss from 'unocss/vite';
 
 const config: StorybookConfig = {
-  stories: ['../stories/**/*.mdx', '../stories/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: ['../components/**/*.stories.@(js|jsx|ts|tsx)'],
 
   addons: [
     "@storybook/addon-links",
@@ -50,10 +51,11 @@ export default {
           dts: true,
           directoryAsNamespace: true
         }),
+        Unocss()
       ],
       resolve: {
         alias: {
-          '~': fileURLToPath(new URL('./', import.meta.url))
+          '~/*': fileURLToPath(new URL('../', import.meta.url))
         }
       }
     });
