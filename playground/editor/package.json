@@ -1,7 +1,7 @@
 {
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@8.5.1",
+  "packageManager": "pnpm@8.6.3",
   "engines": {
     "node": ">=16",
     "pnpm": ">=7"
@@ -14,55 +14,38 @@
     "preinstall": "node ./scripts/preinstall.js",
     "postinstall": "nuxi prepare",
     "generate": "nuxi generate",
-    "start:generate": "npx serve .output/public",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "start:generate": "npx serve .output/public"
   },
   "dependencies": {
-    "@antfu/utils": "^0.7.2",
+    "@antfu/utils": "^0.7.4",
     "fast-glob": "^3.2.12",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.39.5",
-    "@arco-design/web-vue": "^2.46.0",
-    "@iconify-json/carbon": "^1.1.17",
+    "@arco-design/web-vue": "^2.47.1",
+    "@iconify-json/carbon": "^1.1.18",
     "@iconify-json/mdi": "^1.1.52",
     "@iconify-json/twemoji": "^1.1.11",
     "@lc/generated": "workspace:*",
     "@lc/ui": "workspace:*",
-    "@nuxt/devtools": "^0.5.5",
-    "@nuxtjs/color-mode": "^3.2.0",
+    "@nuxt/devtools": "^0.6.3",
+    "@nuxtjs/color-mode": "^3.3.0",
     "@pinia/nuxt": "^0.4.11",
-    "@storybook/addon-essentials": "^7.0.23",
-    "@storybook/addon-interactions": "^7.0.23",
-    "@storybook/addon-links": "^7.0.23",
-    "@storybook/blocks": "^7.0.23",
-    "@storybook/testing-library": "^0.0.14-next.2",
-    "@storybook/vue3": "^7.0.23",
-    "@storybook/vue3-vite": "^7.0.23",
     "@types/lodash": "^4.14.195",
-    "@types/node": "^20.2.5",
-    "@unocss/nuxt": "^0.53.0",
-    "@vue-macros/common": "^1.3.3",
-    "@vue-macros/nuxt": "^1.3.11",
-    "@vueuse/nuxt": "^10.1.2",
-    "eslint": "^8.40.0",
-    "eslint-plugin-storybook": "^0.6.12",
+    "@types/node": "^20.3.1",
+    "@unocss/nuxt": "^0.53.3",
+    "@vue-macros/common": "^1.4.0",
+    "@vue-macros/nuxt": "^1.3.12",
+    "@vueuse/nuxt": "^10.2.0",
+    "eslint": "^8.43.0",
     "json5": "^2.2.3",
-    "nuxt": "^3.5.2",
-    "pinia": "^2.1.3",
+    "nuxt": "^3.6.0",
+    "pinia": "^2.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "^7.0.23",
-    "storybook-addon-nuxt": "^1.3.3",
-    "typescript": "^5.0.4",
+    "typescript": "^5.1.3",
     "unplugin-auto-import": "^0.16.4",
-    "unplugin-vue-components": "^0.25.0"
-  },
-  "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
-    ]
+    "unplugin-vue-components": "^0.25.1"
   }
 }
