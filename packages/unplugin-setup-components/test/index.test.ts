@@ -1,7 +1,8 @@
-import { describe, expect, it } from 'vitest'
+import { describe, it } from 'vitest'
+import { parseComponent } from '../src/utils/te'
 
 describe('index', () => {
   it('hi vitest', () => {
-    expect(1).toBe(1)
+    parseComponent('base/button/btn.vue')
   })
 })

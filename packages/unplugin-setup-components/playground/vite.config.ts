@@ -5,6 +5,12 @@ import Unplugin from '../src/vite'
 export default defineConfig({
   plugins: [
     Inspect(),
-    Unplugin(),
+    Unplugin({
+      globs: ['../../ui/src/components/*/**/*.{vue}'],
+      path: 'ui/src/components',
+    }),
   ],
+  // externals: [
+  //   '@webfansplz/vuedoc-parser',
+  // ],
 })

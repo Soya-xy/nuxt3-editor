@@ -3,9 +3,8 @@ import { writeFile } from 'node:fs'
 import fg from 'fast-glob'
 import { createUnplugin } from 'unplugin'
 import type { ResolvedConfig } from 'vite'
-import JSON5 from 'json5'
 import type { Options } from './types'
-import { getComponentAttr, getComponentName } from './utils'
+import { getComponentName, parseComponent } from './utils'
 
 const componentType: Record<string, string> = {
   base: '基础组件',
@@ -18,7 +17,11 @@ interface Item {
   options?: Record<string, any>
 }
 
-export default createUnplugin<Options | undefined>(options => ({
+export default createUnplugin<Options>((options = {
+  globs: ['../../ui/src/components/*/**/*.{vue}'],
+  path: 'ui/src/components',
+  root: '',
+}) => ({
   name: 'unplugin-setup-components',
   transformInclude(id) {
     return id.endsWith('main.ts')
@@ -26,10 +29,7 @@ export default createUnplugin<Options | undefined>(options => ({
   vite: {
     configResolved(ctx: ResolvedConfig) {
       const root = ctx.root
-      if (!options?.globs)
-        return
-
-      options.globs.forEach((item) => {
+      options.globs.forEach(async (item) => {
         const path = resolve(root, item).split(sep).slice(0, -1).join(posix.sep)
 
         const components = fg.sync(path, {
@@ -40,25 +40,25 @@ export default createUnplugin<Options | undefined>(options => ({
 
         const data: Record<string, any> = {}
         for (const component of components) {
-          const base = component.replace(`${root + posix.sep}src${posix.sep}components${posix.sep}`, '')
+          const base = component.slice(component.indexOf(options.path) + options.path.length + 1)
+          const type = componentType[base.split(posix.sep)[0]]
 
           const componentName = getComponentName(base)
-          const type = componentType[base.split(posix.sep)[0]]
-          const options = getComponentAttr(component)
-          const item: Item = {
-            componentName,
-          }
-          if (options)
-            item.options = JSON5.parse(options).customOptions
+          const arr = await parseComponent(base, options.root, options.path)
+          // const item: Item = {
+          //   componentName,
+          // }
+          // if (arr)
+          //   item.options = JSON5.parse(arr).customOptions
 
-          if (data[type]?.children) {
-            data[type].children.push(item)
-          }
-          else {
-            data[type] = {
-              children: [item],
-            }
-          }
+          // if (data[type]?.children) {
+          //   data[type].children.push(item)
+          // }
+          // else {
+          //   data[type] = {
+          //     children: [item],
+          //   }
+          // }
         }
 
         const constants = resolve(root, '../../playground/editor/constants/components.json')

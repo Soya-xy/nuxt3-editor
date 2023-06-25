@@ -46,6 +46,8 @@ export default defineConfig({
     Unocss(),
     SetupComponents({
       globs: ['src/components/*/**/*.{vue}'],
+      path: 'src/components',
+      root: process,
     }),
     !isDEV && dts(),
   ],

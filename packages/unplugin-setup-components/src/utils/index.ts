@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs'
-import { posix } from 'node:path'
+import { posix, resolve } from 'node:path'
 import {
   type CallExpression,
   type Node,
@@ -109,4 +109,19 @@ export function getComponentName(file: string) {
     }
   })
   return name
+}
+
+export async function parseComponent(filename: string, root: string, path: string) {
+  // 获取当前目录
+  const pathDir = resolve(root, path)
+  const options = {
+    filename,
+    resolver: {
+      basedir: root,
+      paths: [pathDir],
+    },
+  }
+  const { parseComponent: pC } = await import('@webfansplz/vuedoc-parser')
+
+  return await pC(options)
 }
