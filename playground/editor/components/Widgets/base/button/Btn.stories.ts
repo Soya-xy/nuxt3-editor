@@ -4,6 +4,7 @@ import Btn from './Btn.vue'
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta = {
+  title: '按钮',
   component: Btn,
 } satisfies Meta<typeof Btn>
 
@@ -14,7 +15,9 @@ type Story = StoryObj<typeof meta>
  * See https://storybook.js.org/docs/vue/api/csf
  * to learn how to use render functions.
  */
-export const Primary: Story = {
+export const 默认: Story = {
   args: {
+    value: '测试33',
+    type: 'primary',
   },
 }
