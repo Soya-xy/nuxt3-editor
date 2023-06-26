@@ -9,3 +9,4 @@ dist-ssr
 *.zip
 *.tgz
 components.d.ts
+auto-imports.d.ts

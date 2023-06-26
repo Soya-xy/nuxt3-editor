@@ -39,6 +39,7 @@ export default createUnplugin<Options>((options = {
           const type = componentType[base.split(posix.sep)[0]]
           let item: Record<string, any> | undefined
           const arr = await parseComponent(base, options.root, options.path)
+
           if (arr.description) {
             item = {
               name: arr.description,

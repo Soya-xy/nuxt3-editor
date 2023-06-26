@@ -15,6 +15,5 @@ export async function parseComponent(filename: string, root: string, path: strin
     },
   }
   const { parseComponent: pC } = await import('@webfansplz/vuedoc-parser')
-
   return await pC(options)
 }

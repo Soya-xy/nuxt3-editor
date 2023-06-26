@@ -19,7 +19,6 @@ export default defineConfig({
     VueMacros.vite({
       plugins: {
         vue: vue(),
-        // vueJsx: VueJsx(), // if needed
       },
     }),
     AutoImport({

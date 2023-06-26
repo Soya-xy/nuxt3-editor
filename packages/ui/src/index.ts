@@ -13,7 +13,7 @@ import LayoutColVue from './components/layouts/col.vue'
 import LayoutRowVue from './components/layouts/row.vue'
 
 export const LdButton = ButtonVue
-export const LdCards = CardsVue
+export const LdCard = CardsVue
 export const LdCarousel = CarouselVue
 export const LdCol = LayoutColVue
 export const LdRow = LayoutRowVue
