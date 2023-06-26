@@ -1,10 +1,9 @@
 <script setup lang="ts">
-defineOptions({
-  customOptions: {
-    name: '卡片',
-    icon: 'i-carbon:3d-cursor',
-  },
-})
+/**
+ * 卡片
+ * @componentName ld-card
+ * @icon i-mdi:button-cursor
+ * */
 </script>
 
 <template>

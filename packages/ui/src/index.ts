@@ -1,7 +1,7 @@
 import 'uno.css'
 
 /* 基础组件 */
-import ButtonVue from './components/base/button/btn.vue'
+import ButtonVue from './components/base/button/Button.vue'
 import CardsVue from './components/base/cards/index.vue'
 import CarouselVue from './components/base/carousel/carousel.vue'
 
@@ -12,9 +12,8 @@ import CarouselVue from './components/base/carousel/carousel.vue'
 import LayoutColVue from './components/layouts/col.vue'
 import LayoutRowVue from './components/layouts/row.vue'
 
-export const Button = ButtonVue
-export const Cards = CardsVue
-export const Carousel = CarouselVue
-// export const BusButton = BusButtonVue
-export const LayoutCol = LayoutColVue
-export const LayoutRow = LayoutRowVue
+export const LdButton = ButtonVue
+export const LdCards = CardsVue
+export const LdCarousel = CarouselVue
+export const LdCol = LayoutColVue
+export const LdRow = LayoutRowVue

@@ -1,8 +1,13 @@
 <script setup lang='ts'>
 import { useSlots } from 'vue'
 
+withDefaults(defineProps<{
+  name: string
+}>(), {
+  name: '占位符',
+})
+
 const slots = useSlots()
-const name = defineProp<string>('name', { default: '占位' })
 </script>
 
 <template>

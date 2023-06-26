@@ -1,5 +1,10 @@
 <script setup lang='ts'>
-interface IComponents {
+/**
+ * 行
+ * @componentName ld-row
+ * @icon i-mdi:button-cursor
+ * */
+export interface IComponents {
   name?: string
   componentName?: string
   componentId?: string
@@ -8,18 +13,11 @@ interface IComponents {
   props?: Record<string, any>
   children?: IComponents[]
 }
-defineOptions({
-  customOptions: {
-    name: '行',
-    icon: 'i-mdi:button-cursor',
-    emit: {},
-    slots: {
-      default: [],
-    },
-  },
-})
-const nxData = defineProp<IComponents>()
-const id = defineProp<string>()
+
+defineProps<{
+  nxData: IComponents
+  id: string
+}>()
 </script>
 
 <template>
