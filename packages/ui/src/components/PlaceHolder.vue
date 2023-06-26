@@ -1,17 +1,17 @@
 <script setup lang='ts'>
 import { useSlots } from 'vue'
+import { LdConfig } from '..'
 
 withDefaults(defineProps<{
   name: string
 }>(), {
   name: '占位符',
 })
-
 const slots = useSlots()
 </script>
 
 <template>
-  <div>
+  <div v-if="LdConfig.isDev">
     <slot>
       <div v-if="slots.default" class="shell">
         <div class="inner">

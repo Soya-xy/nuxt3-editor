@@ -17,7 +17,9 @@ type Story = StoryObj<typeof meta>
  */
 export const 默认: Story = {
   args: {
-    value: '测试33',
+    value: '厕所',
     type: 'primary',
+    nxData: {},
+    id: '123',
   },
 }

@@ -23,3 +23,11 @@ watch(
 <template>
   <Render v-if="components?.length > 0" :components="components" />
 </template>
+
+<style>
+img {
+  user-select: none;
+  pointer-events: none;
+
+}
+</style>

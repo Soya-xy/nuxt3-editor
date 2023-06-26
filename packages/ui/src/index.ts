@@ -17,3 +17,6 @@ export const LdCard = CardsVue
 export const LdCarousel = CarouselVue
 export const LdCol = LayoutColVue
 export const LdRow = LayoutRowVue
+export const LdConfig = ref({
+  isDev: false,
+})

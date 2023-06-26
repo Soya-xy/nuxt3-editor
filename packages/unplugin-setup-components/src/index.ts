@@ -39,7 +39,6 @@ export default createUnplugin<Options>((options = {
           const type = componentType[base.split(posix.sep)[0]]
           let item: Record<string, any> | undefined
           const arr = await parseComponent(base, options.root, options.path)
-
           if (arr.description) {
             item = {
               name: arr.description,
@@ -57,7 +56,6 @@ export default createUnplugin<Options>((options = {
               }
             })
             arr?.props?.forEach((prop) => {
-              // 去掉prop.default的引号
               if (item)
                 item.prop[prop.name] = prop.default?.replaceAll('\"', '') || undefined
             })

@@ -4,9 +4,13 @@
  * @componentName ld-button
  * @icon i-mdi:button-cursor
  * */
+import type { IComponents } from '~/types'
+
 withDefaults(defineProps<{
   value: string
   type: 'primary' | 'secondary' | 'outline' | 'dashed' | 'text'
+  nxData: IComponents
+  id: string
 }>(), {
   value: '按钮',
   type: 'primary',
@@ -17,7 +21,8 @@ defineEmits(['change', 'delete'])
 <template>
   <a-button :type="type" inline-block>
     {{ value }}
-    <slot />
-    <slot name="footer" />
+    <PlaceHolder :id="id" name="默认位置">
+      <Render v-if="nxData?.children" :components="nxData.children" />
+    </PlaceHolder>
   </a-button>
 </template>

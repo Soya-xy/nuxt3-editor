@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { resolveComponent } from 'vue'
-import type { IComponents } from './layouts/col.vue'
+import type { IComponents } from '~/types'
 
 withDefaults(defineProps<{
   components: IComponents[]
