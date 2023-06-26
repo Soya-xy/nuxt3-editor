@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "pnpm run --filter=\"./packages/*\" --parallel dev",
     "play": "pnpm run -C ./playground/editor dev",
+    "storybook": "pnpm run -C ./packages/ui storybook",
     "test": "vitest"
   },
   "keywords": [

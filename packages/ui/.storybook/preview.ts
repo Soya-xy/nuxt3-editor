@@ -1,5 +1,4 @@
 import type { Preview } from "@storybook/vue3";
-
 import 'uno.css'
 
 const preview: Preview = {

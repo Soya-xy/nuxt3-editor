@@ -7,13 +7,12 @@ import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 import Unocss from 'unocss/vite';
 
 const config: StorybookConfig = {
-  stories: ['../components/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: ['../**/*.stories.@(js|jsx|ts|tsx)'],
 
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-    'storybook-addon-nuxt'
+    "@storybook/addon-interactions"
   ],
   framework: {
     name: "@storybook/vue3-vite",
@@ -45,7 +44,7 @@ export default {
               importStyle: 'less',
               resolveIcons: true,
               sideEffect: true,
-    
+
             }),
           ],
           dts: true,
