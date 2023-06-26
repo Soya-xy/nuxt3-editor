@@ -10,7 +10,6 @@ import {
 import { filterMacro } from 'unplugin-vue-define-options/dist/api'
 
 export const ROOT_DIR = 'components'
-export const COMPONENT_DIR = '/Widgets'
 
 // 获取节点的起始位置和结束位置
 function getNodePos(

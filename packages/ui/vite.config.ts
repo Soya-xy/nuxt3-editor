@@ -45,7 +45,7 @@ export default defineConfig({
     // https://github.com/antfu/unocss
     Unocss(),
     SetupComponents({
-      globs: ['src/components/*/**/*.{vue}'],
+      globs: ['src/components/*/**/*.vue'],
       path: 'src/components',
       root: process.cwd(),
     }),

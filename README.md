@@ -14,7 +14,6 @@
   - Page
     - index -> Component bar on the left
     - tree  -> Component Tree on the left
-  - Widgets -> Component Materials
 
 - Composables
   - editor -> Control editor

@@ -1,10 +1,10 @@
 export interface GlobComponents {
   componentName: string
-  options?: {
-    name?: string
-    icon?: string
-    slots?: any
-  }
+  name?: string
+  icon?: string
+  data?: Record<string, any>
+  slot?: []
+  prop?: Record<string, any>
 }
 
 export type IComponent = Record<string, {

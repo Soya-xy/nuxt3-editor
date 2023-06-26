@@ -26,8 +26,8 @@ const defaultActiveKey = ref(Array.from(Object.keys(components), (v, k) => k))
                 :id="nxid()" flex="~ col center" bg="#f0f0f0" px1 py2 rounded-2 text-sm cursor="move"
                 :nx-data-component="item?.componentName"
               >
-                <i :class="item?.options?.icon" class="text-2xl icon" />
-                {{ item?.options?.name }}
+                <i :class="item?.icon" class="text-2xl icon" />
+                {{ item?.name }}
               </div>
             </a-col>
           </a-row>

@@ -4,7 +4,7 @@ import fg from 'fast-glob'
 import { createUnplugin } from 'unplugin'
 import type { ResolvedConfig } from 'vite'
 import type { Options } from './types'
-import { getComponentName, parseComponent } from './utils'
+import { parseComponent, toHump } from './utils'
 
 const componentType: Record<string, string> = {
   base: '基础组件',
@@ -12,13 +12,8 @@ const componentType: Record<string, string> = {
   layouts: '布局组件',
 }
 
-interface Item {
-  componentName: string
-  options?: Record<string, any>
-}
-
 export default createUnplugin<Options>((options = {
-  globs: ['../../ui/src/components/*/**/*.{vue}'],
+  globs: ['../../ui/src/components/*/**/*.vue'],
   path: 'ui/src/components',
   root: '',
 }) => ({
@@ -42,23 +37,48 @@ export default createUnplugin<Options>((options = {
         for (const component of components) {
           const base = component.slice(component.indexOf(options.path) + options.path.length + 1)
           const type = componentType[base.split(posix.sep)[0]]
-
-          const componentName = getComponentName(base)
+          let item: Record<string, any> | undefined
           const arr = await parseComponent(base, options.root, options.path)
-          // const item: Item = {
-          //   componentName,
-          // }
-          // if (arr)
-          //   item.options = JSON5.parse(arr).customOptions
+          if (arr.description) {
+            item = {
+              name: arr.description,
+              prop: {},
+              slot: {},
+              data: {},
+            }
+            arr?.keywords?.forEach((keyword) => {
+              if (item) {
+                if (keyword.name === 'componentName')
+                  item[keyword.name] = toHump(keyword.description!)
 
-          // if (data[type]?.children) {
-          //   data[type].children.push(item)
-          // }
-          // else {
-          //   data[type] = {
-          //     children: [item],
-          //   }
-          // }
+                else
+                  item[keyword.name] = keyword.description!
+              }
+            })
+            arr?.props?.forEach((prop) => {
+              // 去掉prop.default的引号
+              if (item)
+                item.prop[prop.name] = prop.default?.replaceAll('\"', '') || undefined
+            })
+            arr?.slots?.forEach((slot) => {
+              if (item)
+                item.slot[slot.name] = []
+            })
+
+            arr?.data?.forEach((data) => {
+              if (item)
+                item.data[data.name] = data.initialValue?.replaceAll('\"', '') || undefined
+            })
+
+            if (data[type]?.children) {
+              data[type].children.push(item)
+            }
+            else {
+              data[type] = {
+                children: [item],
+              }
+            }
+          }
         }
 
         const constants = resolve(root, '../../playground/editor/constants/components.json')

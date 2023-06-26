@@ -6,8 +6,8 @@
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development vite",
-    "build": "cross-env NODE_ENV=production vite build",
+    "dev": "vite build",
+    "build": "vite build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

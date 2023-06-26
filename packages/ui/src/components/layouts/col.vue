@@ -1,4 +1,6 @@
 <script setup lang='ts'>
+import { watch } from 'vue'
+
 /**
  * 列
  * @componentName ld-col
@@ -14,16 +16,23 @@ export interface IComponents {
   children?: IComponents[]
 }
 
-defineProps<{
+const props = defineProps<{
   nxData: IComponents
   id: string
 }>()
+
+watch(() => props.nxData, (nxData) => {
+  console.log('🚀 ~ file: col.vue:25 ~ watch ~ nxData:', nxData)
+}, {
+  immediate: true,
+})
 </script>
 
 <template>
   <div>
     <PlaceHolder :id="id" name="列">
       <Render v-if="nxData?.children" :components="nxData.children" />
+      <slot />
     </PlaceHolder>
   </div>
 </template>

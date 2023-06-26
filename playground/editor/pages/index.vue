@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const online = useOnline()
+console.log('🚀 ~ file: index.vue:3 ~ online:', online)
 </script>
 
 <template>

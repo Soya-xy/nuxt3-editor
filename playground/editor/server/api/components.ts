@@ -8,7 +8,6 @@ const dirname = path.dirname(fileURLToPath(import.meta.url))
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   generateRoute(body.name, body.path)
-  console.log('🚀 ~ file: components.ts:10 ~ defineEventHandler ~ body :', body)
 
   if (import.meta.env.NODE_ENV === 'development')
     fs.writeFileSync(path.resolve(dirname, '../../constants/save.json'), JSON.stringify(body))

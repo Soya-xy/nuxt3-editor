@@ -13,11 +13,8 @@ export default defineNuxtConfig({
     '/editor/**': { ssr: false },
   },
   components: {
-    dirs: [{
-      path: '~/components/Widgets',
-      global: true,
-    },
-    '~/components',
+    dirs: [
+      '~/components',
     ],
   },
   modules: [

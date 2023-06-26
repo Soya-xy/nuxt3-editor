@@ -86,19 +86,20 @@ export const useEditor = defineStore('editor', () => {
   }
 
   function addComponent(comp: GlobComponents, target: HTMLElement) {
-    if (routerActive.value === -1 || !router.value[routerActive.value]?.path)
-      return Message.error('请先选择路由')
+    // if (routerActive.value === -1 || !router.value[routerActive.value]?.path)
+    //   return Message.error('请先选择路由')
 
     const dom = getRecentNxElement(target)
     if (dom && comp.componentName) {
       const data = _.cloneDeep(componentsJson.value)
       const parent = find(data, ['componentId', engine.stateId]) as any
-      const parentId = parent ? (parent?.slots ? engine.stateId : parent.parentId) : engine.stateId
+      console.log('🚀 ~ file: index.ts:96 ~ addComponent ~ parent:', parent)
+      const parentId = parent ? (parent?.slot ? engine.stateId : parent.parentId) : engine.stateId
+      console.log('🚀 ~ file: index.ts:97 ~ addComponent ~ parentId:', parentId)
       componentsJson.value.push({
-        componentName: comp.componentName,
         componentId: `editor-${useNxId()}`,
         parentId,
-        ...comp.options,
+        ...comp,
       })
     }
     else {

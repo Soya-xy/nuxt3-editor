@@ -205,12 +205,6 @@ importers:
       '@webfansplz/vuedoc-parser':
         specifier: 0.0.3
         version: 0.0.3(@types/node@18.16.18)(pug@3.0.2)
-      ast-kit:
-        specifier: ^0.5.2
-        version: 0.5.2(rollup@3.25.1)
-      bumpp:
-        specifier: ^9.1.1
-        version: 9.1.1
       chalk:
         specifier: ^5.2.0
         version: 5.2.0
@@ -226,15 +220,9 @@ importers:
       json5:
         specifier: ^2.2.3
         version: 2.2.3
-      magic-string-ast:
-        specifier: ^0.1.2
-        version: 0.1.2
       nodemon:
         specifier: ^2.0.22
         version: 2.0.22
-      rimraf:
-        specifier: ^5.0.1
-        version: 5.0.1
       rollup:
         specifier: ^3.25.1
         version: 3.25.1
@@ -3704,16 +3692,6 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
-    dev: true
-
-  /@jsdevtools/ez-spawn@3.0.4:
-    resolution: {integrity: sha512-f5DRIOZf7wxogefH03RjMPMdBF7ADTWUMoOs9kaJo06EfwF+aFhMZMDZxHg/Xe12hptN9xoZjGso2fdjapBRIA==}
-    engines: {node: '>=10'}
-    dependencies:
-      call-me-maybe: 1.0.2
-      cross-spawn: 7.0.3
-      string-argv: 0.3.2
-      type-detect: 4.0.8
     dev: true
 
   /@juggle/resize-observer@3.4.0:
@@ -7681,17 +7659,6 @@ packages:
     resolution: {integrity: sha512-jgsaNduz+ndvGyFt3uSuWqvy4lCnIJiovtouQN5JZHOKCS2QuhEdbcQHFhVksz2N2U9hXJo8odG7ETyWlEeuDw==}
     dev: true
 
-  /ast-kit@0.5.2(rollup@3.25.1):
-    resolution: {integrity: sha512-WxA0dveHJ0MB0YemuFNR859FCpAblh0Y5x2g0ma8+NZMm/MeScrltEcP1dC8dfaBkJDDcBEUmJvf+LJDq/G2UQ==}
-    engines: {node: '>=16.14.0'}
-    dependencies:
-      '@babel/parser': 7.22.5
-      '@rollup/pluginutils': 5.0.2(rollup@3.25.1)
-      pathe: 1.1.1
-    transitivePeerDependencies:
-      - rollup
-    dev: true
-
   /ast-kit@0.6.5(rollup@3.25.1):
     resolution: {integrity: sha512-XCg0VWvmWU2T/6aMp8VRfJWZ6LZv1P0o8otWY7RAGtfKj0qGi45vtnKNkltJhu9tmbQNZxv+gJA4o7FtLDfmWg==}
     engines: {node: '>=16.14.0'}
@@ -8086,21 +8053,6 @@ packages:
       semver: 7.5.3
     dev: true
 
-  /bumpp@9.1.1:
-    resolution: {integrity: sha512-T7/2QmRNhHRkH2+HgDs/xk4keom3nlCjwQn6kHdz0I0dQMVrs+YMOH5HyuhV0R3tha/tTYP030RG9uQKpQ9CRg==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dependencies:
-      '@jsdevtools/ez-spawn': 3.0.4
-      c12: 1.4.1
-      cac: 6.7.14
-      fast-glob: 3.2.12
-      prompts: 2.4.2
-      semver: 7.5.2
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /bundle-name@3.0.0:
     resolution: {integrity: sha512-PKA4BeSvBpQKQ8iPOGCSiell+N8P+Tf1DlwqmYhpe2gAhKPHn8EYOxVT+ShuGmhg8lN8XiSlS80yiExKXrURlw==}
     engines: {node: '>=12'}
@@ -8199,10 +8151,6 @@ packages:
     dependencies:
       function-bind: 1.1.1
       get-intrinsic: 1.2.1
-    dev: true
-
-  /call-me-maybe@1.0.2:
-    resolution: {integrity: sha512-HpX65o1Hnr9HH25ojC1YGs7HCQLq0GCOibSaWER0eNpgJ/Z1MZv2mTc7+xh6WOPxbRVcmgbv4hGU+uSQ/2xFZQ==}
     dev: true
 
   /callsites@3.1.0:
@@ -14962,14 +14910,6 @@ packages:
     hasBin: true
     dependencies:
       glob: 7.2.3
-    dev: true
-
-  /rimraf@5.0.1:
-    resolution: {integrity: sha512-OfFZdwtd3lZ+XZzYP/6gTACubwFcHdLRqS9UX3UwpU2dnGQYkPFISRwvM3w9IiB2w7bW5qGo/uAwE4SmXXSKvg==}
-    engines: {node: '>=14'}
-    hasBin: true
-    dependencies:
-      glob: 10.2.7
     dev: true
 
   /rollup-plugin-visualizer@5.9.2(rollup@3.25.1):
