@@ -42,8 +42,6 @@ export default createUnplugin<Options>((options = {
           if (arr.description) {
             item = {
               name: arr.description,
-              prop: {},
-              slot: {},
               data: {},
             }
             arr?.keywords?.forEach((keyword) => {
@@ -56,12 +54,30 @@ export default createUnplugin<Options>((options = {
               }
             })
             arr?.props?.forEach((prop) => {
-              if (item)
+              if (!item)
+                return
+
+              if (item?.prop) {
                 item.prop[prop.name] = prop.default?.replaceAll('\"', '') || undefined
+              }
+              else {
+                item.prop = {
+                  [prop.name]: prop.default?.replaceAll('\"', '') || undefined,
+                }
+              }
             })
             arr?.slots?.forEach((slot) => {
-              if (item)
+              if (!item)
+                return
+
+              if (item?.slot) {
                 item.slot[slot.name] = []
+              }
+              else {
+                item.slot = {
+                  [slot.name]: [],
+                }
+              }
             })
 
             arr?.data?.forEach((data) => {

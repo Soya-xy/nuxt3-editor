@@ -15,14 +15,15 @@ withDefaults(defineProps<{
   value: '按钮',
   type: 'primary',
 })
+
 defineEmits(['change', 'delete'])
+
+// value.value = '按钮'
+// () => value.value = '动态了'
 </script>
 
 <template>
   <a-button :type="type" inline-block>
     {{ value }}
-    <PlaceHolder :id="id" name="默认位置">
-      <Render v-if="nxData?.children" :components="nxData.children" />
-    </PlaceHolder>
   </a-button>
 </template>

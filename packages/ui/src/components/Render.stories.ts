@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import Button from './Button.vue'
+import Render from './Render.vue'
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta = {
   title: '按钮',
-  component: Button,
-} satisfies Meta<typeof Button>
+  component: Render,
+} satisfies Meta<typeof Render>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -17,9 +17,5 @@ type Story = StoryObj<typeof meta>
  */
 export const 默认: Story = {
   args: {
-    value: '厕所',
-    type: 'primary',
-    nxData: {},
-    id: '123',
   },
 }

@@ -19,4 +19,5 @@ export const LdCol = LayoutColVue
 export const LdRow = LayoutRowVue
 export const LdConfig = ref({
   isDev: false,
+
 })

@@ -9,8 +9,10 @@ export interface IComponents {
   componentName: string
   componentId?: string
   parentId?: string
+  data?: any
+  icon?: string
   slots?: boolean
-  props?: Record<string, any>
+  prop?: Record<string, any>
   children?: IComponents[]
 }
 
@@ -90,17 +92,23 @@ export const useEditor = defineStore('editor', () => {
     //   return Message.error('请先选择路由')
 
     const dom = getRecentNxElement(target)
+
     if (dom && comp.componentName) {
-      const data = _.cloneDeep(componentsJson.value)
-      const parent = find(data, ['componentId', engine.stateId]) as any
-      console.log('🚀 ~ file: index.ts:96 ~ addComponent ~ parent:', parent)
+      const slotValue = dom.dataset.slotName
+      // TODO: 为了省一个查询，不确定这样是否有隐患
+      // const data = _.cloneDeep(componentsJson.value)
+      const parent = find(componentsJson.value, ['componentId', engine.stateId]) as any
       const parentId = parent ? (parent?.slot ? engine.stateId : parent.parentId) : engine.stateId
-      console.log('🚀 ~ file: index.ts:97 ~ addComponent ~ parentId:', parentId)
-      componentsJson.value.push({
+      const item = {
         componentId: `editor-${useNxId()}`,
         parentId,
         ...comp,
-      })
+      }
+      if (slotValue) {
+        item.slot = slotValue
+        parent?.slot[slotValue].push(item)
+      }
+      componentsJson.value.push(item)
     }
     else {
       Message.error('该组件未定义组件名')

@@ -3,7 +3,7 @@ export interface GlobComponents {
   name?: string
   icon?: string
   data?: Record<string, any>
-  slot?: []
+  slot?: [] | string
   prop?: Record<string, any>
 }
 

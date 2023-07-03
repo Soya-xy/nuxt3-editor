@@ -15,7 +15,7 @@ withDefaults(defineProps<{
       <template v-for="item in components" :key="item.componentId">
         <component
           :is="resolveComponent(item.componentName!)" :id="item.componentId" :nx-data="item"
-          v-bind="item.props"
+          v-bind="item.prop"
         />
       </template>
     </template>

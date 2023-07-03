@@ -5,7 +5,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   UI.LdConfig.value.isDev = import.meta.env.MODE === 'development'
 
   Object.keys(UI).forEach((key: string) => {
-    console.log('🚀 ~ file: ui.ts:8 ~ Object.keys ~ key:', key)
     if (key !== 'LdConfig')
       nuxtApp.vueApp.component(key, (UI as any)[key])
   })

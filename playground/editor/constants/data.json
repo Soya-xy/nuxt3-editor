@@ -1,0 +1,17 @@
+[
+  {
+    "componentId": "editor-nx-5",
+    "parentId": "NX-Editor",
+    "name": "按钮",
+    "data": [
+      "asdjasd",
+      "dkdkofkof"
+    ],
+    "componentName": "LdButton",
+    "icon": "i-mdi:button-cursor",
+    "prop": {
+      "value": "按钮",
+      "type": "primary"
+    }
+  }
+]

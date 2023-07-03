@@ -9,9 +9,9 @@ definePageMeta({
 const editor = useEditor()
 
 const { componentsJson } = storeToRefs(editor)
-const components = ref<IComponents[]>([])
+const components = ref<IComponents[]>([{ componentId: 'editor-nx-5', parentId: 'NX-Editor', name: '按钮', data: [{ dd: [{ name: 'name', value: 'world' }] }, { value: '这就是数据时' }], componentName: 'LdButton', icon: 'i-mdi:button-cursor', prop: { value: '按钮', type: 'primary' } }])
 watch(
-  () => componentsJson.value,
+  () => componentsJson,
   () => {
     components.value = editor.getJson()
     console.log('🚀 ~ file: index.vue:16 ~ components:', components.value)

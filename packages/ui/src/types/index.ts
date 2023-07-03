@@ -3,7 +3,7 @@ export interface IComponents {
   componentName?: string
   componentId?: string
   parentId?: string
-  slots?: Record<string, any>
-  props?: Record<string, any>
+  slot?: Record<string, any>
+  prop?: Record<string, any>
   children?: IComponents[]
 }

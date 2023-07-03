@@ -1,11 +1,18 @@
 <script setup lang="ts">
 const online = useOnline()
-console.log('🚀 ~ file: index.vue:3 ~ online:', online)
+const video = ref()
+function send() {
+  video.value.contentWindow.postMessage('capture', '*')
+}
 </script>
 
 <template>
   <div>
-    <Suspense>
+    <iframe ref="video" src="http://localhost:3001/?channel=7b7cfa9c1e1b445493fa565652c8edf7&stream=1" width="800px" height="500px" />
+    <p text-red @click="send">
+      12312
+    </p>
+    <!-- <Suspense>
       <ClientOnly>
         <div v-if="online">
           <NuxtLink btn to="editor" m2>
@@ -21,6 +28,6 @@ console.log('🚀 ~ file: index.vue:3 ~ online:', online)
           <span animate-pulse>Loading...</span>
         </div>
       </template>
-    </Suspense>
+    </Suspense> -->
   </div>
 </template>
